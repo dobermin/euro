@@ -90,8 +90,7 @@ public class MainControllers {
 		model.addObject("thead", getThead());
 		model.addObject("tbody", getTbody());
 		model.addObject("tfoot", getTfoot());
-		model.addObject("url", "http://localhost:8081/");
-//		model.addObject("url", "http://192.168.0.102:8081/");
+		model.addObject("url", "https://cup-app.herokuapp.com/");
 		model.addObject("isActive", isActive);
 		model.addObject("isBlocked", isBlocked);
 		model.addObject("timeBlocked", timeBlocked);
