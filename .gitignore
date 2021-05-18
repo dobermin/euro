@@ -35,3 +35,4 @@ build/
 /src/main/resources/templates/football_files1/
 /.idea/
 /.mvn/
+/out/
