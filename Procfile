@@ -1,0 +1,1 @@
+web: java -jar target/euro2020-1.0.jar

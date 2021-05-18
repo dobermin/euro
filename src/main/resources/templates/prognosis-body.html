@@ -1,0 +1,28 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml" th:each="match, i : ${matches}"
+          th:with="disabled = ${match.timestamp.getTime() <= timeBlocked ? true : false},
+          isTour = ${!#strings.contains(tourSelect.tour, 'тур')}">
+<tr class="%red%">
+    <td th:text="${#dates.format(match.timestamp, 'dd.MM')}">%date%</td>
+    <td th:text="${#dates.dayOfWeekName(match.timestamp)}">%day%</td>
+    <td th:text="${#dates.format(match.timestamp, 'HH.mm')}">%time%</td>
+    <td class="match"><span th:text="${match.teamHome.teams}"></span> - <span th:text="${match.teamAway.teams}"></span></td>
+    <td class="inline">
+        <span>
+            <input title="" th:disabled="${disabled}" th:value="${!prognoses.empty} ? ${prognoses[i?.index]?.home}" type="text" maxlength="1"><span th:text="':'" ></span><input th:disabled="${disabled}" th:value="${!prognoses.empty} ? ${prognoses[i?.index]?.away}" title="" type="text"  maxlength="1">
+        </span>
+    </td>
+    <td  th:if="${isTour}">
+        <label>
+            <select th:classappend="${prognoses.size > i.index and prognoses[i?.index]?.home != null and prognoses[i?.index]?.home == prognoses[i?.index]?.away ? '' :  'd-none'}" th:disabled="${disabled}">
+                <option></option>
+                <option th:disabled="${disabled}" th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamHome.teams ? true : false}" th:text="${match.teamHome.teams}"></option>
+                <option th:disabled="${disabled}" th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamAway.teams ? true : false}"  th:text="${match.teamAway.teams}"></option>
+            </select>
+        </label>
+    </td>
+    <td th:text="${disabled} ? ${match.mainHome} + ':' + ${match.mainAway} : ''">%score_home%:%score_away%</td>
+    <td th:if="${isTour}" th:text="${disabled ? match?.next?.teams : ''}">%select_next%</td>
+    <td><span th:classappend="${color[i.index]}" th:if="${!prognoses.empty}" th:text="${disabled ? prognoses[i.index]?.points : ''}">%points%</span></td>
+</tr>
+</th:block>
+<span th:if="${matches[matches.size - 1].timestamp.getTime() > timeBlocked}"  xmlns:th="http://www.w3.org/1999/xhtml"  th:include="button" th:remove="tag"></span>

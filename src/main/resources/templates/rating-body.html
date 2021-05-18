@@ -1,0 +1,14 @@
+<tr xmlns:th="http://www.w3.org/1999/xhtml" th:each="user, iter : ${users}" th:classappend="${userActive == user.user} ? active : ''">
+    <td th:text="${iter.count}">%number%</td>
+    <td th:text="${user.user.firstName + ' ' + user.user.lastName}">%user%</td>
+    <td th:text="${user.score}">%score%</td>
+    <td th:text="${user.difference}">%difference%</td>
+    <td th:text="${user.winner}">%winner%</td>
+    <td th:text="${user.teamPlacing}">%place%</td>
+    <td th:text="${user.prognosis_1_4}">%prognosis_1_4%</td>
+    <td th:text="${user.prognosis_1_2}">%prognosis_1_2%</td>
+    <td th:text="${user.prognosisPlayoff}">%po%</td>
+    <td th:text="${user.champion}">%champion%</td>
+    <td th:text="${user.bombardier}">%bombardier%</td>
+    <td th:text="${user.points}">%points%</td>
+</tr>

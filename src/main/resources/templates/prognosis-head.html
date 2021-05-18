@@ -1,0 +1,20 @@
+<th:block  xmlns:th="http://www.w3.org/1999/xhtml">
+<tr>
+    <td colspan="15">
+        <select title="Тур" id="tour" onchange="tour()">
+            <option th:each="value : ${tours}" th:value="${value.tour}" th:text="${value.tour}" th:selected="${value.tour == tourSelect.tour} ? true : false" ></option>
+        </select>
+    </td>
+</tr>
+<tr>
+    <td>Дата</td>
+    <td>День</td>
+    <td>Время</td>
+    <td>Матч</td>
+    <td>Прогноз</td>
+    <td th:if="${!tourSelect.tour.contains('тур')}">Пройдет</td>
+    <td>Счёт</td>
+    <td th:if="${!tourSelect.tour.contains('тур')}">Прошла</td>
+    <td>Очки</td>
+</tr>
+</th:block>

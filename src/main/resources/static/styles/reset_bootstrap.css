@@ -1,0 +1,26 @@
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+.card-title,
+.card-body,
+.nav-link,
+.navbar-brand {
+    padding: 0;
+    margin: 0;
+}
+.btn:focus, .btn:hover {
+    cursor: pointer!important;
+}
+.card {
+    border: none;
+}
+.bg-light {
+    background: none!important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: inherit;
+}
+.dropdown-toggle::after {
+    vertical-align: inherit;
+}

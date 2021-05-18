@@ -1,0 +1,17 @@
+                                    <th:block  xmlns:th="http://www.w3.org/1999/xhtml">
+                                    <tr>
+                                        <td th:text="${t.party}" class="group" colspan="9">%group%</td>
+                                    </tr>
+                                    <tr th:if="${!isBlocked}">
+                                        <td colspan="15">
+                                            <button    xmlns:th="http://www.w3.org/1999/xhtml" title="" name="default" th:onclick="'javascript:btn_default(' + ${i.count} + ')'" type="button">Сбросить позиции в группе</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Команда</td>
+                                        <td>Позиция</td>
+                                        <td>Позиция</td>
+                                        <td>Очки</td>
+                                    </tr>
+                                    <div xmlns:th="http://www.w3.org/1999/xhtml" th:include="placing-body-tr" th:each="tr, iter : ${t.teams}" th:remove="tag"></div>
+                                    </th:block>

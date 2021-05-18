@@ -1,0 +1,30 @@
+<th:block th:if="${matches}" xmlns:th="http://www.w3.org/1999/xhtml">
+<tr th:each="match : ${matches}">
+    <td th:text="${match.id}">%id%</td>
+    <td th:text="${match.teamHome.teams + ' - ' + match.teamAway.teams}"></td>
+    <td><input title="" type="text" name="team_home_main" th:value="${match.mainHome}"></td>
+    <td>:</td>
+    <td><input title="" type="text" name="team_away_main" th:value="${match.mainAway}"></td>
+    <td><input title="" type="text" name="team_home_score" th:value="${match.scoreHome}"></td>
+    <td>:</td>
+    <td><input title="" type="text" name="team_away_score" th:value="${match.scoreAway}"></td>
+    <td>
+        <label>
+            <select th:if="${!match.tour.tour.contains( 'тур')}">
+                <option th:selected="${overtime == 'overtime' ? true : false}" >overtime</option>
+                <option th:selected="${overtime == 'penalty' ? true : false}" >penalty</option>
+            </select>
+        </label>
+    </td>
+    <td>
+        <label>
+            <select th:if="${!match.tour.tour.contains( 'тур')}">
+                <option th:selected="${next == match.teamHome.teams ? true : false}" th:text="${match.teamHome.teams}"></option>
+                <option th:selected="${next == match.teamAway.teams ? true : false}" th:text="${match.teamAway.teams}"></option>
+            </select>
+        </label>
+    </td>
+</tr>
+<th:block th:include="${button}">button</th:block>
+<script th:src="${url} + @{js/score.js}"></script>
+</th:block>

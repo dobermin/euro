@@ -1,0 +1,9 @@
+<span xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="nav-link-dropdown" th:remove="tag">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${n.key}"></a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div th:replace="~{fragments/nav :: nav-link}"></div>
+                </div>
+</span>
+<span xmlns:th="http://www.w3.org/1999/xhtml" th:fragment="nav-link" th:remove="tag">
+    <a th:class="${nav.title != ''} ? dropdown-item : nav-link" th:href="${nav.link}" th:each="nav : ${n.value}" th:text="${nav.title != ''} ? ${nav.title} : ${n.key}">Home</a>
+</span>

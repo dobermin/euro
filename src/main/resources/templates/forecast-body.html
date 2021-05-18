@@ -1,0 +1,21 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+<tr th:if="${prognoses != null}" th:each="prognosis : ${prognoses}" th:classappend="${prognosis.user == userActive} ? active">
+    <td>
+        <span th:text="${prognosis.user != userSelect ? prognosis.user.firstName : prognosis.match.teamHome.teams}"></span>
+        <span th:text="${prognosis.user != userSelect ? ' ' : '-'}"></span>
+        <span th:text="${prognosis.user != userSelect ? prognosis.user.lastName : prognosis.match.teamAway.teams}"></span>
+    </td>
+    <td th:text="${prognosis.home}">Прогноз</td>
+    <td>:</td>
+    <td th:text="${prognosis.away}">Прогноз</td>
+    <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}" th:text="${prognosis.next}">%prognosis_next%</td>
+    <td>
+        <span th:if="${!prognosis.match.scoreHome.empty}" th:text="${prognosis.match.scoreHome + ':' + prognosis.match.scoreAway}"></span>
+        <span th:if="${!prognosis.match.mainHome.empty}" th:text="${'(' + prognosis.match.mainHome + ':' + prognosis.match.mainAway + ') '}"></span>
+        <span th:if="${prognosis?.match?.overtime != null}" th:text="${prognosis?.match?.overtime}"></span>
+    </td>
+    <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}" th:text="${prognosis.match?.next?.teams}">%next%</td>
+    <td th:text="${prognosis.points}">Очки</td>
+</tr>
+</th:block>
+

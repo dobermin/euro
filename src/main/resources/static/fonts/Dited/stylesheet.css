@@ -1,0 +1,5 @@
+@font-face {
+    font-family: 'dit';
+    src: url('../fonts/Dited/Dited.woff2') format('woff2'),
+         url('../fonts/Dited/Dited.woff') format('woff');
+}

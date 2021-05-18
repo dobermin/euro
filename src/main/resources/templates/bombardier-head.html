@@ -1,0 +1,12 @@
+<tr xmlns:th="http://www.w3.org/1999/xhtml">
+    <td colspan="9">
+        <select title="Команда" id="team" onchange="team()">
+            <option  th:each="c : ${counties}" th:value="${c.teams}" th:text="${c.teams}" th:selected="(${country} == *{c.teams})" >%value%</option>
+        </select>
+    </td>
+</tr>
+<tr>
+	<td>№</td>
+	<td>Игрок</td>
+	<td>Прогноз</td>
+</tr>

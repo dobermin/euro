@@ -1,0 +1,14 @@
+<tr xmlns:th="http://www.w3.org/1999/xhtml"  th:each="player, iter : ${players}">
+    <td th:text="${iter.count}">%number%</td>
+    <td>
+        <label  th:for="${player.player}"  th:text="${player.player}">%team%</label>
+    </td>
+    <td><label>
+        <input type="radio" th:id="${player.player}" th:disabled="${isBlocked} ? true" name="selection" th:value="${player.player}" th:checked="(${bombardier} == *{player.player})" >
+    </label></td>
+</tr>
+<tr xmlns:th="http://www.w3.org/1999/xhtml"  th:if="${!isBlocked}">
+    <td colspan="9">
+        <button title="" th:name="${controller}" th:attr="onclick=|btn_${controller}()|"  type="button" th:text="${btn_title}">%btn_value%</button>
+    </td>
+</tr>

@@ -1,0 +1,28 @@
+<tr xmlns:th="http://www.w3.org/1999/xhtml">
+    <td colspan="9" th:text="${t.key}">%party_id%</td>
+</tr>
+<tr>
+    <td>Место</td>
+    <td>Команда</td>
+    <td>И</td>
+    <td>В</td>
+    <td>Н</td>
+    <td>П</td>
+    <td>М</td>
+    <td>О</td>
+</tr>
+<tr xmlns:th="http://www.w3.org/1999/xhtml" th:each="d : ${t.value}">
+    <td th:text="${d.position}">%places%</td>
+    <td>
+        <div>
+<!--            <img th:src="'http://fnkimages.net/trans/flags/' + ${d.gif}" th:alt="${d.team}">-->
+            <span th:text="${d.team.teams}"></span>
+        </div>
+    </td>
+    <td th:text="${d.games}">%games%</td>
+    <td th:text="${d.win}">%win%</td>
+    <td th:text="${d.draw}">%draw%</td>
+    <td th:text="${d.loss}">%loss%</td>
+    <td th:text="${d.goalsScored} + '-' + ${d.goalsMissed}">%goals%</td>
+    <td th:text="${d.points}">%points%</td>
+</tr>

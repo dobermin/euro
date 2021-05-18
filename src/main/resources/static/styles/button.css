@@ -1,0 +1,29 @@
+/*Стилизация кнопки ВВЕРХ */
+#back-top{	
+	position:fixed;
+	bottom:30px;
+	left:50%;
+	margin-left:500px
+}
+
+#back-top a{
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50px;
+    background: #00cc00 url("../images/up.png") center no-repeat;
+    text-align: center;
+    padding: 5px;
+    position: fixed;
+    bottom: 60px;
+    right: 5%;
+    cursor: pointer;
+    color: #333;
+    font-family: verdana;
+    font-size: 11px;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s;
+}
+
+#back-top a:hover{color:#000;}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml" th:with="baseUrl=(${url})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="refresh" content="" />
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <link th:href="${baseUrl} + @{images/ico.ico}" rel=" shortcut icon" type="image/x-icon"/>
+
+    <link th:href="${baseUrl} + @{styles/style.css}" rel="stylesheet" />
+    <link th:href="${baseUrl} + @{styles/button.css}" rel="stylesheet" />
+
+    <title th:text="${title}"></title>
+</head>
+<body>
+<header class="nav-justified">
+    <div class="col-12 pr-0" th:insert="${header}"></div>
+</header>
+<main class="d-flex flex-column">
+    <div class="center col-12 d-flex flex-column justify-content-center">
+        <p class="messages" th:classappend="${message.empty} ? d-none" th:text="${!message.empty ? message : ''}"></p>
+        <th:block  th:include="${center}"><span></span></th:block>
+    </div>
+</main>
+<footer>
+    <p id="back-top"><a href="#top"></a></p>
+</footer>
+<div class="overlay"></div>
+<script th:src="${baseUrl} + @{js/jquery-3.3.1.min.js}"></script>
+<script th:src="${baseUrl} + @{bootstrap/js/popper.min.js}"></script>
+<script th:src="${baseUrl} + @{bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="${baseUrl} + @{js/js.js}"></script>
+<script th:src="${baseUrl} + @{js/button.js}"></script>
+</body>
+</html>
