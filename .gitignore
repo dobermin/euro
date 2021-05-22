@@ -36,3 +36,7 @@ build/
 /.idea/
 /.mvn/
 /out/
+/out/
+/out/
+/.mvn/
+/src/main/java/META-INF/

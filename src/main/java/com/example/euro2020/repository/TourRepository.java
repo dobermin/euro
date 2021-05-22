@@ -12,7 +12,7 @@ public interface TourRepository extends CrudRepository<Tour, Long> {
 
 	List<Tour> findByTour (String tour);
 
-	@Query("SELECT DISTINCT tour FROM Matches")
+	@Query("SELECT DISTINCT tour FROM Matches ")
 	List<Tour> findActual ();
 
 //	@Query("SELECT DISTINCT tour FROM Matches WHERE Matches.timestamp <= :time")
