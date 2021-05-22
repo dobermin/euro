@@ -40,3 +40,4 @@ build/
 /out/
 /.mvn/
 /src/main/java/META-INF/
+/.mvn/
