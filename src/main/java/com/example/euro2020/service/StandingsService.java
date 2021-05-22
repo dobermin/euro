@@ -35,7 +35,7 @@ public class StandingsService implements IStandingsService {
 
 	@Override
 	public List<Standings> findAll () {
-		return new ArrayList<>(standingsRepository.findAll(orderByGroupsAsc()));
+		return new ArrayList<>(standingsRepository.findAllByOrderByPartyIdAscPositionAsc());
 	}
 
 	@Override

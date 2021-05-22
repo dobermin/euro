@@ -90,7 +90,7 @@ public class ConfigProperties {
 		List<String> list = new ArrayList<>();
 		for (Element element : elements) {
 			if ("src".equals(attr)) {
-				list.add(MyMatcher.find(element.attr(attr), "/[a-z]*").get(1).substring(1));
+				list.add(MyMatcher.find(element.attr(attr), "/[a-z]*").get(2).substring(1));
 			} else {
 				try {
 					list.add(element.parent().text());
@@ -110,11 +110,11 @@ public class ConfigProperties {
 		country = country.replaceAll("\\.", ". ");
 		switch (country) {
 			case "Северная Македония":
-				return "С. Македония";
+				return "С. Македония".toUpperCase();
 			case "Северная Ирландия":
-				return "С. Ирландия";
+				return "С. Ирландия".toUpperCase();
 		}
-		return country;
+		return country.toUpperCase();
 	}
 
 	public Integer generateNumber (int number) {

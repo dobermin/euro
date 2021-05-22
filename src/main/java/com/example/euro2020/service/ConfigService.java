@@ -98,9 +98,6 @@ public class ConfigService {
 	}
 	public Long getTimeNow() {
 		long time = new Date().getTime();
-//		System.out.println(getTimeTestNow());
-//		System.out.println(getTimeTestStart());
-//		System.out.println(time);
 		if (getTesting()) {
 			time += getTimeTestNow() - getTimeTestStart();
 		}

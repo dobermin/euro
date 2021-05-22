@@ -129,19 +129,24 @@ public class TeamsService implements ITeamsService {
 	public List<Teams> getTeamsFromString (List<String> next) {
 		List<Teams> list = new ArrayList<>(findAll());
 		List<Teams> teams = new ArrayList<>();
-		if (next.size() != 0) {
-			List<String> finalNext = next.stream()
-				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
-			for (int i = 0; i < list.size(); i++) {
-				int finalI = i;
-				teams.add(
-					list.stream()
-						.filter(x -> x.getTeams().equals(finalNext.get(finalI)))
-						.findFirst().orElse(null)
-				);
+		try {
+			if (next.size() != 0) {
+				List<String> finalNext = next.stream()
+					.filter(Objects::nonNull)
+					.collect(Collectors.toList());
+				for (int i = 0; i < list.size(); i++) {
+					int finalI = i;
+					teams.add(
+						list.stream()
+							.filter(x -> x.getTeams().equals(finalNext.get(finalI)))
+							.findFirst().orElse(null)
+					);
+				}
 			}
+			return teams;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
-		return teams;
+		return null;
 	}
 }

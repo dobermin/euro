@@ -22,7 +22,7 @@ public class Navigation extends MyEntity {
 	private String section;
 	@Column(name = "usr")
 	@Enumerated(EnumType.STRING)
-	private Roles user;
+	private Roles usr;
 	@Column(name = "position")
 	private Integer position;
 

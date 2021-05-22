@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@Table(name = "rating", uniqueConstraints = {@UniqueConstraint(columnNames = "usrs")})
+@Table(name = "rating", uniqueConstraints = {@UniqueConstraint(columnNames = "usr")})
 public class Rating extends MyEntity {
 
 	@Id
@@ -36,7 +36,7 @@ public class Rating extends MyEntity {
 	@Column(name = "winner_playoff")
 	private Integer winnerPlayoff;
 	@Column(name = "team_placing")
-	private Integer teamPlacing;
+	private Integer teamPlacingTeam;
 	@Column(name = "prognosis_1_4")
 	private Integer prognosis_1_4;
 	@Column(name = "prognosis_1_2")
@@ -45,17 +45,9 @@ public class Rating extends MyEntity {
 	private Integer points;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "usrs", referencedColumnName = "id")
+	@JoinColumn(name = "usr", referencedColumnName = "id")
 	@NotNull
-	private Users user;
-
-	public Users getUser () {
-		return user;
-	}
-
-	public void setUser (Users user) {
-		this.user = user;
-	}
+	private Users usr;
 
 	public Long getId () {
 		return id;
@@ -145,12 +137,12 @@ public class Rating extends MyEntity {
 		this.winnerPlayoff = winnerPlayoff;
 	}
 
-	public Integer getTeamPlacing () {
-		return teamPlacing;
+	public Integer getTeamPlacingTeam () {
+		return teamPlacingTeam;
 	}
 
-	public void setTeamPlacing (Integer teamPlacing) {
-		this.teamPlacing = teamPlacing;
+	public void setTeamPlacingTeam (Integer teamPlacingTeam) {
+		this.teamPlacingTeam = teamPlacingTeam;
 	}
 
 	public Integer getPrognosis_1_4 () {

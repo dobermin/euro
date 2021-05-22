@@ -1,37 +1,37 @@
 package com.example.euro2020.service;
 
-import com.example.euro2020.entity.Placing;
+import com.example.euro2020.entity.PlacingTeam;
 import com.example.euro2020.entity.Teams;
 import com.example.euro2020.entity.Users;
-import com.example.euro2020.repository.PlacingRepository;
+import com.example.euro2020.repository.PlacingTeamRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class PlacingService implements IPlacingService {
+public class PlacingTeamService implements IPlacingTeamService {
 
-	private final PlacingRepository placingRepository;
+	private final PlacingTeamRepository placingRepository;
 
-	public PlacingService (PlacingRepository repository) {
+	public PlacingTeamService (PlacingTeamRepository repository) {
 		this.placingRepository = repository;
 	}
 
 	@Override
-	public List<Placing> findAll() {
-		List<Placing> list = new ArrayList<>( (List<Placing>) placingRepository.findAll());
-		list.sort(Comparator.comparing(o -> o.getTeam().getTeams()));
+	public List<PlacingTeam> findAll() {
+		List<PlacingTeam> list = new ArrayList<>( (List<PlacingTeam>) placingRepository.findAll());
+		list.sort(Comparator.comparing(o -> o.getTeams().getTeams()));
 		return list;
 	}
 
 	@Override
-	public Placing findById (Long id) {
-		return new ArrayList<>((List<Placing>) placingRepository.findAllById(Collections.singleton(id))).get(0);
+	public PlacingTeam findById (Long id) {
+		return new ArrayList<>((List<PlacingTeam>) placingRepository.findAllById(Collections.singleton(id))).get(0);
 	}
 
 	@Override
-	public void save (Placing placing) throws Exception {
+	public void save (PlacingTeam placing) throws Exception {
 		placingRepository.save(placing);
 	}
 
@@ -42,10 +42,10 @@ public class PlacingService implements IPlacingService {
 			Teams teams = country.get(i);
 			String position = positions.get(i);
 			if (!position.isEmpty()) {
-				Placing placing = findByTeamAndUser(teams, user);
+				PlacingTeam placing = findByTeamAndUser(teams, user);
 				placing.setPosition(Integer.parseInt(position));
-				placing.setUser(user);
-				placing.setTeam(teams);
+				placing.setUsr(user);
+				placing.setTeams(teams);
 				save(placing);
 			} else {
 				deleteByTeamAndUser(teams, user);
@@ -56,31 +56,31 @@ public class PlacingService implements IPlacingService {
 	}
 
 	@Override
-	public void saveAll (List<Placing> entities) throws Exception {
-		for (Placing entity : entities) {
+	public void saveAll (List<PlacingTeam> entities) throws Exception {
+		for (PlacingTeam entity : entities) {
 			save(entity);
 		}
 	}
 
 	@Override
-	public void update (Placing entity) {
+	public void update (PlacingTeam entity) {
 		placingRepository.update(entity.getPosition(), entity.getId());
 	}
 
 	@Override
-	public Placing findByTeamAndUser (Teams team, Users user) {
+	public PlacingTeam findByTeamAndUser (Teams team, Users user) {
 		try {
-			return new ArrayList<>(placingRepository.findByTeamAndUser(team, user)).get(0);
+			return new ArrayList<>(placingRepository.findByTeamsAndUsr(team, user)).get(0);
 		} catch (Exception e) {
-			return new Placing();
+			return new PlacingTeam();
 		}
 	}
 
 	@Override
-	public List<Placing> findByUser (Users user) {
+	public List<PlacingTeam> findByUser (Users user) {
 		try {
-			List<Placing> list =  new ArrayList<>(placingRepository.findByUser(user));
-			list.sort(Comparator.comparing(Placing::getPosition));
+			List<PlacingTeam> list =  new ArrayList<>(placingRepository.findByUsr(user));
+			list.sort(Comparator.comparing(PlacingTeam::getPosition));
 			return list;
 		} catch (Exception e) {
 			return new ArrayList<>();
@@ -89,30 +89,30 @@ public class PlacingService implements IPlacingService {
 
 	@Override
 	public void deleteByTeamAndUser (Teams team, Users user) {
-		placingRepository.deleteByTeamAndUser(team, user);
+		placingRepository.deleteByTeamsAndUsr(team, user);
 	}
 
 	@Override
-	public Map<String, Placing> findByUserTeam (Users user) {
+	public Map<String, PlacingTeam> findByUserTeam (Users user) {
 		return findByUser(user).stream()
-			.collect(Collectors.toMap(s -> s.getTeam().getTeams(), p -> p));
+			.collect(Collectors.toMap(s -> s.getTeams().getTeams(), p -> p));
 	}
 
 	@Override
 	public Integer getPoints (Users user, ConfigService configService) {
-		Integer teamPlacing = 0;
+		Integer teamPlacingTeam = 0;
 		if (
 			configService.getTimeNow() > configService.getCupGroupsEnd() &&
 				configService.getTimeNow() < configService.getCupEightStart()
 		) {
-			List<Placing> placings = findByUser(user);
-			for (Placing placing : placings) {
+			List<PlacingTeam> placings = findByUser(user);
+			for (PlacingTeam placing : placings) {
 				int position = placing.getPosition();
-				if (position == placing.getTeam().getStanding().getPosition())
-					teamPlacing++;
+				if (position == placing.getTeams().getStanding().getPosition())
+					teamPlacingTeam++;
 			}
 		}
-		return teamPlacing;
+		return teamPlacingTeam;
 	}
 
 	@Override

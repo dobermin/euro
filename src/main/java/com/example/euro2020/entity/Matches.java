@@ -50,8 +50,4 @@ public class Matches extends MyEntity{
 	@JoinColumn(name = "next", referencedColumnName = "id")
 	private Teams next;
 
-	@Override
-	public String toString () {
-		return "Matches{}";
-	}
 }

@@ -64,7 +64,7 @@ public class MatchesService implements IMatchesService {
 	@Override
 	public Matches findActualMatch (Long time) {
 		List<Matches> list = findActualMatches(time);
-		System.out.println(list.size());
+
 		return list.get(50);
 	}
 
@@ -154,13 +154,13 @@ public class MatchesService implements IMatchesService {
 				String time = td.get(1).text();
 				String group = td.get(3).select("a").text();
 
-//				System.out.println(date);
 				try {
 					List<String> teams = MyMatcher.find(match.text(), regex);
 					matches.setTeamHome(teamsService.findByTeam(configProperties.getCountry(teams.get(0))));
 					matches.setTeamAway(teamsService.findByTeam(configProperties.getCountry(teams.get(1))));
 					matches.setTour(tour);
 				} catch (Exception e) {
+					System.out.println(e.getMessage());
 				}
 				matches.setTimestamp(dateTime.getTimestampMatch(date, time));
 
@@ -186,7 +186,6 @@ public class MatchesService implements IMatchesService {
 					getWinner(score, element, configProperties);
 
 				matchesList.add(matches);
-//				System.out.println(matches);
 //				if (configProperties.getConfigService().getTesting())
 					repository.save(matches);
 			}
@@ -214,7 +213,7 @@ public class MatchesService implements IMatchesService {
 		} catch (Exception e) {}
 
 		String url = element.select("a").attr("href");
-		Document document = new Jsoup(url).getDocument();
+		Document document = new Jsoup(configProperties.configService.getHost() + url).getDocument();
 		Element table = document.select("table").last();
 		Element tr = table.select("tr").get(2);
 		List<Integer> goals = MyMatcher.find(tr.text(), ",\\s\\d+", true);

@@ -47,18 +47,18 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<Prognosis> findByUser (Users user) {
-		return new ArrayList<>(repository.findByUser(user));
+		return new ArrayList<>(repository.findByUsr(user));
 	}
 
 	@Override
 	public Prognosis findByPrognosis (Users user, Tour tour, Teams team) {
-		return new ArrayList<>(repository.findByUserAndMatch_TourAndMatch_TeamHomeOrMatch_TeamAway(user, tour,
+		return new ArrayList<>(repository.findByUsrAndMatch_TourAndMatch_TeamHomeOrMatch_TeamAway(user, tour,
 			team, team)).get(0);
 	}
 
 	public List<Prognosis> findByUserAndTour (Users user, Tour tour) {
 		try {
-			return new ArrayList<>(repository.findAllByUserAndMatchTour(user, tour));
+			return new ArrayList<>(repository.findAllByUsrAndMatchTour(user, tour));
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}
@@ -66,7 +66,7 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<Prognosis> findByTour (Users user, Tour tour) {
-		List<Prognosis> list = new ArrayList<>(repository.findByUserAndMatch_Tour(user, tour));
+		List<Prognosis> list = new ArrayList<>(repository.findByUsrAndMatch_Tour(user, tour));
 		list.sort(Comparator.comparing(Prognosis::getId));
 		return list;
 	}
@@ -108,7 +108,7 @@ public class PrognosisService implements IPrognosisService {
 				prognosis.setNext(null);
 			}
 			prognosis.setMatch(match);
-			prognosis.setUser(user);
+			prognosis.setUsr(user);
 			repository.save(prognosis);
 		}
 	}

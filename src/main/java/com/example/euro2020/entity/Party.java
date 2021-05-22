@@ -23,23 +23,12 @@ public class Party extends MyEntity {
 	@OneToMany (mappedBy="party", fetch = FetchType.LAZY)
 	private List<Teams> teams;
 
-	@OneToOne
-	private Standings standings;
-
 	public List<Teams> getTeams () {
 		return teams;
 	}
 
 	public void setTeams (List<Teams> teams) {
 		this.teams = teams;
-	}
-
-	public Standings getStandings () {
-		return standings;
-	}
-
-	public void setStandings (Standings standings) {
-		this.standings = standings;
 	}
 
 	public Long getId () {
@@ -56,5 +45,10 @@ public class Party extends MyEntity {
 
 	public void setParty (String party) {
 		this.party = party;
+	}
+
+	@Override
+	public String toString () {
+		return "Party{}";
 	}
 }

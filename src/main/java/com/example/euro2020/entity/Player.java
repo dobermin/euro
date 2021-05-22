@@ -9,7 +9,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name = "players", uniqueConstraints = {@UniqueConstraint(columnNames = "player")})
+@Table(name = "players", uniqueConstraints = {@UniqueConstraint(columnNames = {"team", "player"})})
 public class Player extends MyEntity {
 
 	@Id
@@ -30,7 +30,7 @@ public class Player extends MyEntity {
 	private Teams teams;
 
 	@OneToMany(mappedBy = "bombardier")
-	private List<Users> users;
+	private List<Users> usr;
 
 	public Long getId () {
 		return id;
@@ -80,11 +80,4 @@ public class Player extends MyEntity {
 		this.teams = teams;
 	}
 
-	public List<Users> getUsers () {
-		return users;
-	}
-
-	public void setUsers (List<Users> users) {
-		this.users = users;
-	}
 }

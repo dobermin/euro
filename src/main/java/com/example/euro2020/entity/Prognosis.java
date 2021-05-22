@@ -26,7 +26,7 @@ public class Prognosis extends MyEntity {
 	private Matches match;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "usrs", referencedColumnName = "id")
-	private Users user;
+	private Users usr;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "next", referencedColumnName = "id")
 	private Teams next;
@@ -37,14 +37,6 @@ public class Prognosis extends MyEntity {
 
 	public void setMatch (Matches match) {
 		this.match = match;
-	}
-
-	public Users getUser () {
-		return user;
-	}
-
-	public void setUser (Users user) {
-		this.user = user;
 	}
 
 	public Teams getNext () {

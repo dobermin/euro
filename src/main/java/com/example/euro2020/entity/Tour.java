@@ -22,9 +22,4 @@ public class Tour extends MyEntity {
 
 	@OneToMany (mappedBy="tour")
 	private List<Next> next;
-
-	@Override
-	public String toString () {
-		return "Tour{}";
-	}
 }

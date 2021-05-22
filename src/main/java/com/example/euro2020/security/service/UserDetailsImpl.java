@@ -6,9 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -21,23 +20,27 @@ public class UserDetailsImpl implements UserDetails {
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+	                       GrantedAuthority authorities) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
-		this.authorities = authorities;
+		this.authorities = new ArrayList<>(){
+			{
+				add(authorities);
+			}
+		};
 	}
-
 	public static UserDetailsImpl build(Users user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
-				.collect(Collectors.toList());
+		GrantedAuthority authority = new SimpleGrantedAuthority(user.getRoles().name());
+//		List<GrantedAuthority> authorities = user.getRoles()
+//				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
+//				.collect(Collectors.toList());
 		
 		return new UserDetailsImpl(
 				user.getId(), 
 				user.getLogin(),
-				user.getPassword(), 
-				authorities);
+				user.getPassword(),
+			authority);
 	}
 
 	@Override

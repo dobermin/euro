@@ -19,7 +19,7 @@ public class GroupsController extends MainControllers {
 			model.addObject("standings", standings);
 			model.addObject("count", standings.size() / 4);
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 
 		return super.getMain(model, request);

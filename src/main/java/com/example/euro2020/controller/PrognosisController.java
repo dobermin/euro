@@ -14,9 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class PrognosisController extends MainControllers {
@@ -26,6 +24,8 @@ public class PrognosisController extends MainControllers {
 		List<Matches> matches = matchesService.findAll();
 		Tour tourSelect = tourService.findByTime(matches, getConfig().configService.getTimeNow());
 
+		if (tourSelect == null)
+			return new ModelAndView("redirect:/");
 		setModel(model, matches, tourSelect, principal);
 
 		return super.getMain(model, request);
@@ -55,7 +55,12 @@ public class PrognosisController extends MainControllers {
 		List<String> next = Arrays.asList(map.get("next"));
 
 		Tour tourSelect = tourService.findByTour(tour);
-		List<Teams> nextTeams = teamsService.getTeamsFromString(next);
+		List<Teams> nextTeams = null;
+		try {
+			nextTeams = teamsService.getTeamsFromString(next);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		List<Teams> countriesTeams = teamsService.getTeamsFromString(countries);
 		List<Matches> matches = matchesService.findByTour(tourSelect);
 
@@ -70,7 +75,7 @@ public class PrognosisController extends MainControllers {
 	}
 
 	private void setModel (ModelAndView model, List<Matches> matches, Tour tourSelect, Principal principal) {
-		List<Prognosis> prognoses = prognosisService.findByUserAndTour(getUser(principal), tourSelect);
+		List<Prognosis> prognoses = prognoses = prognosisService.findByUserAndTour(getUser(principal), tourSelect);
 		List<Tour> tours = tourService.findActual(matches);
 		matches = matchesService.findByTour(tourSelect);
 		List<String> color = getConfig().getColorClass(prognoses);

@@ -22,7 +22,7 @@ public class NavigationService implements INavigationService {
 	@Override
 	public HashMap<String, List<Navigation>> findAllUser () {
 		List<Navigation> list =
-			new ArrayList<>(repository.findAllByUserOrderBySectionAscPositionAscTitleAsc(Roles.USER));
+			new ArrayList<>(repository.findAllByUsrOrderBySectionAscPositionAscTitleAsc(Roles.USER));
 
 		return MySort(list);
 	}

@@ -1,7 +1,7 @@
 package com.example.euro2020.controller;
 
 import com.example.euro2020.entity.Next;
-import com.example.euro2020.entity.Placing;
+import com.example.euro2020.entity.PlacingTeam;
 import com.example.euro2020.entity.Teams;
 import com.example.euro2020.entity.Tour;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class NextController extends MainControllers {
 		ModelAndView m = new ModelAndView("redirect:/placing?next=true");
 		setUser(principal);
 		List<Tour> tours = tourService.findAll();
-		List<Placing> placings;
+		List<PlacingTeam> placings;
 		Tour tourQuarter;
 		Tour tourSemi;
 		List<String> quarter;

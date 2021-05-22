@@ -70,7 +70,7 @@ public class MainControllers {
 	@Autowired
 	protected IPartyService partyService;
 	@Autowired
-	protected IPlacingService placingService;
+	protected IPlacingTeamService placingService;
 	@Autowired
 	protected INextService nextService;
 
@@ -90,7 +90,8 @@ public class MainControllers {
 		model.addObject("thead", getThead());
 		model.addObject("tbody", getTbody());
 		model.addObject("tfoot", getTfoot());
-		model.addObject("url", "https://cup-app.herokuapp.com/");
+//		model.addObject("url", "https://cup-app.herokuapp.com/");
+		model.addObject("url", "http://localhost:5000/");
 		model.addObject("isActive", isActive);
 		model.addObject("isBlocked", isBlocked);
 		model.addObject("timeBlocked", timeBlocked);

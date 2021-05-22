@@ -28,10 +28,10 @@ public class Teams extends MyEntity {
 	private List<Player> players;
 
 	@OneToMany(mappedBy = "champion")
-	private List<Users> users;
+	private List<Users> usr;
 
-	@OneToMany(mappedBy = "team")
-	private List<Placing> placings;
+	@OneToMany(mappedBy = "teams")
+	private List<PlacingTeam> placings;
 
 	@OneToOne(mappedBy = "team", fetch=FetchType.EAGER)
 	private Standings standing;
@@ -42,7 +42,7 @@ public class Teams extends MyEntity {
 	@OneToMany (mappedBy="next", fetch=FetchType.LAZY)
 	private List<Prognosis> nextPrognosis;
 
-	@OneToMany (mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany (mappedBy="usr", fetch=FetchType.LAZY)
 	private List<Next> next;
 
 	@Override

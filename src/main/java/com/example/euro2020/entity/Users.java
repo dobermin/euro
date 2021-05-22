@@ -1,6 +1,6 @@
 package com.example.euro2020.entity;
 
-import com.example.euro2020.security.model.Role;
+import com.example.euro2020.security.model.enums.Roles;
 import com.example.euro2020.security.model.enums.Status;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,18 +10,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "usrs", uniqueConstraints = {@UniqueConstraint(columnNames = "login")})
-public class Users extends MyEntity{
+public class Users extends MyEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	@Column(name = "first_name")
@@ -32,17 +30,17 @@ public class Users extends MyEntity{
 	private String login;
 	@Column(name = "password")
 	private String password;
-//	@Column(name = "date_reg")
+	//	@Column(name = "date_reg")
 //	private String dateRegistration;
 	@Column(name = "date_reg")
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateRegistration;
-//	@Column(name = "date_auth_last")
+	//	@Column(name = "date_auth_last")
 //	private String dateAuthorizationLast;
 	@Column(name = "date_authorization_last")
 	private Timestamp dateAuthorizationLast;
-//	@Column(name = "date_authorization")
+	//	@Column(name = "date_authorization")
 //	private String dateAuthorization;
 	@Column(name = "date_authorization")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -57,42 +55,40 @@ public class Users extends MyEntity{
 	@Column(name = "display")
 	private boolean display;
 
+	@Column(name = "roles")
+	@Enumerated(EnumType.STRING)
+	private Roles roles;
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-	@JoinTable(name = "users_roles",
-		joinColumns = @JoinColumn(name = "users_id"),
-		inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
 
-	@OneToMany (mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "usr", fetch = FetchType.LAZY)
 	private List<Next> next;
 
-	@OneToMany (mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "usr", fetch = FetchType.LAZY)
 	private List<Prognosis> prognosis;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinTable(name = "champion",
 		joinColumns =
-			{ @JoinColumn(name = "id_users", referencedColumnName = "id") },
+			{@JoinColumn(name = "id_users", referencedColumnName = "id")},
 		inverseJoinColumns =
-			{ @JoinColumn(name = "id_teams", referencedColumnName = "id") })
+			{@JoinColumn(name = "id_teams", referencedColumnName = "id")})
 	private Teams champion;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinTable(name = "bombardier",
 		joinColumns =
-			{ @JoinColumn(name = "id_users", referencedColumnName = "id") },
+			{@JoinColumn(name = "id_users", referencedColumnName = "id")},
 		inverseJoinColumns =
-			{ @JoinColumn(name = "id_player", referencedColumnName = "id") })
+			{@JoinColumn(name = "id_player", referencedColumnName = "id")})
 	private Player bombardier;
 
-	@OneToMany(mappedBy = "user", fetch=FetchType.LAZY)
-	private List<Placing> placings;
+	@OneToMany(mappedBy = "usr", fetch = FetchType.LAZY)
+	private List<PlacingTeam> placings;
 
-	@OneToOne(mappedBy = "user", fetch=FetchType.LAZY)
+	@OneToOne(mappedBy = "usr")
 	private Rating rating;
 
 	public List<Next> getNext () {
@@ -125,14 +121,6 @@ public class Users extends MyEntity{
 
 	public void setBombardier (Player bombardier) {
 		this.bombardier = bombardier;
-	}
-
-	public List<Placing> getPlacings () {
-		return placings;
-	}
-
-	public void setPlacings (List<Placing> placings) {
-		this.placings = placings;
 	}
 
 	public Rating getRating () {
@@ -247,11 +235,13 @@ public class Users extends MyEntity{
 		this.status = status;
 	}
 
-	public Set<Role> getRole () {
-		return roles;
-	}
-
-	public void setRole (Set<Role> role) {
-		this.roles = role;
+	@Override
+	public String toString () {
+		return "Users{" +
+			"id=" + id +
+			", firstName='" + firstName + '\'' +
+			", lastName='" + lastName + '\'' +
+			", login='" + login + '\'' +
+			'}';
 	}
 }

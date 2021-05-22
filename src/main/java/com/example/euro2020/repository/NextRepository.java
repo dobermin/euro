@@ -12,13 +12,13 @@ import java.util.List;
 @Repository
 public interface NextRepository extends CrudRepository<Next, Long> {
 
-	List<Next> findByTourAndUser (Tour tour, Users user);
+	List<Next> findByTourAndUsr (Tour tour, Users user);
 
-	List<Next> findByTeamAndUser (Teams team, Users user);
+	List<Next> findByTeamAndUsr (Teams team, Users user);
 
-	void deleteByTeamAndUser (Teams team, Users user);
+	void deleteByTeamAndUsr (Teams team, Users user);
 
-	void deleteByUser (Users user);
+	void deleteByUsr (Users user);
 
-	void deleteAllByUser (Users user);
+	void deleteAllByUsr (Users user);
 }

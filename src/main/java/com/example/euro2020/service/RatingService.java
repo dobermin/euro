@@ -18,7 +18,7 @@ public class RatingService implements IRatingService {
 	private final RatingRepository repository;
 	private int bombardier = 0;
 	@Autowired
-	private IPlacingService placingService;
+	private IPlacingTeamService placingService;
 	@Autowired
 	private ITourService tourService;
 	@Autowired
@@ -42,7 +42,7 @@ public class RatingService implements IRatingService {
 
 	@Override
 	public Rating findByUser (Users user) {
-		return new ArrayList<>(repository.findByUser(user)).get(0);
+		return new ArrayList<>(repository.findByUsr(user)).get(0);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class RatingService implements IRatingService {
 			and(Sort.by(Sort.Direction.DESC, "scorePlayoff")).
 			and(Sort.by(Sort.Direction.DESC, "difference")).
 			and(Sort.by(Sort.Direction.DESC, "winner")).
-			and(Sort.by(Sort.Direction.DESC, "teamPlacing"));
+			and(Sort.by(Sort.Direction.DESC, "teamPlacingTeam"));
 	}
 
 	public List<Player> getBombardier(Document document) {
@@ -128,7 +128,7 @@ public class RatingService implements IRatingService {
 			int winnerPO = 0;
 			int champion = 0;
 			int prognosesPO = 0;
-			int teamPlacing = 0;
+			int teamPlacingTeam = 0;
 			int prognosisQuarter = 0;
 			int prognosisSemi = 0;
 
@@ -170,18 +170,18 @@ public class RatingService implements IRatingService {
 				configService.getTimeNow() > configService.getCupGroupsEnd() &&
 					configService.getTimeNow() < configService.getCupEightStart()
 			) {
-				List<Placing> placings = placingService.findByUser(user);
-				for (Placing placing : placings) {
+				List<PlacingTeam> placings = placingService.findByUser(user);
+				for (PlacingTeam placing : placings) {
 					int position = placing.getPosition();
-					if (position == placing.getTeam().getStanding().getPosition())
-						teamPlacing++;
+//					if (position == placing.getTeam().getStanding().getPosition())
+//						teamPlacingTeam++;
 				}
 			} else {
 				try {
-					teamPlacing = rating.getTeamPlacing();
+					teamPlacingTeam = rating.getTeamPlacingTeam();
 				} catch (Exception e) {}
 			}
-			points += teamPlacing * configService.getPlace();
+			points += teamPlacingTeam * configService.getPlace();
 
 			if (
 				configService.getTimeNow() > configService.getCupEightEnd() &&
@@ -261,11 +261,11 @@ public class RatingService implements IRatingService {
 			rating.setPrognosis_1_2(prognosisSemi);
 
 			rating.setAllScore(scoreAll);
-			rating.setTeamPlacing(teamPlacing);
+			rating.setTeamPlacingTeam(teamPlacingTeam);
 			rating.setChampion(champion);
 			rating.setBombardier(bombardier);
 
-			rating.setUser(user);
+			rating.setUsr(user);
 			rating.setPoints(points);
 
 			save(rating);

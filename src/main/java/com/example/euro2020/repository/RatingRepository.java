@@ -13,5 +13,5 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
 
 	List<Rating> findAll (Sort orderByPointsAsc);
 
-	List<Rating> findByUser (Users user);
+	List<Rating> findByUsr (Users user);
 }

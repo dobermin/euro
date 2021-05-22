@@ -1,16 +1,12 @@
 package com.example.euro2020.controller;
 
-import com.example.euro2020.entity.Matches;
-import com.example.euro2020.entity.Prognosis;
 import com.example.euro2020.entity.Users;
 import com.example.euro2020.objects.Browser;
 import com.example.euro2020.objects.DateTime;
 import com.example.euro2020.objects.User;
 import com.example.euro2020.security.config.jwt.JwtUtils;
-import com.example.euro2020.security.model.Role;
 import com.example.euro2020.security.model.enums.Roles;
 import com.example.euro2020.security.model.enums.Status;
-import com.example.euro2020.security.repository.RoleRepository;
 import com.example.euro2020.security.repository.UsersSecurityRepository;
 import com.example.euro2020.security.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.InetAddress;
+import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 @Controller
 @SessionAttributes("user")
@@ -45,8 +39,6 @@ public class Controllers extends MainControllers {
 	private JwtUtils jwtUtils;
 	@Autowired
 	private UsersSecurityRepository usersSecurityRepository;
-	@Autowired
-	private RoleRepository roleRepository;
 
 	public Controllers (PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
@@ -58,7 +50,8 @@ public class Controllers extends MainControllers {
 	}
 
 	@GetMapping(value = "/authorization")
-	public ModelAndView getAuthorization (User user, @RequestParam(value = "error", defaultValue = "false") boolean loginError, ModelAndView model, HttpServletRequest request) {
+	public ModelAndView getAuthorization (User user, @RequestParam(value = "error", defaultValue = "false") boolean loginError, ModelAndView model, HttpServletRequest request, Principal principal) {
+		if (principal != null) return new ModelAndView("redirect:/");
 		setBtn_title("Авторизоваться");
 		if (loginError) {
 			model.addObject("error", true);
@@ -98,12 +91,12 @@ public class Controllers extends MainControllers {
 			session.setAttribute("user", user);
 		}
 
-		return new ModelAndView("redirect:/champion");
+		return new ModelAndView("redirect:/");
 	}
 
 	@GetMapping(value = "/registration")
-	public ModelAndView getRegistration (User user, ModelAndView model, HttpServletRequest request) {
-
+	public ModelAndView getRegistration (User user, ModelAndView model, HttpServletRequest request, Principal principal) {
+		if (principal != null) return new ModelAndView("redirect:/");
 		setBtn_title("Зарегистрироваться");
 		return super.getMain(model, request);
 	}
@@ -136,20 +129,9 @@ public class Controllers extends MainControllers {
 		users.setOs(browser.getOs());
 		users.setDisplay(true);
 
-		Roles roles;
-		try {
-			roles = roleRepository.findByName(Roles.USER).orElseThrow().getName();
-		} catch (Exception e) {
-			roles = Roles.USER;
-		}
-		Roles finalR = roles;
-		users.setRoles(new HashSet<>(){
-			{
-				add(new Role(finalR));
-			}
-		});
+		users.setRoles(Roles.USER);
 //		users.setRole(null);
-		System.out.println(users.getRole());
+		System.out.println(users.getRoles());
 		setUser(users);
 			usersService.save(users);
 		try {
@@ -159,20 +141,20 @@ public class Controllers extends MainControllers {
 			return new ModelAndView("redirect:/registration");
 		}
 
-		Users u = usersService.findByLogin(users.getLogin());
-		List<Matches> matches = matchesService.findAll();
-		List<Prognosis> prognoses = new ArrayList<>();
-		matches.forEach(
-			match -> {
-				Prognosis prognosis = new Prognosis();
-				prognosis.setMatch(match);
-				prognosis.setUser(u);
-				prognoses.add(prognosis);
-			}
-		);
+//		Users u = usersService.findByLogin(users.getLogin());
+//		List<Matches> matches = matchesService.findAll();
+//		List<Prognosis> prognoses = new ArrayList<>();
+//		matches.forEach(
+//			match -> {
+//				Prognosis prognosis = new Prognosis();
+//				prognosis.setMatch(match);
+//				prognosis.setUser(u);
+//				prognoses.add(prognosis);
+//			}
+//		);
 
 		try {
-			prognosisService.saveAll(prognoses);
+//			prognosisService.saveAll(prognoses);
 		} catch (Exception e) {
 			rollback();
 			return new ModelAndView("redirect:/registration");

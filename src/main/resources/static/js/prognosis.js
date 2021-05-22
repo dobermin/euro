@@ -1,9 +1,9 @@
 /*
 * меняем активный тур
 * */
-$(document).on('click', '#tour', function () {
-    btn_prognosis();
-})
+// $(document).on('click', '#tour', function () {
+//     btn_prognosis();
+// })
 
 function tour() {
     let $tour = $('thead select').val();

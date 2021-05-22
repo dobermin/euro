@@ -21,7 +21,7 @@ public class Next extends MyEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "usr", referencedColumnName = "id")
-	private Users user;
+	private Users usr;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tour", referencedColumnName = "id")
@@ -41,14 +41,6 @@ public class Next extends MyEntity {
 
 	public void setTeam (Teams team) {
 		this.team = team;
-	}
-
-	public Users getUser () {
-		return user;
-	}
-
-	public void setUser (Users user) {
-		this.user = user;
 	}
 
 	public Tour getTour () {

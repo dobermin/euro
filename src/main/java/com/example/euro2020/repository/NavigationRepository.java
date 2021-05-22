@@ -12,8 +12,8 @@ import java.util.List;
 public interface NavigationRepository extends CrudRepository<Navigation, Long> {
 
 //	@Query("SELECT n FROM Navigation n WHERE n.user = 'USER'")
-	List<Navigation> findAllByUserOrderBySectionAscPositionAscTitleAsc (Roles user);
+	List<Navigation> findAllByUsrOrderBySectionAscPositionAscTitleAsc (Roles user);
 
-	@Query("SELECT n FROM Navigation n WHERE n.user <> 'NONE'")
+	@Query("SELECT n FROM Navigation n WHERE n.usr <> 'NONE'")
 	List<Navigation> findAllByAdmin ();
 }

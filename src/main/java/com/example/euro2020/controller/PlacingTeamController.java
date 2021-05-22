@@ -15,12 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class PlacingController extends MainControllers {
+public class PlacingTeamController extends MainControllers {
 
 	@RequestMapping(value = "/placing")
 	public ModelAndView getRating (ModelAndView model, HttpServletRequest request, Principal principal) {
 		setUser(principal);
 		setBlocked(getConfig().configService.timeOutStartCup());
+		System.out.println(getUser());
 
 		model.addObject("teams", partyService.findAll());
 		model.addObject("placing", placingService.findByUserTeam(getUser()));
