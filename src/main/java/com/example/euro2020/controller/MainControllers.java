@@ -42,42 +42,35 @@ public class MainControllers {
 	private boolean isBlocked = false;
 	private Long timeBlocked;
 
-	private final ConfigProperties configProperties;
-	protected final ITeamsService teamsService;
-	protected final IPlayersService playersService;
-	protected final IUsersService usersService;
-	protected final IMatchesService matchesService;
-	private final INavigationService navigationService;
-	protected final ITourService tourService;
-	protected final IPrognosisService prognosisService;
-	protected final IRatingService ratingService;
-	protected final ScoreService scoreService;
-	protected final IStandingsService standingsService;
-	protected final IPartyService partyService;
-	protected final IPlacingTeamService placingService;
-	protected final INextService nextService;
+	@Autowired
+	protected ITeamsService teamsService;
+	@Autowired
+	protected IPlayersService playersService;
+	@Autowired
+	protected IUsersService usersService;
+	@Autowired
+	protected IMatchesService matchesService;
+	@Autowired
+	protected ITourService tourService;
+	@Autowired
+	protected IPrognosisService prognosisService;
+	@Autowired
+	protected IRatingService ratingService;
+	@Autowired
+	protected ScoreService scoreService;
+	@Autowired
+	protected IStandingsService standingsService;
+	@Autowired
+	protected IPartyService partyService;
+	@Autowired
+	protected IPlacingTeamService placingService;
+	@Autowired
+	protected INextService nextService;
+	@Autowired
+	private ConfigProperties configProperties;
+	@Autowired
+	private INavigationService navigationService;
 
-	public MainControllers (IMatchesService matchesService, ConfigProperties configProperties,
-	                        ITeamsService teamsService, IPlayersService playersService, IUsersService usersService
-		, IPlacingTeamService placingService, INavigationService navigationService, ITourService tourService,
-		                IPrognosisService prognosisService, IPartyService partyService,
-		                INextService nextService, IRatingService ratingService, ScoreService scoreService,
-		                IStandingsService standingsService) {
-		this.matchesService = matchesService;
-		this.configProperties = configProperties;
-		this.teamsService = teamsService;
-		this.playersService = playersService;
-		this.usersService = usersService;
-		this.placingService = placingService;
-		this.navigationService = navigationService;
-		this.tourService = tourService;
-		this.prognosisService = prognosisService;
-		this.partyService = partyService;
-		this.nextService = nextService;
-		this.ratingService = ratingService;
-		this.scoreService = scoreService;
-		this.standingsService = standingsService;
-	}
 
 	public ModelAndView getMain (ModelAndView model, HttpServletRequest request) {
 		this.model = model;
