@@ -1,19 +1,26 @@
 package com.example.euro2020.service;
 
 import com.example.euro2020.entity.Config;
+import com.example.euro2020.entity.MyEntity;
 import com.example.euro2020.objects.DateTime;
 import com.example.euro2020.repository.ConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ConfigService {
+public class ConfigService{
 
 	@Autowired
 	private ConfigRepository repository;
 
 	public Config findAll() {
-		return new ArrayList<>((List<Config>) repository.findAllById(Collections.singleton(1L))).get(0);
+		return new ArrayList<>((List<Config>) repository.findAll()).get(0);
+	}
+
+	public void update(Config config) {
+		repository.deleteAll();
+		repository.save(config);
 	}
 
 	public Integer getYear() {
@@ -102,6 +109,35 @@ public class ConfigService {
 			time += getTimeTestNow() - getTimeTestStart();
 		}
 		return time;
+	}
+	public boolean isEnable() {
+		if (isWeekend()) return true;
+
+		Long timeNow = getTimeNow();
+		Long timeOpen = getTimeOpen();
+		Long timeClose = getTimeClose();
+		return !(timeNow < timeOpen &&
+			timeNow > timeClose);
+	}
+
+	private String getDate() {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		return format.format(new Date().getTime());
+	}
+
+	private boolean isWeekend() {
+		SimpleDateFormat format = new SimpleDateFormat("EEEE");
+		String str = format.format(new Date().getTime());
+		return str.equals("воскресенье") ||
+			str.equals("суббота");
+	}
+
+	private Long getTimeClose () {
+		return DateTime.getTime(findAll().getTimeEndSiteShow() + " " + getDate());
+	}
+
+	private Long getTimeOpen () {
+		return DateTime.getTime(findAll().getTimeStartSiteShow() + " " + getDate());
 	}
 
 	public boolean timeOutStartCup() {

@@ -1,14 +1,14 @@
 package com.example.euro2020.controller;
 
+import com.example.euro2020.entity.Matches;
+import com.example.euro2020.entity.Prognosis;
 import com.example.euro2020.entity.Users;
 import com.example.euro2020.objects.Browser;
 import com.example.euro2020.objects.DateTime;
 import com.example.euro2020.objects.User;
-import com.example.euro2020.security.config.jwt.JwtUtils;
 import com.example.euro2020.security.model.enums.Roles;
 import com.example.euro2020.security.model.enums.Status;
 import com.example.euro2020.security.repository.UsersSecurityRepository;
-import com.example.euro2020.security.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,16 +27,17 @@ import javax.validation.Valid;
 import java.net.InetAddress;
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @SessionAttributes("user")
 public class Controllers extends MainControllers {
 
+	@Autowired
 	private final PasswordEncoder passwordEncoder;
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	@Autowired
-	private JwtUtils jwtUtils;
 	@Autowired
 	private UsersSecurityRepository usersSecurityRepository;
 
@@ -55,39 +56,19 @@ public class Controllers extends MainControllers {
 		setBtn_title("Авторизоваться");
 		if (loginError) {
 			model.addObject("error", true);
-		} else {
-//			String jwt = jwtUtils.generateJwtToken(authentication);
-//
-//			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//			List<String> roles = userDetails.getAuthorities().stream()
-//				.map(item -> item.getAuthority())
-//				.collect(Collectors.toList());
-
-//			return ResponseEntity.ok(
-//				new JwtResponse(
-//					jwt,
-//					userDetails.getId(),
-//					userDetails.getUsername(),
-//					roles
-//				));
 		}
 		return super.getMain(model, request);
 	}
 	@PostMapping(value = "/authorization")
 	public ModelAndView auth(User user, HttpSession session) {
 
-		System.out.println(user);
 		if (user.getLogin() != null) {
 
 			Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(
 					user.getLogin(),
 					user.getPassword()));
-//			System.out.println(authentication.getPrincipal());
-//
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-			String jwt = jwtUtils.generateJwtToken(authentication);
-			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 			session.setAttribute("user", user);
 		}
 
@@ -130,41 +111,38 @@ public class Controllers extends MainControllers {
 		users.setDisplay(true);
 
 		users.setRoles(Roles.USER);
-//		users.setRole(null);
-		System.out.println(users.getRoles());
+
 		setUser(users);
-			usersService.save(users);
 		try {
+			usersService.save(users);
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace()[0].getFileName());
 			rollback();
 			return new ModelAndView("redirect:/registration");
 		}
 
-//		Users u = usersService.findByLogin(users.getLogin());
-//		List<Matches> matches = matchesService.findAll();
-//		List<Prognosis> prognoses = new ArrayList<>();
-//		matches.forEach(
-//			match -> {
-//				Prognosis prognosis = new Prognosis();
-//				prognosis.setMatch(match);
-//				prognosis.setUser(u);
-//				prognoses.add(prognosis);
-//			}
-//		);
+		Users u = usersService.findByLogin(users.getLogin());
+		List<Matches> matches = matchesService.findAll();
+		List<Prognosis> prognoses = new ArrayList<>();
+		matches.forEach(
+			match -> {
+				Prognosis prognosis = new Prognosis();
+				prognosis.setMatch(match);
+				prognosis.setUsr(u);
+				prognoses.add(prognosis);
+			}
+		);
 
 		try {
-//			prognosisService.saveAll(prognoses);
+			prognosisService.saveAll(prognoses);
 		} catch (Exception e) {
 			rollback();
 			return new ModelAndView("redirect:/registration");
-//			return null;
 		}
-//		return null;
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	@PostMapping(value = "/logout")
 	public ModelAndView getRegistrationCheck () {
 		return new ModelAndView("redirect:/");
 	}

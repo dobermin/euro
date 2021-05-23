@@ -19,6 +19,8 @@ public interface IPlacingTeamService extends IService<PlacingTeam> {
 
 	List<PlacingTeam> findByUser (Users user);
 
+	List<PlacingTeam> findByUserAndPosition (Users user, int position);
+
 	Integer getPoints (Users user, ConfigService configService);
 
 	Map<Users, Integer> getPoints (List<Users> users, ConfigService configService);

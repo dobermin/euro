@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface PlacingTeamRepository extends CrudRepository<PlacingTeam, Long> {
 
+	List<PlacingTeam> findAllByUsrAndPositionLessThanEqualOrderByTeamsAsc (Users user, int position);
 	List<PlacingTeam> findByUsr (Users user);
 	List<PlacingTeam> findByTeamsAndUsr(Teams team, Users user);
 

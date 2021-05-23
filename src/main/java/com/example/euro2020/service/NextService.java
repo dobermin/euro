@@ -23,7 +23,7 @@ public class NextService implements INextService {
 	@Override
 	public List<Next> findAll() {
 		List<Next> list = new ArrayList<>((List<Next>) repository.findAll());
-		list.sort(Comparator.comparing(o -> o.getTeam().getTeams()));
+		list.sort(Comparator.comparing(o -> o.getTeams().getTeams()));
 		return list;
 	}
 
@@ -39,7 +39,7 @@ public class NextService implements INextService {
 
 	@Override
 	public Next findByTeamAndUser (Teams team, Users user) {
-		return new ArrayList<>(repository.findByTeamAndUsr(team, user)).get(0);
+		return new ArrayList<>(repository.findByTeamsAndUsr(team, user)).get(0);
 	}
 
 	@Override
@@ -61,12 +61,12 @@ public class NextService implements INextService {
 
 	@Override
 	public void deleteByTeamAndUser (Teams team, Users user) {
-		repository.deleteByTeamAndUsr(team, user);
+		repository.deleteByTeamsAndUsr(team, user);
 	}
 
 	@Override
 	public void deleteByUser (Users user) {
-		repository.deleteByUsr(user);
+		repository.deleteAllByUsr(user);
 	}
 
 	public void save (List<Teams> teams, Tour tour, Users user) throws Exception {
@@ -74,7 +74,7 @@ public class NextService implements INextService {
 		for (Teams t : teams) {
 			Next next = new Next();
 			next.setTour(tour);
-			next.setTeam(t);
+			next.setTeams(t);
 			next.setUsr(user);
 			save(next);
 		}

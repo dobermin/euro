@@ -109,6 +109,7 @@ public class PrognosisService implements IPrognosisService {
 			}
 			prognosis.setMatch(match);
 			prognosis.setUsr(user);
+
 			repository.save(prognosis);
 		}
 	}

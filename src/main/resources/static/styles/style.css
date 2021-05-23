@@ -336,6 +336,9 @@ main .center .standing table {
       width: 30px;
       display: block;
       margin: 0 auto; }
+      main .center .standing table tr td label input[type='text'] {
+        width: 100%;
+      }
       main .center .standing table tr td input[type='button'] {
         width: 200px; }
     main .center .standing table tr td #tour {
@@ -535,7 +538,7 @@ main .center .write {
   -o-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg); }
-main .center .reconstruction {
+main .reconstruction {
   display: block;
   margin: 0 auto;
   width: 60%; }

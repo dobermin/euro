@@ -1,13 +1,21 @@
-<!doctype html>
-<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml" th:with="baseUrl=(${url})">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Страница не найдена</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="refresh" content="" />
+    <meta http-equiv="Cache-Control" content="no-cache">
+
+    <link th:href="${baseUrl} + @{images/ico.ico}" rel=" shortcut icon" type="image/x-icon"/>
+    <link th:href="${baseUrl} + @{styles/style.css}" rel="stylesheet" />
+    <title>Сайт закрыт</title>
 </head>
 <body>
-    <p th:text="${message}"></p>
+<main class="d-flex flex-column">
+    <h1 class="align-content-center" style="margin: 2% auto; font-size: 4em">Сайт закрыт. Попробуйте позднее.</h1>
+    <img class="reconstruction d-block" alt="Сайт закрыт" th:src="${baseUrl} + @{images/reconstruction.png}" src=""/>
+</main>
+<footer>
+</footer>
 </body>
 </html>

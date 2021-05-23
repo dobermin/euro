@@ -1,4 +1,4 @@
-<th:block  xmlns:th="http://www.w3.org/1999/xhtml" th:with="count = ${4 * a + b}, team = ${tour == 4} ? ${placings[count].team.teams} : ${!teamsQuarter.empty ? teamsQuarter[count] : ''}">
+<th:block  xmlns:th="http://www.w3.org/1999/xhtml" th:with="count = ${4 * a + b}, team = ${tour == 4} ? ${placings[count].teams.teams} : ${!teamsQuarter.empty ? teamsQuarter[count] : ''}">
 <td th:if="${count < 18}">
     <label
            th:text="${team}">%team%</label>

@@ -1,6 +1,6 @@
 <th:block xmlns:th="http://www.w3.org/1999/xhtml">
 <td colspan="9">
-    <span>Кто пройдёт в 1/4  финала. Осталось выбрать <span class=change_1_4 th:text="${8 - #lists.size(teamsQuarter)}"></span></span>
+    <span>Кто пройдёт в 1/4  финала. Осталось выбрать <span class=change_1_4 th:text="${8 - teamsQuarter.size()}"></span></span>
 </td>
 <tr>
     <span th:include="next-head-td" th:remove="tag" th:each="a : ${#numbers.sequence(0, 3)}"></span>

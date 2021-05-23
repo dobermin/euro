@@ -3,12 +3,10 @@ package com.example.euro2020.controller;
 import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.Navigation;
 import com.example.euro2020.entity.Users;
-import com.example.euro2020.objects.MyMatcher;
+import com.example.euro2020.objects.Browser;
 import com.example.euro2020.objects.User;
 import com.example.euro2020.security.model.enums.Roles;
 import com.example.euro2020.service.*;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,38 +42,60 @@ public class MainControllers {
 	private boolean isBlocked = false;
 	private Long timeBlocked;
 
-	@Autowired
-	private ConfigProperties configProperties;
-	@Autowired
-	protected ITeamsService teamsService;
-	@Autowired
-	protected IPlayersService playersService;
-	@Autowired
-	protected IUsersService usersService;
-	@Autowired
-	protected IMatchesService matchesService;
-	@Autowired
-	private INavigationService navigationService;
-	@Autowired
-	protected ITourService tourService;
-	@Autowired
-	protected IPrognosisService prognosisService;
-	@Autowired
-	protected IRatingService ratingService;
-	@Autowired
-	protected ScoreService scoreService;
-	@Autowired
-	protected IStandingsService standingsService;
-	@Autowired
-	protected IPartyService partyService;
-	@Autowired
-	protected IPlacingTeamService placingService;
-	@Autowired
-	protected INextService nextService;
+	private final ConfigProperties configProperties;
+	protected final ITeamsService teamsService;
+	protected final IPlayersService playersService;
+	protected final IUsersService usersService;
+	protected final IMatchesService matchesService;
+	private final INavigationService navigationService;
+	protected final ITourService tourService;
+	protected final IPrognosisService prognosisService;
+	protected final IRatingService ratingService;
+	protected final ScoreService scoreService;
+	protected final IStandingsService standingsService;
+	protected final IPartyService partyService;
+	protected final IPlacingTeamService placingService;
+	protected final INextService nextService;
+
+	public MainControllers (IMatchesService matchesService, ConfigProperties configProperties,
+	                        ITeamsService teamsService, IPlayersService playersService, IUsersService usersService
+		, IPlacingTeamService placingService, INavigationService navigationService, ITourService tourService,
+		                IPrognosisService prognosisService, IPartyService partyService,
+		                INextService nextService, IRatingService ratingService, ScoreService scoreService,
+		                IStandingsService standingsService) {
+		this.matchesService = matchesService;
+		this.configProperties = configProperties;
+		this.teamsService = teamsService;
+		this.playersService = playersService;
+		this.usersService = usersService;
+		this.placingService = placingService;
+		this.navigationService = navigationService;
+		this.tourService = tourService;
+		this.prognosisService = prognosisService;
+		this.partyService = partyService;
+		this.nextService = nextService;
+		this.ratingService = ratingService;
+		this.scoreService = scoreService;
+		this.standingsService = standingsService;
+	}
 
 	public ModelAndView getMain (ModelAndView model, HttpServletRequest request) {
 		this.model = model;
 		this.request = request;
+
+		model.addObject("url", "https://cup-app.herokuapp.com/");
+//		model.addObject("url", "http://localhost:5000/");
+
+		Browser browser = new Browser(request);
+		String os = browser.getOs();
+		if (os.equals("Windows"))
+			if (
+				!getConfig().configService.isEnable()
+			) {
+				model.setViewName("404");
+				return model;
+			}
+
 		model.addObject("title", getTitle() + " | " + configProperties.configService.getTitle());
 		model.addObject("year", configProperties.configService.getYear());
 		model.addObject("header", "navigation");
@@ -90,8 +109,6 @@ public class MainControllers {
 		model.addObject("thead", getThead());
 		model.addObject("tbody", getTbody());
 		model.addObject("tfoot", getTfoot());
-		model.addObject("url", "https://cup-app.herokuapp.com/");
-//		model.addObject("url", "http://localhost:5000/");
 		model.addObject("isActive", isActive);
 		model.addObject("isBlocked", isBlocked);
 		model.addObject("timeBlocked", timeBlocked);
@@ -102,26 +119,6 @@ public class MainControllers {
 
 		return model;
 	}
-
-	protected List<String> getListFromElements (Elements elements, String s) {
-		List<String> list = new ArrayList<>();
-		for (Element element : elements) {
-			if ("src".equals(s)) {
-				list.add(MyMatcher.find(element.attr(s), "/[a-z]*").get(2).substring(1));
-			} else {
-				try {
-					list.add(element.parent().text());
-				} catch (Exception e) {
-					list.add(element.text());
-				}
-			}
-		}
-		return list;
-	}
-
-//	protected List<String> getListFromElements (Elements elements) {
-//		return getListFromElements(elements, "");
-//	}
 
 	public String getTitle () {
 		setTitle("");
@@ -150,11 +147,6 @@ public class MainControllers {
 		this.title = title;
 	}
 
-//	private void setCenter (String center) {
-//		this.controller = center;
-//		if (center.isEmpty()) ;
-//	}
-
 	private String getCenter () {
 		controller = getUri();
 		switch (getUri()) {
@@ -165,6 +157,8 @@ public class MainControllers {
 				return "registration";
 			case "authorization-check":
 				return "authorization";
+			case "error":
+				return "center";
 			default:
 				return "standing";
 		}

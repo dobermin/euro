@@ -1,9 +1,6 @@
 package com.example.euro2020.security.config;
 
-import com.example.euro2020.security.config.jwt.AuthEntryPointJwt;
-import com.example.euro2020.security.config.jwt.AuthTokenFilter;
 import com.example.euro2020.security.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,60 +11,44 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	UserDetailsServiceImpl userDetailsService;
-	
-	@Autowired
-	private AuthEntryPointJwt unauthorizedHandler;
-	
-	@Bean
-	public AuthTokenFilter authenticationJwtTokenFilter() {
-		return new AuthTokenFilter();
+
+	private final UserDetailsServiceImpl userDetailsService;
+
+	public WebSecurityConfig (UserDetailsServiceImpl userDetailsService) {
+		this.userDetailsService = userDetailsService;
 	}
-	
+
 	@Override
-	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+	public void configure (AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
-	
+
 	@Bean
 	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
+	public AuthenticationManager authenticationManagerBean () throws Exception {
 		return super.authenticationManagerBean();
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder () {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
+	protected void configure (HttpSecurity http) throws Exception {
+
 		http
 			.cors().and()
 			.csrf().disable()
 			.authorizeRequests()
-//			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//			.authorizeRequests()
-
-//			.antMatchers(
-//				"/champion/**"
-//			).hasAnyAuthority("ROLE_USER")
-
 			.antMatchers(
 				"/styles/**", "/js/**", "/images/**", "/bootstrap/**", "/fonts/**",
-				"/", "/groups", "/registration**", "/authorization**", "/football**", "/templates" +
-					"/football_files1**", "/api/**"
+				"/", "/groups", "/registration**", "/authorization**", "/templates"
 			).permitAll()
 			.anyRequest()
 			.authenticated()
@@ -84,10 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.clearAuthentication(true)
 			.deleteCookies("JSESSIONID")
 			.logoutSuccessUrl("/");
-		
-//		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 	}
 
-	
+
 }

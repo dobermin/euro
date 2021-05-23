@@ -1,3 +1,12 @@
+CREATE TABLE IF NOT EXISTS public.navigation
+(
+    id       bigint,
+    link     varchar(255),
+    position integer,
+    section  varchar(255),
+    title    varchar(255),
+    usr      varchar(255)
+);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (1, 'rating', 'Рейтинг', 'Информация', 'USER', 2);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (2, 'forecast', 'Прогнозы других участников', 'Информация', 'USER', 2);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (3, 'groups', 'Группы', 'Информация', 'USER', 2);
@@ -15,7 +24,7 @@ INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (15, 'set_prognosis_points', 'Установить очки за прогноз', 'Работа с данными', 'ADMIN', 2);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (16, 'get_rating', 'Получить рейтинг', 'Работа с данными', 'ADMIN', 2);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (18, 'set_matches_po', 'Установить матчи для playoff', 'Тест', 'ADMIN', 2);
-INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (20, 'settings', '', 'Настройки', 'NONE', 4);
+INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (20, 'settings', '', 'Настройки', 'ADMIN', 4);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (21, 'news', '', 'Новости', 'NONE', 10);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (22, 'get_player', 'Получить составы', 'Работа с данными', 'ADMIN', 10);
 INSERT INTO public.navigation (id, link, title, section, usr, position) VALUES (23, 'journal', 'Журнал', 'Информация', 'ADMIN', 4);

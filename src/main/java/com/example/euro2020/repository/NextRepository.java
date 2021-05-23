@@ -14,11 +14,9 @@ public interface NextRepository extends CrudRepository<Next, Long> {
 
 	List<Next> findByTourAndUsr (Tour tour, Users user);
 
-	List<Next> findByTeamAndUsr (Teams team, Users user);
+	List<Next> findByTeamsAndUsr (Teams team, Users user);
 
-	void deleteByTeamAndUsr (Teams team, Users user);
-
-	void deleteByUsr (Users user);
+	void deleteByTeamsAndUsr (Teams team, Users user);
 
 	void deleteAllByUsr (Users user);
 }

@@ -190,7 +190,7 @@ public class RatingService implements IRatingService {
 				List<Next> next = nextService.findByTourAndUser(tours.get(4), user);
 				List<Teams> teams = matchesService.findTeamsByTour(tours.get(4));
 				for (Next n : next) {
-					if (teams.contains(n.getTeam()))
+					if (teams.contains(n.getTeams()))
 						prognosisQuarter++;
 				}
 			} else {
@@ -206,7 +206,7 @@ public class RatingService implements IRatingService {
 				List<Next> next = nextService.findByTourAndUser(tours.get(5), user);
 				List<Teams> teams = matchesService.findTeamsByTour(tours.get(5));
 				for (Next n : next) {
-					if (teams.contains(n.getTeam()))
+					if (teams.contains(n.getTeams()))
 						prognosisSemi++;
 				}
 			} else {

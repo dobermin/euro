@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,11 +67,15 @@ public class TeamsService implements ITeamsService {
 
 	@Override
 	public List<String> getTeamsFromNext (List<Next> next) {
-		return next.stream()
-			.map(s -> s.getTeam().getTeams())
-			.reduce((o1, o2) -> o1)
-			.stream()
-			.collect(Collectors.toList());
+		List<String> list = new ArrayList<>();
+		next.forEach(
+			s -> {
+				list.add(s.getTeams().getTeams());
+			}
+		);
+		list.sort(String::compareTo);
+
+		return list;
 	}
 
 	public void getInfo (ConfigProperties configProperties) {
@@ -129,23 +132,16 @@ public class TeamsService implements ITeamsService {
 	public List<Teams> getTeamsFromString (List<String> next) {
 		List<Teams> list = new ArrayList<>(findAll());
 		List<Teams> teams = new ArrayList<>();
-		try {
-			if (next.size() != 0) {
-				List<String> finalNext = next.stream()
-					.filter(Objects::nonNull)
-					.collect(Collectors.toList());
-				for (int i = 0; i < list.size(); i++) {
-					int finalI = i;
-					teams.add(
-						list.stream()
-							.filter(x -> x.getTeams().equals(finalNext.get(finalI)))
-							.findFirst().orElse(null)
-					);
+		if (next.size() != 0) {
+			next.forEach(
+				t -> {
+					Teams team = list.stream()
+						.filter(s -> s.getTeams().equals(t))
+						.findFirst().orElse(null);
+					teams.add(team);
 				}
-			}
+			);
 			return teams;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
 		}
 		return null;
 	}

@@ -9,8 +9,7 @@ import javax.persistence.*;
 public class Config {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private Long id;
+	private Long id = 1L;
 
 	@Column(name = "year_matches")
 	private Integer yearMatches;

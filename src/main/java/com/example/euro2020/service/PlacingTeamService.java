@@ -88,6 +88,16 @@ public class PlacingTeamService implements IPlacingTeamService {
 	}
 
 	@Override
+	public List<PlacingTeam> findByUserAndPosition (Users user, int position) {
+		try {
+			List<PlacingTeam> list =  new ArrayList<>(placingRepository.findAllByUsrAndPositionLessThanEqualOrderByTeamsAsc(user, position));
+			return list;
+		} catch (Exception e) {
+			return new ArrayList<>();
+		}
+	}
+
+	@Override
 	public void deleteByTeamAndUser (Teams team, Users user) {
 		placingRepository.deleteByTeamsAndUsr(team, user);
 	}

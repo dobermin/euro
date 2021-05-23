@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -58,9 +59,9 @@ public class NextController extends MainControllers {
 	@PostMapping(value = "/next_save", produces = {"application/json; charset=UTF-8"})
 	@ResponseBody
 	@Transactional
-	public boolean save (@RequestBody Map<String, List<Teams>> map, Principal principal) {
-		List<Teams> tour_4 = map.get("tour_4");
-		List<Teams> tour_2 = map.get("tour_2");
+	public boolean save (@RequestBody Map<String, List<String>> map, Principal principal) {
+		List<Teams> tour_4 = teamsService.getTeamsFromString( map.get("tour_4"));
+		List<Teams> tour_2 = teamsService.getTeamsFromString( map.get("tour_2"));
 		try {
 			nextService.deleteByUser(getUser(principal));
 			List<Tour> tours = tourService.findAll();

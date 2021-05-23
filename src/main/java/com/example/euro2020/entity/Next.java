@@ -2,6 +2,7 @@ package com.example.euro2020.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -16,14 +17,14 @@ public class Next extends MyEntity {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "team", referencedColumnName = "id")
-	private Teams team;
+	@JoinColumn(name = "teams", referencedColumnName = "id")
+	private Teams teams;
 
 	@ManyToOne
 	@JoinColumn(name = "usr", referencedColumnName = "id")
 	private Users usr;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "tour", referencedColumnName = "id")
 	private Tour tour;
 
@@ -33,14 +34,6 @@ public class Next extends MyEntity {
 
 	public void setId (Long id) {
 		this.id = id;
-	}
-
-	public Teams getTeam () {
-		return team;
-	}
-
-	public void setTeam (Teams team) {
-		this.team = team;
 	}
 
 	public Tour getTour () {
