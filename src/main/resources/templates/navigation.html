@@ -8,14 +8,16 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <li class="nav-item" th:each="n : ${navigation}" th:classappend="${n.value[0].title != ''} ?  dropdown" >
+            <li class="nav-item" th:each="n : ${navigation}" th:classappend="${n.value[0].title != ''} ?  dropdown">
                 <div th:replace="${n.value[0].title != ''} ? ~{fragments/nav :: nav-link-dropdown} : ~{fragments/nav :: nav-link}"></div>
             </li>
+            <th:block th:if="${isActive}">
+                <li>
+                    <form action="/logout" method="POST">
+                        <button class="logout" type="submit">Выйти</button>
+                    </form>
+                </li>
+            </th:block>
         </ul>
     </div>
-    <th:block th:if="${isActive}">
-    <form action="/logout" method="POST">
-        <button type="submit" class="logout">Выйти</button>
-    </form>
-    </th:block>
 </nav>

@@ -23,7 +23,7 @@ function LoadingStyle($bool) {
         $($loader).fadeOut($out);
         $('.overlay').fadeOut($out);
         $($messages).fadeIn($in);
-        $($messages).fadeOut(4 * $out);
+        $($messages).fadeOut(2 * $out);
     }
 }
 
@@ -31,6 +31,7 @@ function LoadingStyle($bool) {
 * сделать прогноз
 * */
 function post($url, $data, $function) {
+    LoadingStyle(true)
     $.ajax({
         url: "/" + $url,
         contentType: "application/json; charset=UTF-8",
@@ -39,6 +40,7 @@ function post($url, $data, $function) {
         data: JSON.stringify($data),
         success: function (result) {
             $function(result)
+            LoadingStyle(false)
         }
     });
 }
@@ -75,7 +77,6 @@ function resultMessage(result) {
             $($messages).removeClass("error");
             // $($button).hide();
         }
-        LoadingStyle(false);
     } catch (e) {
         $($messages).text(ERROR);
         $($messages).addClass("error");

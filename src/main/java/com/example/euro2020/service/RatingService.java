@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class RatingService implements IRatingService {
@@ -25,13 +25,15 @@ public class RatingService implements IRatingService {
 	private INextService nextService;
 	@Autowired
 	private IMatchesService matchesService;
+	@Autowired
+	private IPlayersService playersService;
 
 	public RatingService (RatingRepository repository) {
 		this.repository = repository;
 	}
 
 	@Override
-	public List<Rating> findAll() {
+	public List<Rating> findAll () {
 		return new ArrayList<>(repository.findAll(orderByPointsAsc()));
 	}
 
@@ -42,7 +44,11 @@ public class RatingService implements IRatingService {
 
 	@Override
 	public Rating findByUser (Users user) {
-		return new ArrayList<>(repository.findByUsr(user)).get(0);
+		try {
+			return new ArrayList<>(repository.findByUsr(user)).get(0);
+		} catch (Exception e) {
+			return new Rating();
+		}
 	}
 
 	@Override
@@ -75,23 +81,22 @@ public class RatingService implements IRatingService {
 	public List<Player> getBombardier(Document document) {
 
 		String str = document.select("#table31").first().select("tr").get(3).select("td").get(1).text();
-//		String str = "Гарет БЭЙЛ (Уэльс), Оливье ЖИРУ (Франция), КРИШТИАНУ РОНАЛДУ (Португалия), Альваро МОРАТА (Испания), НАНИ (Португалия), Димитри ПАЙЕ (Франция).";
 
-		String reg = "\\s\\(.*";
+		String reg = "\\s\\([А-Яа-я\\s\\d]*\\)";
+		str = str.replaceAll(", ", "");
 
-//		List<Player> player = Stream.of(str.split(", ").clone())
-//			.map(
-//				s -> s.replaceAll(reg, "")
-//			)
-//			.map(
-//				s -> Arrays.stream(s.toLowerCase().split(" "))
-//					.map(x -> x.substring(0, 1).toUpperCase(Locale.ROOT) + x.substring(1))
-//					.collect(Collectors.joining(" "))
-//			)
-//			.map(s -> playersService.findByPlayer(s))
-//			.collect(Collectors.toList());
-
-		return null;
+		return Stream.of(str.split(reg).clone())
+			.map(
+				s -> s.replaceAll(reg, "")
+			)
+			.filter(f -> !f.equals("."))
+			.map(
+				m -> Arrays.stream(m.toLowerCase().split(" "))
+					.map(x -> x.substring(0, 1).toUpperCase(Locale.ROOT) + x.substring(1))
+					.collect(Collectors.joining(" "))
+			)
+			.map(s -> playersService.findByPlayer(s))
+			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -116,7 +121,7 @@ public class RatingService implements IRatingService {
 
 		for (Users user : users) {
 
-			Rating rating =findByUser(user);
+			Rating rating = findByUser(user);
 
 			int points = 0;
 			int score = 0;
@@ -132,14 +137,17 @@ public class RatingService implements IRatingService {
 			int prognosisQuarter = 0;
 			int prognosisSemi = 0;
 
-			List<Prognosis> prognoses = user.getPrognosis();
+			List<Prognosis> prognoses = user.getPrognosis().stream()
+				.filter(f -> f.getMatch().getTimestamp().getTime() < configService.getTimeNow())
+				.collect(Collectors.toList());
 
 			for (Prognosis prognosis : prognoses) {
 
 				if (prognosis.getPoints() != null) {
-
 					int point = prognosis.getPoints();
-					boolean bool = prognosis.getMatch().getTour().getTour().toLowerCase().contains("тур");
+
+					boolean bool =
+						prognosis.getMatch().getTour().getTour().toLowerCase().contains("тур");
 					if (bool) {
 						if (configService.getScore() == point) score++;
 						else if (configService.getDifference() == point) difference++;
@@ -173,8 +181,8 @@ public class RatingService implements IRatingService {
 				List<PlacingTeam> placings = placingService.findByUser(user);
 				for (PlacingTeam placing : placings) {
 					int position = placing.getPosition();
-//					if (position == placing.getTeam().getStanding().getPosition())
-//						teamPlacingTeam++;
+					if (position == placing.getTeams().getStanding().getPosition())
+						teamPlacingTeam++;
 				}
 			} else {
 				try {
@@ -201,7 +209,8 @@ public class RatingService implements IRatingService {
 			points += prognosisQuarter * configService.getPrognosisQuarter();
 
 			if (
-				configService.getTimeNow() > configService.getCupFourEnd()
+				configService.getTimeNow() > configService.getCupFourEnd() &&
+					configService.getTimeNow() < configService.getCupEnd()
 			) {
 				List<Next> next = nextService.findByTourAndUser(tours.get(5), user);
 				List<Teams> teams = matchesService.findTeamsByTour(tours.get(5));

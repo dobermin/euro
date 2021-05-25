@@ -1,6 +1,7 @@
-<tr xmlns:th="http://www.w3.org/1999/xhtml" th:each="user, iter : ${users}" th:classappend="${userActive == user.user} ? active : ''">
+<tr th:classappend="${userActive == user.usr} ? active : ''" th:each="user, iter : ${users}"
+    xmlns:th="http://www.w3.org/1999/xhtml">
     <td th:text="${iter.count}">%number%</td>
-    <td th:text="${user.user.firstName + ' ' + user.user.lastName}">%user%</td>
+    <td th:text="${user.usr.firstName + ' ' + user.usr.lastName}">%user%</td>
     <td th:text="${user.score}">%score%</td>
     <td th:text="${user.difference}">%difference%</td>
     <td th:text="${user.winner}">%winner%</td>

@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PrognosisController extends MainControllers {
@@ -75,7 +77,7 @@ public class PrognosisController extends MainControllers {
 	}
 
 	private void setModel (ModelAndView model, List<Matches> matches, Tour tourSelect, Principal principal) {
-		List<Prognosis> prognoses = prognoses = prognosisService.findByUserAndTour(getUser(principal), tourSelect);
+		List<Prognosis> prognoses = prognosisService.findByUserAndTour(getUser(principal), tourSelect);
 		List<Tour> tours = tourService.findActual(matches);
 		matches = matchesService.findByTour(tourSelect);
 		List<String> color = getConfig().getColorClass(prognoses);

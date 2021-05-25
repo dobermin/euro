@@ -108,17 +108,29 @@ body {
     min-width: 30%;
     margin-left: -15%;
     text-align: center;
-    box-shadow: 3px 3px 3px white, -3px -3px 2px #999; }
-  body button.value-default, body button[name="default"] {
-    position: initial;
-    left: initial;
-    bottom: 0;
-    padding: 3px;
-    margin-left: initial;
-    margin-top: 5px; }
-	
+    box-shadow: 3px 3px 3px white, -3px -3px 2px #999;
+  }
+
+.logout {
+  margin: 0 auto;
+  display: table;
+  border-radius: 50%;
+  color: #3caa3c;
+  border: 3px solid rgba(255, 255, 255, 0.7) !important;
+  font-weight: bold;
+}
+
+body button.value-default, body button[name="default"] {
+  position: initial;
+  left: initial;
+  bottom: 0;
+  padding: 3px;
+  margin-left: initial;
+  margin-top: 5px;
+}
+
 .inline {
-	display: flex;
+  display: flex;
   justify-content: center;
 }
 .inline span {

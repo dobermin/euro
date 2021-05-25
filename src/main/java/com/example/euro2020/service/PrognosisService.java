@@ -22,7 +22,7 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<Prognosis> findAll () {
-		return new ArrayList<>(repository.findAll());
+		return new ArrayList<>((List<Prognosis>) repository.findAll());
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<Prognosis> findByTour (Users user, Tour tour) {
-		List<Prognosis> list = new ArrayList<>(repository.findByUsrAndMatch_Tour(user, tour));
+		List<Prognosis> list = new ArrayList<>(repository.findAllByUsrAndMatchTour(user, tour));
 		list.sort(Comparator.comparing(Prognosis::getId));
 		return list;
 	}
@@ -183,7 +183,8 @@ public class PrognosisService implements IPrognosisService {
 									)
 							) ||
 							(
-								p_next == m_next
+								p_next != null &&
+									p_next == m_next
 							) ||
 							(
 								p_next == matches.getTeamHome() && m_home > m_away
