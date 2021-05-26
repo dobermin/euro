@@ -58,6 +58,9 @@ switch ($url) {
     case 'settings':
         $.getScript('js/settings.js');
         break;
+    case 'users':
+        $.getScript('js/users.js');
+        break;
 }
 
 $(document).on('click', 'input[type="radio"]', function () {

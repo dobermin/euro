@@ -18,7 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +54,8 @@ public class Controllers extends MainControllers {
 	}
 
 	@GetMapping(value = "/authorization")
-	public ModelAndView getAuthorization (User user, @RequestParam(value = "error", defaultValue = "false") boolean loginError, ModelAndView model, HttpServletRequest request, Principal principal) {
+	public ModelAndView getAuthorization (User user,
+	                                      @RequestParam(value = "error", defaultValue = "false") boolean loginError, ModelAndView model, HttpServletRequest request, Principal principal) {
 		if (principal != null) return new ModelAndView("redirect:/");
 		setBtn_title("Авторизоваться");
 		if (loginError) {
@@ -59,8 +63,9 @@ public class Controllers extends MainControllers {
 		}
 		return super.getMain(model, request);
 	}
+
 	@PostMapping(value = "/authorization")
-	public ModelAndView auth(User user, HttpSession session) {
+	public ModelAndView auth (User user, HttpSession session) {
 
 		if (user.getLogin() != null) {
 
@@ -76,7 +81,8 @@ public class Controllers extends MainControllers {
 	}
 
 	@GetMapping(value = "/registration")
-	public ModelAndView getRegistration (User user, ModelAndView model, HttpServletRequest request, Principal principal) {
+	public ModelAndView getRegistration (User user, ModelAndView model, HttpServletRequest request,
+	                                     Principal principal) {
 		if (principal != null) return new ModelAndView("redirect:/");
 		setBtn_title("Зарегистрироваться");
 		return super.getMain(model, request);
@@ -85,7 +91,7 @@ public class Controllers extends MainControllers {
 	@PostMapping(value = "/registration")
 	@Transactional
 	public ModelAndView getRegistrationCheck (@Valid User user, BindingResult bindingResult, ModelAndView model,
-	                                          HttpServletRequest request) throws Exception {
+	                                          HttpServletRequest request, HttpSession session) throws Exception {
 
 		if (bindingResult.hasErrors()) {
 			return super.getMain(model, request);
@@ -139,7 +145,19 @@ public class Controllers extends MainControllers {
 			rollback();
 			return new ModelAndView("redirect:/registration");
 		}
-		return new ModelAndView("redirect:/");
+
+		if (user.getLogin() != null) {
+
+			Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(
+					user.getLogin(),
+					user.getPassword()));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			session.setAttribute("user", user);
+			setMessage("Регистрация прошла успешно");
+			return new ModelAndView("redirect:/");
+		}
+		return new ModelAndView("redirect:/authorization");
 	}
 
 	@PostMapping(value = "/logout")

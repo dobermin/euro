@@ -11,13 +11,11 @@ import java.util.List;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
-//	@Query("SELECT u FROM Users u WHERE LOWER(u.status) = LOWER(:#{#status?.toString()})")
-//	@Query("SELECT u FROM Users u WHERE u.status = :login")
-//	@Query("SELECT u FROM Users u WHERE u.login = ?")
-	List<Users> findByStatus(Status status);
+	List<Users> findByStatus (Status status);
+
 	@Query("SELECT u FROM Users u WHERE u.display = ?")
-	List<Users> findByDisplay(boolean bool);
+	List<Users> findByDisplay (boolean bool);
 
 	@Query("SELECT u FROM Users u WHERE u.login = ?")
-	 List<Users> findByLogin(String login);
+	List<Users> findByLogin (String login);
 }

@@ -15,23 +15,25 @@
   color: darkred !important;
 }
 body {
-  background: url("../images/bg.jpg") fixed center top no-repeat;
-  background-size: 100% auto;
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #e4161c; }
-  body.bg-90 {
-    background: url("../images/bg-90.jpg");
-	background-size: 100% auto;	}
-  body form label {
-    color: rgba(255, 255, 255, 0.7) !important;
+    background: url("../images/bg.jpg") repeat;
     font-weight: bold;
-    margin-bottom: 0; }
+    font-size: 1.25rem;
+    color: #e4161c;
+}
+  body.bg-90 {
+      background: url("../images/bg.jpg") repeat;
+  }
+  body form label {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: bold;
+      margin-bottom: 0;
+  }
   body a {
-    color: rgba(255, 255, 255, 0.7) !important;
-    padding-left: 10px;
-    padding-bottom: 10px;
-    text-decoration: underline; }
+      color: rgba(255, 255, 255, 0.9) !important;
+      padding-left: 10px;
+      padding-bottom: 10px;
+      text-decoration: underline;
+  }
     body a:hover, body a.active {
       text-decoration: none; }
   body img {
@@ -65,7 +67,8 @@ body {
     z-index: 4;
     display: none; }
   body .time {
-    color: rgba(255, 255, 255, 0.7) !important; }
+      color: rgba(255, 255, 255, 0.9) !important;
+  }
   body #back-top {
     display: none; }
   body .overlay {
@@ -94,30 +97,30 @@ body {
   body button[name='champion'] {
     display: none; }
   body button:not(.navbar-toggler, .logout) {
-    margin: 0 auto;
-    padding: 10px;
-    border-radius: 10px;
-    color: #3caa3c;
-    border: 3px solid rgba(255, 255, 255, 0.7) !important;
-    font-weight: bold;
-    font-size: 120%;
-    position: fixed;
-    bottom: 0%;
-    left: 50%;
-    -webkit-animation: rainbow 2s infinite linear;
-    min-width: 30%;
-    margin-left: -15%;
-    text-align: center;
-    box-shadow: 3px 3px 3px white, -3px -3px 2px #999;
+      margin: 0 auto;
+      padding: 10px;
+      border-radius: 10px;
+      color: #3caa3c;
+      border: 3px solid rgba(255, 255, 255, 0.9) !important;
+      font-weight: bold;
+      font-size: 120%;
+      position: fixed;
+      bottom: 0%;
+      left: 50%;
+      -webkit-animation: rainbow 2s infinite linear;
+      min-width: 30%;
+      margin-left: -15%;
+      text-align: center;
+      box-shadow: 3px 3px 3px white, -3px -3px 2px #999;
   }
 
 .logout {
-  margin: 0 auto;
-  display: table;
-  border-radius: 50%;
-  color: #3caa3c;
-  border: 3px solid rgba(255, 255, 255, 0.7) !important;
-  font-weight: bold;
+    margin: 0 auto;
+    display: table;
+    border-radius: 50%;
+    color: #3caa3c;
+    border: 3px solid rgba(255, 255, 255, 0.9) !important;
+    font-weight: bold;
 }
 
 body button.value-default, body button[name="default"] {
@@ -198,39 +201,44 @@ body button.value-default, body button[name="default"] {
 
 /* Style the checkmark/indicator */
 .checkbox .checkmark:after {
-  left: 11px;
-  top: 3px;
-  width: 7px;
-  height: 16px;
-  border: solid rgba(255, 255, 255, 0.7);
-  border-width: 0px 4px 4px 0px;
-  -webkit-transform: rotate(
-          45deg
-  );
-  -ms-transform: rotate(45deg);
-  transform: rotate(
-          45deg
-  );
+    left: 11px;
+    top: 3px;
+    width: 7px;
+    height: 16px;
+    border: solid rgba(255, 255, 255, 0.9);
+    border-width: 0px 4px 4px 0px;
+    -webkit-transform: rotate(
+            45deg
+    );
+    -ms-transform: rotate(45deg);
+    transform: rotate(
+            45deg
+    );
 }
+
 @-webkit-keyframes rainbow {
-  0% {
-    border-color: rgba(255, 255, 255, 0.7) !important; }
-  50% {
-    border-color: #3caa3c; }
-  100% {
-    border-color: rgba(255, 255, 255, 0.7) !important; } }
+    0% {
+        border-color: rgba(255, 255, 255, 0.9) !important;
+    }
+    50% {
+        border-color: #3caa3c;
+    }
+    100% {
+        border-color: rgba(255, 255, 255, 0.9) !important;
+    }
+}
   body .messages {
-    background-color: rgba(255, 255, 255, 0.7) !important;
-    color: #3caa3c;
-    position: fixed;
-    text-align: center;
-    top: 40%;
-    padding: 20px;
-    border-radius: 20px;
-    z-index: 4;
-    width: 35%;
-    margin: 0 auto;
-    left: 0;
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      color: #3caa3c;
+      position: fixed;
+      text-align: center;
+      top: 40%;
+      padding: 20px;
+      border-radius: 20px;
+      z-index: 4;
+      width: 35%;
+      margin: 0 auto;
+      left: 0;
     right: 0; }
   body input {
     border: 2px solid;
@@ -238,8 +246,9 @@ body button.value-default, body button[name="default"] {
     font-weight: bold;
     padding: 0 5px 2px; }
   body .dropdown-menu {
-    background: rgba(255, 255, 255, 0.7) !important;
-    border: none; }
+      background: rgba(255, 255, 255, 0.9) !important;
+      border: none;
+  }
     body .dropdown-menu .dropdown-item {
       color: #3caa3c !important;
       font-weight: bold;
@@ -314,23 +323,29 @@ header {
     margin-bottom: .2rem; }
 
 @media screen and (max-width: 991px) {
-  header .navbar-nav .nav-item {
-    background: #3caa3c;
-    width: 50%;
-    margin: 0 auto;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.7) !important; } }
+    header .navbar-nav .nav-item {
+        background: #3caa3c;
+        width: 50%;
+        margin: 0 auto;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.9) !important;
+    }
+}
+
 @media screen and (max-width: 575px) {
-  header {
-    padding: 10px; } }
+    header {
+        padding: 10px;
+    }
+}
 main .left {
   text-align: center; }
   main .left nav a {
     display: block; }
 main .center .standing table {
-  margin: 0 auto;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.7) !important; }
+    margin: 0 auto;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.9) !important;
+}
   main .center .standing table tr td {
     border-right: 2px solid #3caa3c;
     border-bottom: 2px solid #3caa3c;
@@ -372,8 +387,9 @@ main .center .standing table {
   main .center .standing table tr:nth-child(2n) td,
   main .center .standing table tr:nth-child(2n) input,
   main .center .standing table tr:nth-child(2n) select {
-    background: #999;
-    color: rgba(255, 255, 255, 0.7) !important; }
+      background: #999;
+      color: rgba(255, 255, 255, 0.9) !important;
+  }
   main .center .standing table tr:nth-child(2n) select {
     border: 2px solid #3caa3c;
     font-weight: bold; }
@@ -494,11 +510,12 @@ main .center [class*=hex-] {
 main .center .wrapper {
   width: 100%; }
   main .center .wrapper .comment {
-    margin: 10px 20px;
-    padding: 5px;
-    border: 1px solid #3caa3c;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.7) !important; }
+      margin: 10px 20px;
+      padding: 5px;
+      border: 1px solid #3caa3c;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.9) !important;
+  }
     main .center .wrapper .comment p {
       color: #3caa3c; }
       main .center .wrapper .comment p.message {
@@ -514,7 +531,8 @@ main .center .breadcrumb {
   background-color: initial; }
   main .center .breadcrumb .breadcrumb-item,
   main .center .breadcrumb .breadcrumb-item::before {
-    color: rgba(255, 255, 255, 0.7) !important; }
+      color: rgba(255, 255, 255, 0.9) !important;
+  }
   main .center .breadcrumb .breadcrumb-item.active {
     color: #e4161c !important; }
 main .center form {

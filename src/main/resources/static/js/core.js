@@ -23,7 +23,7 @@ function LoadingStyle($bool) {
         $($loader).fadeOut($out);
         $('.overlay').fadeOut($out);
         $($messages).fadeIn($in);
-        $($messages).fadeOut(2 * $out);
+        $($messages).fadeOut(4 * $out);
     }
 }
 

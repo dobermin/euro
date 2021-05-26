@@ -30,6 +30,14 @@ public class UsersService implements IUsersService {
 	public List<Users> findAll () {
 		return usersRepository.findAll().stream()
 			.filter(Users::isDisplay)
+			.filter(s -> s.getStatus() == ACTIVE)
+			.sorted(Comparator.comparing(Users::getLastName))
+			.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Users> findAllActive () {
+		return usersRepository.findAll().stream()
 			.sorted(Comparator.comparing(Users::getLastName))
 			.collect(Collectors.toList());
 	}
@@ -68,14 +76,29 @@ public class UsersService implements IUsersService {
 	}
 
 	@Override
-	public void save (Users users) throws Exception {
-		usersRepository.save(users);
-//		dof();
+	public void updateAll (List<Users> users) {
+		try {
+			users.forEach(
+				s -> {
+					Users user = usersRepository.findById(s.getId()).get();
+					user.setFirstName(s.getFirstName());
+					user.setLastName(s.getLastName());
+					user.setLogin(s.getLogin());
+					user.setRoles(s.getRoles());
+					user.setStatus(s.getStatus());
+					usersRepository.save(user);
+				}
+			);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	private void dof () throws Exception {
-		throw new Exception("Ошибка");
+	@Override
+	public void save (Users users) throws Exception {
+		usersRepository.save(users);
 	}
+
 	@Override
 	public void saveAll (List<Users> entities) throws Exception {
 		for (Users entity : entities) {

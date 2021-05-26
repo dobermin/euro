@@ -1,0 +1,19 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td th:id="${user.id}" th:text="${user.id}">№</td>
+            <td><label><input id="firstName" th:value="${user.firstName}" type="text"></label></td>
+            <td><label><input id="lastName" th:value="${user.lastName}" type="text"></label></td>
+            <td><label><input id="login" th:value="${user.login}" type="text"></label></td>
+            <td><label><input id="roles" th:value="${user.roles}" type="text"></label></td>
+            <td><label><input id="status" th:value="${user.status}" type="text"></label></td>
+        </tr>
+    </th:block>
+    <tr th:if="${!isBlocked}" xmlns:th="http://www.w3.org/1999/xhtml">
+        <td colspan="15">
+            <button th:attr="onclick=|btn_${controller}()|" th:name="${controller}" th:text="${btn_title}" title=""
+                    type="button">%btn_value%
+            </button>
+        </td>
+    </tr>
+</th:block>
