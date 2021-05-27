@@ -46,11 +46,11 @@ public class ConfigProperties {
 		}
 	};
 
-	private final String OVERTIME = "overtime";
-	private final String PENALTY = "penalty";
+	private final String OVERTIME = "овертайм";
+	private final String PENALTY = "пенальти";
 
 	public HashMap<String, List<Navigation>> getNavigation () {
-		return navigation;
+		return (HashMap<String, List<Navigation>>) navigation.clone();
 	}
 
 	public Document getDocFromCalendar () {

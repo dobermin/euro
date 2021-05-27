@@ -13,7 +13,7 @@ public interface MatchesRepository extends CrudRepository<Matches, Long> {
 
 	List<Matches> findMatchesByTour (Tour tour);
 
-	Matches findMatchesByTourAndTeamHome (Tour tour, Teams team);
+	List<Matches> findMatchesByTourAndTeamHome (Tour tour, Teams team);
 
 //	Matches findTopByOrderByIdDesc ();
 

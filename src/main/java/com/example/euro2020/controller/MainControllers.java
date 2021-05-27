@@ -198,7 +198,10 @@ public class MainControllers {
 		} catch (Exception ignored) {
 		}
 		isActive = false;
-		return configProperties.getNavigation();
+		HashMap<String, List<Navigation>> nav = configProperties.getNavigation();
+		if (!configProperties.configService.canRegistration()) nav.remove("Регистрация");
+
+		return nav;
 	}
 
 	public String getMessage () {

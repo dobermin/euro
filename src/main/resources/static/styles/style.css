@@ -241,10 +241,11 @@ body button.value-default, body button[name="default"] {
       left: 0;
     right: 0; }
   body input {
-    border: 2px solid;
-    color: #3caa3c;
-    font-weight: bold;
-    padding: 0 5px 2px; }
+      border: 2px solid;
+      color: blueviolet;
+      font-weight: bold;
+      padding: 0 5px 2px;
+  }
   body .dropdown-menu {
       background: rgba(255, 255, 255, 0.9) !important;
       border: none;

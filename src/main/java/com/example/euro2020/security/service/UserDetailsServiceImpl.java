@@ -1,6 +1,7 @@
 package com.example.euro2020.security.service;
 
 import com.example.euro2020.entity.Users;
+import com.example.euro2020.security.model.enums.Status;
 import com.example.euro2020.security.repository.UsersSecurityRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Users user = usersRepository.findByLogin(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+			.filter(u -> u.getStatus() == Status.ACTIVE)
+			.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 		return UserDetailsImpl.build(user);
 	}
 

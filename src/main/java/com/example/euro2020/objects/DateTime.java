@@ -39,9 +39,9 @@ public class DateTime {
 
 	public DateTime (long ts) {
 		Date now = new Date();
-		now.setTime(ts * 1000L);
+		now.setTime(ts);
 		long time = now.getTime();
-		timestamp = new Timestamp(time / 1000L);
+		timestamp = new Timestamp(time);
 		date = formatter.format(time);
 	}
 

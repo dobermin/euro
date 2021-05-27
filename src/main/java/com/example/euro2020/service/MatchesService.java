@@ -53,7 +53,8 @@ public class MatchesService implements IMatchesService {
 	}
 	@Override
 	public Matches findMatchesByTourAndTeamHome (Tour tour, Teams team) {
-		return repository.findMatchesByTourAndTeamHome(tour, team);
+		Matches matches = new ArrayList<>(repository.findMatchesByTourAndTeamHome(tour, team)).get(0);
+		return Objects.requireNonNullElse(matches, new Matches());
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class MatchesService implements IMatchesService {
 	@Override
 	public List<Matches> findByTour (Tour tour) {
 		try {
-			return new ArrayList<>(repository.findMatchesByTour(tour));
+			return new ArrayList<>(repository.findMatchesByTour(tour)).stream().sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}
@@ -156,8 +157,13 @@ public class MatchesService implements IMatchesService {
 
 				try {
 					List<String> teams = MyMatcher.find(match.text(), regex);
-					matches.setTeamHome(teamsService.findByTeam(configProperties.getCountry(teams.get(0))));
-					matches.setTeamAway(teamsService.findByTeam(configProperties.getCountry(teams.get(1))));
+					Teams teamHome =
+						teamsService.findByTeam(configProperties.getCountry(teams.get(0)));
+					Teams teamAway =
+						teamsService.findByTeam(configProperties.getCountry(teams.get(1)));
+					matches = findMatchesByTourAndTeamHome(tour, teamHome);
+					matches.setTeamHome(teamHome);
+					matches.setTeamAway(teamAway);
 					matches.setTour(tour);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());

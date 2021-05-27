@@ -83,6 +83,9 @@ public class Controllers extends MainControllers {
 	@GetMapping(value = "/registration")
 	public ModelAndView getRegistration (User user, ModelAndView model, HttpServletRequest request,
 	                                     Principal principal) {
+		if (!getConfig().configService.canRegistration()) {
+			return new ModelAndView("redirect:/authorization");
+		}
 		if (principal != null) return new ModelAndView("redirect:/");
 		setBtn_title("Зарегистрироваться");
 		return super.getMain(model, request);
@@ -93,6 +96,8 @@ public class Controllers extends MainControllers {
 	public ModelAndView getRegistrationCheck (@Valid User user, BindingResult bindingResult, ModelAndView model,
 	                                          HttpServletRequest request, HttpSession session) throws Exception {
 
+		if (!getConfig().configService.canRegistration())
+			return new ModelAndView("redirect:/authorization");
 		if (bindingResult.hasErrors()) {
 			return super.getMain(model, request);
 		}

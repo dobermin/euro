@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IMatchesService extends IService<Matches> {
 
-	Matches findMatchesByTourAndTeamHome (Tour tour, Teams team);
+	Object findMatchesByTourAndTeamHome (Tour tour, Teams team);
 
 	Matches findLastMatch ();
 
