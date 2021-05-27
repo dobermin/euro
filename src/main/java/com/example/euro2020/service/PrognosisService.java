@@ -3,6 +3,7 @@ package com.example.euro2020.service;
 import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.*;
 import com.example.euro2020.repository.PrognosisRepository;
+import com.example.euro2020.security.model.enums.Status;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,12 +75,16 @@ public class PrognosisService implements IPrognosisService {
 	@Override
 	public List<Prognosis> getPrognoses (Tour tour, Users user, Long idMatch, ConfigService configService) {
 		if (user == null) {
-			return new ArrayList<>(repository.findByMatchId(idMatch));
+			return new ArrayList<>(repository.findByMatchId(idMatch)).stream()
+				.filter(u -> u.getUsr().getStatus() == Status.ACTIVE)
+				.filter(u -> u.getUsr().isDisplay())
+				.collect(Collectors.toList());
 		}
 
 		return findByUser(user).stream()
 			.filter(t -> t.getMatch().getTour().equals(tour))
 			.filter(timestamp -> timestamp.getMatch().getTimestamp().getTime() <= configService.timeOutStartMatch())
+			.sorted(Comparator.comparing(s -> s.getMatch().getId()))
 			.collect(Collectors.toList());
 	}
 

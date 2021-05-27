@@ -1,9 +1,10 @@
 <th:block xmlns:th="http://www.w3.org/1999/xhtml">
-<tr th:if="${prognoses != null}" th:each="prognosis : ${prognoses}" th:classappend="${prognosis.user == userActive} ? active">
+<tr th:classappend="${prognosis.usr == userActive} ? active" th:each="prognosis : ${prognoses}"
+    th:if="${prognoses != null}">
     <td>
-        <span th:text="${prognosis.user != userSelect ? prognosis.user.firstName : prognosis.match.teamHome.teams}"></span>
-        <span th:text="${prognosis.user != userSelect ? ' ' : '-'}"></span>
-        <span th:text="${prognosis.user != userSelect ? prognosis.user.lastName : prognosis.match.teamAway.teams}"></span>
+        <span th:text="${prognosis.usr != userSelect ? prognosis.usr.firstName : prognosis.match.teamHome.teams}"></span>
+        <span th:text="${prognosis.usr != userSelect ? ' ' : '-'}"></span>
+        <span th:text="${prognosis.usr != userSelect ? prognosis.usr.lastName : prognosis.match.teamAway.teams}"></span>
     </td>
     <td th:text="${prognosis.home}">Прогноз</td>
     <td>:</td>

@@ -32,7 +32,7 @@ public class MatchesService implements IMatchesService {
 
 	@Override
 	public List<Matches> findAll() {
-		return new ArrayList<>((List<Matches>) repository.findAll());
+		return new ArrayList<>((List<Matches>) repository.findAll()).stream().sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
 	}
 
 	@Override
