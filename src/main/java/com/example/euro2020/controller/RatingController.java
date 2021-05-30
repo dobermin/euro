@@ -24,7 +24,7 @@ public class RatingController extends MainControllers {
 		model.addObject("prognosis_1_2", getConfig().configService.getPrognosisSemi());
 		model.addObject("champion_points", getConfig().configService.getChampionPoints());
 		model.addObject("bombardier_points", getConfig().configService.getBombardierPoints());
-		if (rating.size() == 0) {
+		if (rating.size() == 0 || !getConfig().configService.timeAfterFirstMatch()) {
 			setMessage(Messages.AFTER_FIRST_MATCH);
 			return super.getMain(model, request);
 		}

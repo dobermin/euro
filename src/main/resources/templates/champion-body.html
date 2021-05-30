@@ -1,15 +1,13 @@
-<tr xmlns:th="http://www.w3.org/1999/xhtml"  th:each="team, iter : ${teams}">
+<tr th:each="team, iter : ${teams}" xmlns:th="http://www.w3.org/1999/xhtml">
     <td th:text="${iter.count}">%number%</td>
     <td>
-<!--        <img th:src="'https://football.kulichki.net/euro/gif/' + ${team.img} + '.gif'" th:alt="${team.teams}">-->
-        <label  th:for="${team.teams}"  th:text="${team.teams}">%team%</label>
+        <!--        <img th:src="'https://football.kulichki.net/euro/gif/' + ${team.img} + '.gif'" th:alt="${team.teams}" alt="">-->
+        <label th:for="${team.teams}" th:text="${team.teams}">%team%</label>
     </td>
     <td><label>
-        <input type="radio" th:id="${team.teams}" th:disabled="${isBlocked} ? true" name="selection" th:value="${team.teams}" th:checked="(${champion} == *{team.teams})" >
+        <input name="selection" th:checked="(${champion} == *{team.teams})" th:disabled="${isBlocked} ? true"
+               th:id="${team.teams}"
+               th:value="${team.teams}" type="radio">
     </label></td>
 </tr>
-<tr xmlns:th="http://www.w3.org/1999/xhtml"  th:if="${!isBlocked}">
-    <td colspan="15">
-        <button title="" th:name="${controller}" th:attr="onclick=|btn_${controller}()|"  type="button" th:text="${btn_title}">%btn_value%</button>
-    </td>
-</tr>
+<th:block th:include="button" th:remove="tag" xmlns:th="http://www.w3.org/1999/xhtml"></th:block>

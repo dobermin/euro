@@ -3,32 +3,7 @@
 * */
 let $url = window.location['pathname'].substr(1);
 
-let $border_lime = '2px solid rgb(0, 255, 0)';
-let $border_red = '2px solid red';
-
 $.getScript('js/core.js');
-
-function RegCheck($number) {
-    const $arr = [];
-    let $border;
-    $('input[type="text"],input[type="password"]').each(function () {
-        $border = $(this).css('border');
-        if (!$border) {
-            $border = $($(this)[0]).attr('style');
-            $border = $border.match(/\d.*/)[0];
-            $border = $border.substr(0, $border.length - 1);
-        }
-        if ($border === $border_lime) {
-            $arr.push(1);
-        }
-    });
-    const $count = $arr.length;
-    if ($count === $number) {
-        ButtonShow(false);
-    } else {
-        $('button').hide();
-    }
-}
 
 switch ($url) {
     case 'registration':
@@ -63,9 +38,16 @@ switch ($url) {
         break;
 }
 
-$(document).on('click', 'input[type="radio"]', function () {
-    ButtonShow();
-});
+$(document).on('click',
+    'input[type="radio"]',
+    function () {
+        ButtonShow();
+    });
+$(document).on('change',
+    '.placing',
+    function () {
+        ButtonShow();
+    })
 $(document).on('click', '.nav-item.dropdown, .navbar-toggler', function () {
     FooterBottom();
 });
@@ -123,6 +105,6 @@ $(document).ready(function () {
  * */
 $(document).keypress(function (e) {
     if (e.which === 13) {
-        $('button').click();
+        $($button).click();
     }
 });

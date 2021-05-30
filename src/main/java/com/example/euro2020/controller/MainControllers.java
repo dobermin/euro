@@ -1,9 +1,11 @@
 package com.example.euro2020.controller;
 
 import com.example.euro2020.config.ConfigProperties;
+import com.example.euro2020.entity.Journal;
 import com.example.euro2020.entity.Navigation;
 import com.example.euro2020.entity.Users;
 import com.example.euro2020.objects.Browser;
+import com.example.euro2020.objects.DateTime;
 import com.example.euro2020.objects.User;
 import com.example.euro2020.security.model.enums.Roles;
 import com.example.euro2020.service.*;
@@ -13,35 +15,23 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.InetAddress;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @SessionAttributes("user")
 public class MainControllers {
 
-	private String title;
-	private String controller;
-	private String btn_title = "Подтвердить";
-	private String message = "";
-	private String tfoot;
-	private ModelAndView model;
-	private HttpServletRequest request;
-	private String uri;
-	private Users user;
 	protected boolean isActive = false;
 	protected UserDetails userDetails;
-	private boolean isBlocked = false;
-	private Long timeBlocked;
-
 	@Autowired
 	protected ITeamsService teamsService;
 	@Autowired
@@ -67,10 +57,22 @@ public class MainControllers {
 	@Autowired
 	protected INextService nextService;
 	@Autowired
+	protected IJournalService journalService;
+	private String title;
+	private String controller;
+	private String btn_title = "Подтвердить";
+	private String message = "";
+	private String tfoot;
+	private ModelAndView model;
+	private HttpServletRequest request;
+	private String uri;
+	private Users user;
+	private boolean isBlocked = false;
+	private Long timeBlocked;
+	@Autowired
 	private ConfigProperties configProperties;
 	@Autowired
 	private INavigationService navigationService;
-
 
 	public ModelAndView getMain (ModelAndView model, HttpServletRequest request) {
 		this.model = model;
@@ -106,9 +108,13 @@ public class MainControllers {
 		model.addObject("isBlocked", isBlocked);
 		model.addObject("timeBlocked", timeBlocked);
 
+		model.addObject("date", new DateTime(getConfig().configService.getTimeNow()).getDate());
+
 		model.setViewName("index");
 
 		setMessage("");
+
+		writeJournal();
 
 		return model;
 	}
@@ -187,7 +193,8 @@ public class MainControllers {
 	private HashMap<String, List<Navigation>> getNavigation () {
 		try {
 			Authentication o = SecurityContextHolder.getContext().getAuthentication();
-			userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			userDetails =
+				(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			isActive = true;
 			for (GrantedAuthority authority : userDetails.getAuthorities()) {
 				if (authority.getAuthority().equals(Roles.ADMIN.name())) {
@@ -240,16 +247,6 @@ public class MainControllers {
 		return user;
 	}
 
-	public Users getUser (Principal principal) {
-		this.user = usersService.findByLogin(principal.getName());
-		return getUser();
-	}
-
-	public Users getUser (User user) {
-		this.user = usersService.findByLogin(user.getLogin());
-		return getUser();
-	}
-
 	public void setUser (Users user) {
 		this.user = user;
 	}
@@ -262,12 +259,22 @@ public class MainControllers {
 		this.user = usersService.findByLogin(principal.getName());
 	}
 
-	public void setBlocked (boolean blocked) {
-		isBlocked = blocked;
+	public Users getUser (Principal principal) {
+		this.user = usersService.findByLogin(principal.getName());
+		return getUser();
+	}
+
+	public Users getUser (User user) {
+		this.user = usersService.findByLogin(user.getLogin());
+		return getUser();
 	}
 
 	public boolean isBlocked () {
 		return isBlocked;
+	}
+
+	public void setBlocked (boolean blocked) {
+		isBlocked = blocked;
 	}
 
 	public Long getTimeBlocked () {
@@ -278,7 +285,37 @@ public class MainControllers {
 		this.timeBlocked = timeBlocked;
 	}
 
-	protected void rollback() {
+	protected void rollback () {
 		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+	}
+
+	@Transactional
+	protected void writeJournal () {
+		Journal journal = new Journal();
+		Browser browser = new Browser(request);
+		String os = browser.getOs();
+		journal.setBrowser(browser.getBrowser());
+		journal.setDate(new GregorianCalendar(Locale.getDefault()));
+		try {
+			journal.setIp(InetAddress.getLocalHost().getHostAddress());
+		} catch (Exception e) {
+			journal.setIp("0.0.0.0");
+		}
+		journal.setOs(os);
+		journal.setPage(controller);
+		try {
+			String referer = request.getHeader("referer").replaceAll("h[a-z\\-:\\/\\d]*\\/", "");
+			journal.setReferer(referer);
+			journal.setUsr(user);
+		} catch (Exception e) {
+			journal.setUsr(null);
+		}
+
+		try {
+			journalService.save(journal);
+		} catch (Exception e) {
+			rollback();
+			e.printStackTrace();
+		}
 	}
 }

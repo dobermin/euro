@@ -4,7 +4,6 @@ import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.*;
 import com.example.euro2020.repository.RatingRepository;
 import org.jsoup.nodes.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +15,22 @@ import java.util.stream.Stream;
 public class RatingService implements IRatingService {
 
 	private final RatingRepository repository;
+	private final IPlacingTeamService placingService;
+	private final ITourService tourService;
+	private final INextService nextService;
+	private final IMatchesService matchesService;
+	private final IPlayersService playersService;
 	private int bombardier = 0;
-	@Autowired
-	private IPlacingTeamService placingService;
-	@Autowired
-	private ITourService tourService;
-	@Autowired
-	private INextService nextService;
-	@Autowired
-	private IMatchesService matchesService;
-	@Autowired
-	private IPlayersService playersService;
 
-	public RatingService (RatingRepository repository) {
+	public RatingService (RatingRepository repository, IPlacingTeamService placingService,
+	                      ITourService tourService, INextService nextService, IMatchesService matchesService,
+	                      IPlayersService playersService) {
 		this.repository = repository;
+		this.placingService = placingService;
+		this.tourService = tourService;
+		this.nextService = nextService;
+		this.matchesService = matchesService;
+		this.playersService = playersService;
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class RatingService implements IRatingService {
 			and(Sort.by(Sort.Direction.DESC, "teamPlacingTeam"));
 	}
 
-	public List<Player> getBombardier(Document document) {
+	public List<Player> getBombardier (Document document) {
 
 		String str = document.select("#table31").first().select("tr").get(3).select("td").get(1).text();
 
@@ -95,7 +96,7 @@ public class RatingService implements IRatingService {
 					.map(x -> x.substring(0, 1).toUpperCase(Locale.ROOT) + x.substring(1))
 					.collect(Collectors.joining(" "))
 			)
-			.map(s -> playersService.findByPlayer(s))
+			.map(playersService::findByPlayer)
 			.collect(Collectors.toList());
 	}
 
@@ -108,14 +109,15 @@ public class RatingService implements IRatingService {
 			try {
 				Document doc = configProperties.getDocFromBombardier();
 				players = getBombardier(doc);
-			} catch (Exception ignored) {}
+			} catch (Exception ignored) {
+			}
 		}
 
 		return players;
 	}
 
 	@Override
-	public void getRatingAndSave(List<Users> users, List<Player> players, ConfigService configService) {
+	public void getRatingAndSave (List<Users> users, List<Player> players, ConfigService configService) {
 		List<Tour> tours = tourService.findAll();
 		Matches lastMatch = matchesService.findLastMatch();
 
@@ -152,7 +154,6 @@ public class RatingService implements IRatingService {
 						if (configService.getScore() == point) score++;
 						else if (configService.getDifference() == point) difference++;
 						else if (configService.getWinner() == point) winner++;
-						points += point;
 					} else {
 						if (
 							configService.getScorePO() == point ||
@@ -167,8 +168,8 @@ public class RatingService implements IRatingService {
 								(configService.getWinnerPO() + configService.getNextRoundPO() == point)
 						) winnerPO++;
 						prognosesPO += point;
-						points += point;
 					}
+					points += point;
 				}
 
 				scoreAll = score + scorePO;
@@ -187,7 +188,8 @@ public class RatingService implements IRatingService {
 			} else {
 				try {
 					teamPlacingTeam = rating.getTeamPlacingTeam();
-				} catch (Exception e) {}
+				} catch (Exception ignored) {
+				}
 			}
 			points += teamPlacingTeam * configService.getPlace();
 
@@ -204,7 +206,8 @@ public class RatingService implements IRatingService {
 			} else {
 				try {
 					prognosisQuarter = rating.getPrognosis_1_4();
-				} catch (Exception e) {}
+				} catch (Exception ignored) {
+				}
 			}
 			points += prognosisQuarter * configService.getPrognosisQuarter();
 
@@ -221,7 +224,8 @@ public class RatingService implements IRatingService {
 			} else {
 				try {
 					prognosisSemi = rating.getPrognosis_1_2();
-				} catch (Exception e) {}
+				} catch (Exception ignored) {
+				}
 			}
 			points += prognosisSemi * configService.getPrognosisSemi();
 
@@ -230,22 +234,27 @@ public class RatingService implements IRatingService {
 			) {
 				int m_h = Integer.parseInt(lastMatch.getMainHome());
 				int m_a = Integer.parseInt(lastMatch.getMainAway());
-				if (
-					(
-						(
-							m_h > m_a ||
-								lastMatch.getNext().equals(lastMatch.getTeamHome())
-						) &&
-							user.getChampion().equals(lastMatch.getTeamHome())
-					) ||
+				try {
+
+					Teams championTeam = user.getChampion();
+					if (
 						(
 							(
-								m_h < m_a ||
-									lastMatch.getNext().equals(lastMatch.getTeamAway())
+								m_h > m_a ||
+									lastMatch.getNext().equals(lastMatch.getTeamHome())
 							) &&
-								user.getChampion().equals(lastMatch.getTeamAway())
-						)
-				) champion = configService.getChampionPoints();
+								championTeam.equals(lastMatch.getTeamHome())
+						) ||
+							(
+								(
+									m_h < m_a ||
+										lastMatch.getNext().equals(lastMatch.getTeamAway())
+								) &&
+									championTeam.equals(lastMatch.getTeamAway())
+							)
+					) champion = configService.getChampionPoints();
+				} catch (Exception ignored) {
+				}
 
 				players.forEach(
 					x -> {

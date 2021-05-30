@@ -94,8 +94,6 @@ body {
   body input[type="submit"]:focus,
   body input[type="button"]:focus {
     outline: none; }
-  body button[name='champion'] {
-    display: none; }
   body button:not(.navbar-toggler, .logout) {
       margin: 0 auto;
       padding: 10px;
@@ -432,7 +430,6 @@ main .center .standing table {
   main .center .standing table tbody tr td input:disabled {
     background: none;
     border: none;
-    font-size: x-large;
     font-weight: bold; }
   main .center .standing table tbody tr td span > span {
     padding-top: 2px;

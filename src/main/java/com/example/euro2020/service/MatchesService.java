@@ -20,18 +20,16 @@ import java.util.stream.Collectors;
 @Service
 public class MatchesService implements IMatchesService {
 
+	private final List<Matches> matchesList = new ArrayList<>();
+	private final List<Tour> tourList = new ArrayList<>();
 	@Autowired
 	private MatchesRepository repository;
 	@Autowired
 	private DateTime dateTime;
-
 	private Matches matches;
 
-	private final List<Matches> matchesList = new ArrayList<>();
-	private final List<Tour> tourList = new ArrayList<>();
-
 	@Override
-	public List<Matches> findAll() {
+	public List<Matches> findAll () {
 		return new ArrayList<>((List<Matches>) repository.findAll()).stream().sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
 	}
 
@@ -39,7 +37,8 @@ public class MatchesService implements IMatchesService {
 	public void save (Matches matches) {
 		try {
 			repository.save(matches);
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 	}
 
 	@Override
@@ -51,6 +50,7 @@ public class MatchesService implements IMatchesService {
 	public void update (Matches entity) {
 
 	}
+
 	@Override
 	public Matches findMatchesByTourAndTeamHome (Tour tour, Teams team) {
 		Matches matches = new ArrayList<>(repository.findMatchesByTourAndTeamHome(tour, team)).get(0);
@@ -78,7 +78,7 @@ public class MatchesService implements IMatchesService {
 				.reduce((first, second) -> second)
 				.get().getId();
 		} catch (Exception e) {
-			return matches.get(matches.size() - 1).getId();
+			return matches.get(0).getId();
 		}
 
 	}
@@ -117,7 +117,7 @@ public class MatchesService implements IMatchesService {
 		return repository.findById(id).orElse(new Matches());
 	}
 
-	public Elements getInfo(ConfigProperties configProperties) {
+	public Elements getInfo (ConfigProperties configProperties) {
 		Elements center = configProperties.getDocFromCalendar().select("center ");
 		center.select("#table30").remove();
 		Elements tr = center.select("tr");
@@ -126,7 +126,8 @@ public class MatchesService implements IMatchesService {
 		return tr;
 	}
 
-	public void setMatches(Elements elements, ITourService tourService, ITeamsService teamsService, ConfigProperties configProperties) {
+	public void setMatches (Elements elements, ITourService tourService, ITeamsService teamsService,
+	                        ConfigProperties configProperties) {
 		Tour tour = null;
 		String regex = "([а-яА-Я]+\\s+[А-Яа-я]+)|([а-яА-Я]+)";
 		for (Element element : elements) {
@@ -138,11 +139,11 @@ public class MatchesService implements IMatchesService {
 				tourList.add(tour);
 
 //				if (configProperties.getConfigService().getTesting())
-					try {
-						tourService.save(tour);
-					} catch (Exception e) {
-						tour = tourService.findByTour(tour.getTour());
-					}
+				try {
+					tourService.save(tour);
+				} catch (Exception e) {
+					tour = tourService.findByTour(tour.getTour());
+				}
 			}
 			bool = element.select("td[bgcolor$=#E9E9E9]").isEmpty();
 			element:
@@ -179,8 +180,7 @@ public class MatchesService implements IMatchesService {
 				if (configProperties.configService.getTesting()) {
 					matches.setScoreHome(String.valueOf(configProperties.generateNumber()));
 					matches.setScoreAway(String.valueOf(configProperties.generateNumber()));
-				} else
-				if (!score.isEmpty()) {
+				} else if (!score.isEmpty()) {
 					matches.setScoreHome(score.get(0));
 					matches.setScoreAway(score.get(1));
 					matches.setMainHome(score.get(0));
@@ -193,7 +193,7 @@ public class MatchesService implements IMatchesService {
 
 				matchesList.add(matches);
 //				if (configProperties.getConfigService().getTesting())
-					repository.save(matches);
+				repository.save(matches);
 			}
 
 		}
@@ -201,7 +201,7 @@ public class MatchesService implements IMatchesService {
 
 	private void getWinner (List<String> score, Element element, ConfigProperties configProperties) {
 		String m = "";
-		List<Integer> p = new ArrayList<Integer>() {
+		List<Integer> p = new ArrayList<>() {
 			{
 				add(null);
 				add(null);
@@ -213,10 +213,11 @@ public class MatchesService implements IMatchesService {
 			p.set(0, Integer.valueOf(penalty.get(0)));
 			p.set(1, Integer.valueOf(penalty.get(1)));
 
-			if ( p.get(0) > p.get(1)) matches.setNext(matches.getTeamHome());
+			if (p.get(0) > p.get(1)) matches.setNext(matches.getTeamHome());
 			else matches.setNext(matches.getTeamAway());
 			matches.setOvertime(configProperties.getPENALTY());
-		} catch (Exception e) {}
+		} catch (Exception ignored) {
+		}
 
 		String url = element.select("a").attr("href");
 		Document document = new Jsoup(configProperties.configService.getHost() + url).getDocument();
@@ -224,7 +225,7 @@ public class MatchesService implements IMatchesService {
 		Element tr = table.select("tr").get(2);
 		List<Integer> goals = MyMatcher.find(tr.text(), ",\\s\\d+", true);
 		Integer max = MyMatcher.Max(goals);
-		if ( max <= 90 ) {
+		if (max <= 90) {
 			matches.setMainHome(score.get(0));
 			matches.setMainAway(score.get(1));
 		} else {
@@ -234,7 +235,7 @@ public class MatchesService implements IMatchesService {
 				count++;
 				minute = goals.get(count);
 			}
-			matches.setMainHome(String.valueOf( Math.round(count / 2.0)));
+			matches.setMainHome(String.valueOf(Math.round(count / 2.0)));
 			matches.setMainAway(matches.getMainHome());
 			matches.setOvertime(configProperties.getOVERTIME());
 
@@ -253,7 +254,7 @@ public class MatchesService implements IMatchesService {
 		return tourList.stream().distinct().collect(Collectors.toList());
 	}
 
-	public List<Matches> setPrognosis(List<Matches> matches, ConfigProperties configProperties) {
+	public List<Matches> setPrognosis (List<Matches> matches, ConfigProperties configProperties) {
 		for (Matches m : matches) {
 			int home = configProperties.generateNumber();
 			int away = configProperties.generateNumber();
@@ -267,7 +268,8 @@ public class MatchesService implements IMatchesService {
 					String min = String.valueOf(Math.min(home, away));
 					m.setMainHome(min);
 					m.setMainAway(min);
-					String str = configProperties.generateNumber(1) == 0 ? configProperties.getOVERTIME() : configProperties.getPENALTY();
+					String str = configProperties.generateNumber(1) == 0 ?
+						configProperties.getOVERTIME() : configProperties.getPENALTY();
 					m.setOvertime(str);
 				}
 				if (home > away) m.setNext(m.getTeamHome());

@@ -1,10 +1,9 @@
 /*
 * меняем активный тур
 * */
-// $(document).on('click', '#tour', function () {
-//     btn_prognosis();
-// })
-
+$(document).ready(function () {
+    ButtonShow();
+})
 function tour() {
     let $tour = $('thead select').val();
     post("prognosis_tour", {tour: $tour}, function (result) {
@@ -13,6 +12,7 @@ function tour() {
             $("tbody").remove();
             $("tfoot").before(result);
             $("footer#footer").css("position", "initial");
+            ButtonShow();
         } catch (e) {
         }
     })
@@ -39,6 +39,7 @@ function btn_prognosis() {
     post("prognosis_save", {tour: $tour, prognosis: $prognosis, country: $match, next: $next}, function (result) {
         resultMessage(result)
     })
+    ButtonShow();
 }
 
 $(document).on('keyup', 'input[type="text"]', function () {

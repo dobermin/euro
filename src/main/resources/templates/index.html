@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml" th:with="baseUrl=(${url})">
+<html lang="ru" th:with="baseUrl=(${url})" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="refresh" content="" />
-    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" http-equiv="refresh"/>
+    <meta content="no-cache" http-equiv="Cache-Control">
 
-    <link th:href="${baseUrl} + @{images/ico.ico}" rel=" shortcut icon" type="image/x-icon"/>
+    <link rel=" shortcut icon" th:href="${baseUrl} + @{images/ico.ico}" type="image/x-icon"/>
 
-    <link th:href="${baseUrl} + @{styles/style.css}" rel="stylesheet" />
-    <link th:href="${baseUrl} + @{styles/button.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="${baseUrl} + @{styles/style.css}"/>
+    <link rel="stylesheet" th:href="${baseUrl} + @{styles/button.css}"/>
 
     <title th:text="${title}"></title>
 </head>
@@ -20,11 +20,12 @@
 <main class="d-flex flex-column">
     <div class="center col-12 d-flex flex-column justify-content-center">
         <p class="messages" th:classappend="${message.empty} ? d-none" th:text="${!message.empty ? message : ''}"></p>
-        <th:block  th:include="${center}"><span></span></th:block>
+        <th:block th:include="${center}"><span></span></th:block>
     </div>
 </main>
 <footer>
     <p id="back-top"><a href="#top"></a></p>
+    <p style="color: black; background: white" th:text="${date}"></p>
     <img alt="" class="loader" src="" th:src="${baseUrl} + @{images/loader.gif}"/>
 </footer>
 <div class="overlay"></div>

@@ -23,7 +23,6 @@ function btn_default($i) {
 $('tfoot tr:last-child td').show();
 
 function SelectClick($this) {
-    $($button).show();
     let $tr = $($this).parents()[1];
     let $index = $($tr).index();
     let $arr = [];

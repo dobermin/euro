@@ -37,7 +37,6 @@ public class PrognosisController extends MainControllers {
 	@ResponseBody
 	public ModelAndView tour (ModelAndView model, @RequestBody Map<String, String> map, Principal principal) {
 		Tour tourSelect = tourService.findByTour(map.get("tour"));
-
 		setModel(model, null, tourSelect, principal);
 
 		model.addObject("timeBlocked", getTimeBlocked());
@@ -51,6 +50,7 @@ public class PrognosisController extends MainControllers {
 	@ResponseBody
 	@Transactional
 	public boolean save (@RequestBody Map<String, String[]> map, Principal principal) {
+		if (isBlocked()) return false;
 		String tour = String.valueOf(map.get("tour")[0]);
 		List<String> prognoses = Arrays.asList(map.get("prognosis"));
 		List<String> countries = Arrays.asList(map.get("country"));
@@ -81,6 +81,7 @@ public class PrognosisController extends MainControllers {
 		List<Tour> tours = tourService.findActual(matches);
 		matches = matchesService.findByTour(tourSelect);
 		List<String> color = getConfig().getColorClass(prognoses);
+		setBlocked(getConfig().configService.timeOutEndCup());
 
 		model.addObject("tours", tours);
 		model.addObject("tourSelect", tourSelect);

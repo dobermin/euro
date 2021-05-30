@@ -15,23 +15,25 @@ import java.util.Map;
 @SessionAttributes("user")
 public class ChampionController extends MainControllers {
 
-	@GetMapping(value =  "/champion")
+	@GetMapping(value = "/champion")
 	public ModelAndView getRating (ModelAndView model, HttpServletRequest request, Principal principal) {
 		String champion = "";
 		setUser(principal);
 		try {
 			champion = getUser().getChampion().getTeams();
-		} catch (Exception ignored) {}
+		} catch (Exception ignored) {
+		}
 		setBlocked(getConfig().configService.timeOutStartCup());
 		model.addObject("champion", champion);
 		model.addObject("teams", teamsService.findAll());
 
 		return super.getMain(model, request);
 	}
-	@PostMapping(value = "/champion", produces = { "application/json; charset=UTF-8" })
+
+	@PostMapping(value = "/champion", produces = {"application/json; charset=UTF-8"})
 	@ResponseBody
 	@Transactional
-	public boolean save( @RequestBody Map<String, Object> map) {
+	public boolean save (@RequestBody Map<String, Object> map) {
 		if (isBlocked()) return false;
 		String champion = String.valueOf(map.get("champion"));
 		Teams teams = teamsService.findByTeam(champion);

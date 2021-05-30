@@ -21,7 +21,6 @@ public class PlacingTeamController extends MainControllers {
 	public ModelAndView getRating (ModelAndView model, HttpServletRequest request, Principal principal) {
 		setUser(principal);
 		setBlocked(getConfig().configService.timeOutStartCup());
-		System.out.println(getUser());
 
 		model.addObject("teams", partyService.findAll());
 		model.addObject("placing", placingService.findByUserTeam(getUser()));

@@ -25,7 +25,8 @@ public class ForecastController extends MainControllers {
 		setUser(principal);
 
 		List<Matches> matches = matchesService.findAll();
-		List<Tour> tours = tourService.findActualForecast(matches, getConfig().configService.timeOutStartMatch());
+		List<Tour> tours = tourService.findActualForecast(matches,
+			getConfig().configService.timeOutStartMatch());
 		Tour tourSelect;
 		try {
 			tourSelect = tours.get(tours.size() - 1);
@@ -35,20 +36,23 @@ public class ForecastController extends MainControllers {
 		}
 		List<Users> users = usersService.findWithoutUser(getUser());
 		Long id = matchesService.getIdActualMatch(getConfig().configService.getTimeNow());
-		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, null, id, getConfig().configService);
+		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, null, id,
+			getConfig().configService);
+		List<String> color = getConfig().getColorClass(prognoses);
 
 		model.addObject("tours", tours);
 		model.addObject("tourSelect", tourSelect);
 		model.addObject("users", users);
 		model.addObject("userActive", getUser());
 		model.addObject("prognoses", prognoses);
+		model.addObject("color", color);
 
 		return super.getMain(model, request);
 	}
 
-	@PostMapping(value = "/forecast_tour", produces = { "application/json; charset=UTF-8" })
+	@PostMapping(value = "/forecast_tour", produces = {"application/json; charset=UTF-8"})
 	@ResponseBody
-	public ModelAndView change(ModelAndView model, @RequestBody Map<String, String> map, Principal principal) {
+	public ModelAndView change (ModelAndView model, @RequestBody Map<String, String> map, Principal principal) {
 		String tour = String.valueOf(map.get("tour"));
 		Tour tourSelect = tourService.findByTour(tour);
 		String user = String.valueOf(map.get("user"));
@@ -57,15 +61,20 @@ public class ForecastController extends MainControllers {
 
 		List<Matches> matches = matchesService.findAll();
 		try {
-			if (tourSelect.getId() < tourService.findByTime(matches, getConfig().configService.getTimeNow()).getId() && userSelect == null)
+			if (tourSelect.getId() < tourService.findByTime(matches,
+				getConfig().configService.getTimeNow()).getId() && userSelect == null)
 				userSelect = usersService.findWithoutUser(getUser()).get(0);
-		} catch (Exception ignored) {}
+		} catch (Exception ignored) {
+		}
 
 		Long id = matchesService.getIdActualMatch(getConfig().configService.getTimeNow());
-		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, userSelect, id, getConfig().configService);
+		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, userSelect, id,
+			getConfig().configService);
+		List<String> color = getConfig().getColorClass(prognoses);
 
 		List<Users> users = usersService.findWithoutUser(getUser());
-		List<Tour> tours = tourService.findActualForecast(matches, getConfig().configService.timeOutStartMatch());
+		List<Tour> tours = tourService.findActualForecast(matches,
+			getConfig().configService.timeOutStartMatch());
 
 		model.addObject("prognoses", prognoses);
 		model.addObject("userActive", getUser());
@@ -73,6 +82,7 @@ public class ForecastController extends MainControllers {
 		model.addObject("userSelect", userSelect);
 		model.addObject("tourSelect", tourSelect);
 		model.addObject("tours", tours);
+		model.addObject("color", color);
 
 		model.setViewName("forecast");
 		return model;

@@ -1,7 +1,7 @@
 const SUCCESS = "Операция выполнена успешно";
 const ERROR = "Операция закончилась ошибкой";
 
-let $button = 'button:not(.navbar-toggler)';
+let $button = 'button:not(.navbar-toggler, button[name="default"], .logout)';
 
 let $messages = $('.messages');
 
@@ -39,6 +39,7 @@ function post($url, $data, $function) {
         method: "POST",
         data: JSON.stringify($data),
         success: function (result) {
+            ButtonHide();
             $function(result)
             LoadingStyle(false)
         }
@@ -57,13 +58,15 @@ function ScrollBottom() {
 /*
 * показать кнопку
 * */
-function ButtonShow($scroll) {
-    if ($scroll === undefined) $scroll = true;
+function ButtonShow() {
+    $($button).attr("class", "d-block");
+}
 
-    $($button).parents(1).show();
-    $($button).show();
-
-    if ($scroll === true) ScrollBottom();
+/*
+* спрятать кнопку
+* */
+function ButtonHide() {
+    $($button).attr("class", "d-none");
 }
 
 function resultMessage(result) {
@@ -75,7 +78,6 @@ function resultMessage(result) {
         } else {
             $($messages).text(SUCCESS);
             $($messages).removeClass("error");
-            // $($button).hide();
         }
     } catch (e) {
         $($messages).text(ERROR);

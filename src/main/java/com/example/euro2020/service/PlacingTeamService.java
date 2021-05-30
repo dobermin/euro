@@ -19,8 +19,8 @@ public class PlacingTeamService implements IPlacingTeamService {
 	}
 
 	@Override
-	public List<PlacingTeam> findAll() {
-		List<PlacingTeam> list = new ArrayList<>( (List<PlacingTeam>) placingRepository.findAll());
+	public List<PlacingTeam> findAll () {
+		List<PlacingTeam> list = new ArrayList<>((List<PlacingTeam>) placingRepository.findAll());
 		list.sort(Comparator.comparing(o -> o.getTeams().getTeams()));
 		return list;
 	}
@@ -36,11 +36,12 @@ public class PlacingTeamService implements IPlacingTeamService {
 	}
 
 	@Override
-	public List<Teams> saveByTeamAndPosition(List<Teams> country, List<String> positions, Users user) throws Exception {
+	public List<Teams> saveByTeamAndPosition (List<Teams> country, List<String> positions, Users user) throws Exception {
 		List<Teams> list = new ArrayList<>();
 		for (int i = 0; i < country.size(); i++) {
 			Teams teams = country.get(i);
 			String position = positions.get(i);
+			if (position.equals("4")) list.add(teams);
 			if (!position.isEmpty()) {
 				PlacingTeam placing = findByTeamAndUser(teams, user);
 				placing.setPosition(Integer.parseInt(position));
@@ -79,7 +80,7 @@ public class PlacingTeamService implements IPlacingTeamService {
 	@Override
 	public List<PlacingTeam> findByUser (Users user) {
 		try {
-			List<PlacingTeam> list =  new ArrayList<>(placingRepository.findByUsr(user));
+			List<PlacingTeam> list = new ArrayList<>(placingRepository.findByUsr(user));
 			list.sort(Comparator.comparing(PlacingTeam::getPosition));
 			return list;
 		} catch (Exception e) {
@@ -90,8 +91,7 @@ public class PlacingTeamService implements IPlacingTeamService {
 	@Override
 	public List<PlacingTeam> findByUserAndPosition (Users user, int position) {
 		try {
-			List<PlacingTeam> list =  new ArrayList<>(placingRepository.findAllByUsrAndPositionLessThanEqualOrderByTeamsAsc(user, position));
-			return list;
+			return new ArrayList<>(placingRepository.findAllByUsrAndPositionLessThanEqualOrderByTeamsAsc(user, position));
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}

@@ -15,11 +15,5 @@ public interface MatchesRepository extends CrudRepository<Matches, Long> {
 
 	List<Matches> findMatchesByTourAndTeamHome (Tour tour, Teams team);
 
-//	Matches findTopByOrderByIdDesc ();
-
 	List<Matches> findTopByOrderByIdDesc ();
-
-//	List<Tour> findDistinct();
-//	@Query("SELECT t FROM Matches t WHERE t.timestamp <= :time")
-//	List<Tour> findActualForecast (Timestamp time);
 }

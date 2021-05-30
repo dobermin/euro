@@ -1,0 +1,15 @@
+<th:block xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:each="journal, iter : ${journals}">
+        <tr>
+            <td th:text="${iter.count}">№</td>
+            <td><span th:if="${journal.usr}" th:text="${journal.usr.firstName}"></span></td>
+            <td><span th:if="${journal.usr}" th:text="${journal.usr.lastName}"></span></td>
+            <td th:text="${#dates.format(journal.date.time.time, 'HH:mm:ss dd.MM')}"></td>
+            <td th:text="${journal.browser}"></td>
+            <td th:text="${journal.ip}"></td>
+            <td th:text="${journal.os}"></td>
+            <td th:text="${journal.page}"></td>
+            <td th:text="${journal.referer}"></td>
+        </tr>
+    </th:block>
+</th:block>

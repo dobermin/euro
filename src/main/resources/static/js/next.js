@@ -26,7 +26,6 @@ $(document).on('change', 'input[type="checkbox"]', function () {
             $('tbody').show();
         } else {
             $('tbody').hide();
-            // setPrognosis('next',{tour_1_4:$team_1_4},'',true,false);
         }
         /**
          * убираем команды в 1/2
@@ -80,11 +79,11 @@ function change($tour) {
     $('span[class="change_1_' + $tour + '"]').text($num - $change);
     if ($('input:checked').length === 12) {
         $('input[name="tour_1/' + $tour + '"]:not(":checked")').attr('disabled', 'true');
-        $('[name="next"]').parent(2).show();
+        ButtonShow();
     }
     if ($change !== $num) {
         $('input[name="tour_1/' + $tour + '"]').removeAttr('disabled');
-        $('[name="next"]').parent(2).hide();
+        ButtonHide();
     } else {
         $('input[name="tour_1/' + $tour + '"]:not(":checked")').attr('disabled', 'true');
     }

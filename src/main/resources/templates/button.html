@@ -1,5 +1,8 @@
-<tr xmlns:th="http://www.w3.org/1999/xhtml">
-    <td colspan="15">
-        <button title="" th:name="${controller}" th:attr="onclick=|btn_${controller}()|"  type="submit" th:text="${btn_title}">%btn_value%</button>
+<tr th:if="${isBlocked == false}" xmlns:th="http://www.w3.org/1999/xhtml">
+    <td colspan="9">
+        <button class="d-none" th:attr="onclick=|btn_${controller}()|" th:name="${controller}" th:text="${btn_title}"
+                title=""
+                type="button">%btn_value%
+        </button>
     </td>
 </tr>

@@ -30,18 +30,12 @@ public class Users extends MyEntity {
 	private String login;
 	@Column(name = "password")
 	private String password;
-	//	@Column(name = "date_reg")
-//	private String dateRegistration;
 	@Column(name = "date_reg")
 	@CreationTimestamp
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar dateRegistration;
-	//	@Column(name = "date_auth_last")
-//	private String dateAuthorizationLast;
 	@Column(name = "date_authorization_last")
 	private Timestamp dateAuthorizationLast;
-	//	@Column(name = "date_authorization")
-//	private String dateAuthorization;
 	@Column(name = "date_authorization")
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
@@ -87,6 +81,9 @@ public class Users extends MyEntity {
 
 	@OneToMany(mappedBy = "usr", fetch = FetchType.LAZY)
 	private List<PlacingTeam> placings;
+
+	@OneToMany(mappedBy = "usr", fetch = FetchType.LAZY)
+	private List<Journal> journal;
 
 	@OneToOne(mappedBy = "usr")
 	private Rating rating;

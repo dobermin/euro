@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +47,7 @@ public class NextController extends MainControllers {
 		} catch (Exception e) {
 			return m;
 		}
-
+		setBlocked(getConfig().configService.timeOutStartCup());
 		model.addObject("teamsQuarter", quarter);
 		model.addObject("teamsSemi", semi);
 		model.addObject("placings", placings);
@@ -60,8 +59,9 @@ public class NextController extends MainControllers {
 	@ResponseBody
 	@Transactional
 	public boolean save (@RequestBody Map<String, List<String>> map, Principal principal) {
-		List<Teams> tour_4 = teamsService.getTeamsFromString( map.get("tour_4"));
-		List<Teams> tour_2 = teamsService.getTeamsFromString( map.get("tour_2"));
+		if (isBlocked()) return false;
+		List<Teams> tour_4 = teamsService.getTeamsFromString(map.get("tour_4"));
+		List<Teams> tour_2 = teamsService.getTeamsFromString(map.get("tour_2"));
 		try {
 			nextService.deleteByUser(getUser(principal));
 			List<Tour> tours = tourService.findAll();

@@ -1,12 +1,19 @@
-<th:block  xmlns:th="http://www.w3.org/1999/xhtml" th:with="count = ${4 * a + b}, team = ${tour == 4} ? ${placings[count].teams.teams} : ${!teamsQuarter.empty ? teamsQuarter[count] : ''}">
-<td th:if="${count < 18}">
-    <label
-           th:text="${team}">%team%</label>
-</td>
-<td th:if="${count < 18}">
-<label class="checkbox">
-    <input type="checkbox" th:title="${team}" th:attr="name='tour_1/' + ${tour}" th:disabled="${(tour == 4 and #lists.size(teamsQuarter) == 8 and !#lists.contains(teamsQuarter, team) ? true : false) OR (tour == 2 and #lists.size(teamsSemi) == 4 and !#lists.contains(teamsSemi, team) ? true : false)}" th:value="${team}" th:checked="${tour == 4} ? ${#lists.contains(teamsQuarter, team)} : ${#lists.contains(teamsSemi, team)}">
-    <span class="checkmark"></span>
-</label>
-</td>
+<th:block
+        th:with="count = ${4 * a + b}, team = ${tour == 4} ? ${placings[count].teams.teams} : ${teamsQuarter.size() > count ? teamsQuarter[count] : ''}"
+        xmlns:th="http://www.w3.org/1999/xhtml">
+    <td th:if="${count < 18}">
+        <label
+                th:text="${team}">%team%</label>
+    </td>
+    <td th:if="${count < 18}">
+        <label class="checkbox">
+            <input th:attr="name='tour_1/' + ${tour}"
+                   th:checked="${tour == 4} ? ${#lists.contains(teamsQuarter, team)} : ${#lists.contains(teamsSemi, team)}"
+                   th:disabled="${isBlocked OR (tour == 4 and #lists.size(teamsQuarter) == 8 and !#lists.contains(teamsQuarter, team) ? true : false) OR (tour == 2 and #lists.size(teamsSemi) == 4 and !#lists.contains(teamsSemi, team) ? true : false)}"
+                   th:title="${team}"
+                   th:value="${team}"
+                   type="checkbox">
+            <span class="checkmark"></span>
+        </label>
+    </td>
 </th:block>

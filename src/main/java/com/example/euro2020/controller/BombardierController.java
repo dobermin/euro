@@ -49,10 +49,11 @@ public class BombardierController extends MainControllers {
 
 	@PostMapping(value = "/bombardier_player", produces = {"application/json; charset=UTF-8"})
 	@ResponseBody
-	public ModelAndView player (ModelAndView model, @RequestBody Map<String, Object> map) {
+	public ModelAndView player (ModelAndView model, @RequestBody Map<String, Object> map, Principal principal) {
 		String country = String.valueOf(map.get("team"));
 		List<Player> players = playersService.findByTeam(country);
 		model.addObject("players", players);
+		model.addObject("bombardier", getUser(principal).getBombardier().getPlayer());
 		model.addObject("controller", "bombardier");
 		model.addObject("isBlocked", isBlocked());
 		model.addObject("btn_title", getBtnTitle());
