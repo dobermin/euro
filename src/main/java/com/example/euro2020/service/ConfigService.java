@@ -161,7 +161,11 @@ public class ConfigService {
 		SimpleDateFormat format = new SimpleDateFormat("EEEE");
 		String str = format.format(new Date().getTime());
 		return str.equals("воскресенье") ||
-			str.equals("суббота");
+			str.equals("суббота") ||
+			str.equals("Saturday") ||
+			str.equals("saturday") ||
+			str.equals("Sunday") ||
+			str.equals("sunday");
 	}
 
 	private Long getTimeClose () {
