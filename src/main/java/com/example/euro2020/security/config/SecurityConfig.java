@@ -26,12 +26,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure (HttpSecurity http) throws Exception {
 		http
+			.cors().and()
 			.csrf().disable()
 			.authorizeRequests()
-//			.antMatchers("/api/authorization").permitAll()
 			.antMatchers(
 				"/styles/**", "/js/**", "/images/**", "/bootstrap/**", "/fonts/**",
-				"/", "/groups", "/registration**", "/authorization**", "/templates", "/api**"
+				"/", "/groups", "/registration**", "/authorization**", "/templates", "/api" +
+					"/authorization**"
 			).permitAll()
 			.anyRequest()
 			.authenticated()
@@ -49,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.deleteCookies("JSESSIONID")
 			.logoutSuccessUrl("/")
 			.and()
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.apply(jwtConfigurer);
 	}
 
