@@ -31,7 +31,8 @@ function LoadingStyle($bool) {
 * сделать прогноз
 * */
 function post($url, $data, $function) {
-    LoadingStyle(true)
+    if ($url !== "bombardier_player")
+        LoadingStyle(true)
     $.ajax({
         url: "/" + $url,
         contentType: "application/json; charset=UTF-8",

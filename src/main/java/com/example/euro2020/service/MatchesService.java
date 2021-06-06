@@ -130,7 +130,7 @@ public class MatchesService implements IMatchesService {
 	                        ConfigProperties configProperties) {
 		Tour tour = null;
 		String regex = "([а-яА-Я]+\\s+[А-Яа-я]+)|([а-яА-Я]+)";
-		matchesStop:
+
 		for (Element element : elements) {
 			boolean bool = element.select("td[bgcolor~=(#0C8A08|#2D902B|#66AE33)]").isEmpty();
 			if (!bool && MyMatcher.find(element.text(), "[А-Я]{2,}").isEmpty()) {
@@ -139,7 +139,6 @@ public class MatchesService implements IMatchesService {
 				tour.setTour(element.text().replaceAll("лы", "л"));
 				tourList.add(tour);
 
-//				if (configProperties.getConfigService().getTesting())
 				try {
 					tourService.save(tour);
 				} catch (Exception e) {
@@ -165,7 +164,7 @@ public class MatchesService implements IMatchesService {
 					teamAway =
 						teamsService.findByTeam(configProperties.getCountry(teams.get(1)));
 				} catch (Exception e) {
-					break;
+					break element;
 				}
 				try {
 					matches = findMatchesByTourAndTeamHome(tour, teamHome);
