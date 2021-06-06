@@ -40,6 +40,7 @@ public class PrognosisController extends MainControllers {
 		setModel(model, null, tourSelect, principal);
 
 		model.addObject("timeBlocked", getTimeBlocked());
+		model.addObject("isBlocked", isBlocked());
 		model.addObject("controller", "prognosis");
 		model.addObject("btn_title", getBtnTitle());
 		model.setViewName("prognosis");
@@ -78,6 +79,8 @@ public class PrognosisController extends MainControllers {
 
 	private void setModel (ModelAndView model, List<Matches> matches, Tour tourSelect, Principal principal) {
 		List<Prognosis> prognoses = prognosisService.findByUserAndTour(getUser(principal), tourSelect);
+		if (matches == null)
+			matches = matchesService.findAll();
 		List<Tour> tours = tourService.findActual(matches);
 		matches = matchesService.findByTour(tourSelect);
 		List<String> color = getConfig().getColorClass(prognoses);

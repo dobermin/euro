@@ -15,7 +15,8 @@ public interface PrognosisRepository extends CrudRepository<Prognosis, Long> {
 
 	List<Prognosis> findByUsr (Users user);
 
-	@Query(value = "SELECT p FROM Prognosis p WHERE p.usr = :user AND p.match.tour = :tour ORDER BY p.id ASC ")
+	@Query(value = "SELECT p FROM Prognosis p WHERE p.usr=:user AND  p.match IN (SELECT m FROM Matches m WHERE m" +
+		".tour=:tour) ORDER BY p.id ASC")
 	List<Prognosis> findAllByUsrAndMatchTour (Users user, Tour tour);
 
 	List<Prognosis> findByMatchId (Long id);

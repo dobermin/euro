@@ -1,5 +1,5 @@
 <th:block
-        th:with="count = ${4 * a + b}, team = ${tour == 4} ? ${placings[count].teams.teams} : ${teamsQuarter.size() > count ? teamsQuarter[count] : ''}"
+        th:with="count = ${4 * a + b}, team = ${tour == 4} ? ${count<18 ? placings[count].teams.teams : ''} : ${!teamsQuarter.empty AND teamsQuarter.size()>count ? teamsQuarter[count] : ''}"
         xmlns:th="http://www.w3.org/1999/xhtml">
     <td th:if="${count < 18}">
         <label

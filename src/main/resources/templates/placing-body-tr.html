@@ -6,10 +6,17 @@
                                         </td>
                                         <td>
                                             <select class="placing" th:disabled="${isBlocked} ? true" title="">
-                                                <option value="" th:disabled="true" th:selected="${placing.containsKey(tr.teams)} ? false : true"></option>
-                                                <option th:each="n : ${#numbers.sequence(1, 4)}" th:selected="${placing.containsKey(tr.teams) AND placing.get(tr.teams)?.position == n ? true : false}" th:value="${n}" th:text="${n}" value="%value%">%value%</option>
+                                                <option value="" th:disabled="true"
+                                                        th:selected="${placing.containsKey(tr.teams)} ? false : true"></option>
+                                                <option th:each="n : ${#numbers.sequence(1, 4)}"
+                                                        th:selected="${placing.containsKey(tr.teams) AND placing.get(tr.teams)?.position == n ? true : false}"
+                                                        th:value="${n}" th:text="${n}" value="%value%">%value%
+                                                </option>
                                             </select>
                                         </td>
-                                        <td th:text="${tr.standing.position}">%position%</td>
-                                        <td><span th:if="${placing.get(tr.teams)?.position != null AND unClock}" class="%points_class%" th:text="${placing.get(tr.teams).position == tr.standing.position ? point : ''}">%points%</span></td>
+                                        <td th:if="${unClock}" th:text="${tr.standing.position}">%position%</td>
+                                        <td th:if="${unClock}"><span class="%points_class%"
+                                                                     th:if="${placing.get(tr.teams)?.position != null AND unClock}"
+                                                                     th:text="${placing.get(tr.teams).position == tr.standing.position ? point : ''}">%points%</span>
+                                        </td>
                                     </tr>

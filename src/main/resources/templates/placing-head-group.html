@@ -10,8 +10,8 @@
                                     <tr>
                                         <td>Команда</td>
                                         <td>Позиция</td>
-                                        <td>Позиция</td>
-                                        <td>Очки</td>
+                                        <td th:if="${unClock}">Позиция</td>
+                                        <td th:if="${unClock}">Очки</td>
                                     </tr>
                                     <div xmlns:th="http://www.w3.org/1999/xhtml" th:include="placing-body-tr" th:each="tr, iter : ${t.teams}" th:remove="tag"></div>
                                     </th:block>

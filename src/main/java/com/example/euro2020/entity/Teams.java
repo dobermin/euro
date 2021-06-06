@@ -47,6 +47,10 @@ public class Teams extends MyEntity {
 
 	@Override
 	public String toString () {
-		return "Teams{}";
+		return "Teams{" +
+			"id=" + id +
+			", teams='" + teams + '\'' +
+			", party=" + party +
+			'}';
 	}
 }

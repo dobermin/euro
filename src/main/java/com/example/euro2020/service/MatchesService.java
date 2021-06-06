@@ -130,6 +130,7 @@ public class MatchesService implements IMatchesService {
 	                        ConfigProperties configProperties) {
 		Tour tour = null;
 		String regex = "([а-яА-Я]+\\s+[А-Яа-я]+)|([а-яА-Я]+)";
+		matchesStop:
 		for (Element element : elements) {
 			boolean bool = element.select("td[bgcolor~=(#0C8A08|#2D902B|#66AE33)]").isEmpty();
 			if (!bool && MyMatcher.find(element.text(), "[А-Я]{2,}").isEmpty()) {
@@ -156,19 +157,24 @@ public class MatchesService implements IMatchesService {
 				String time = td.get(1).text();
 				String group = td.get(3).select("a").text();
 
+				Teams teamHome, teamAway;
 				try {
 					List<String> teams = MyMatcher.find(match.text(), regex);
-					Teams teamHome =
+					teamHome =
 						teamsService.findByTeam(configProperties.getCountry(teams.get(0)));
-					Teams teamAway =
+					teamAway =
 						teamsService.findByTeam(configProperties.getCountry(teams.get(1)));
+				} catch (Exception e) {
+					break;
+				}
+				try {
 					matches = findMatchesByTourAndTeamHome(tour, teamHome);
-					matches.setTeamHome(teamHome);
-					matches.setTeamAway(teamAway);
-					matches.setTour(tour);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
+				matches.setTeamHome(teamHome);
+				matches.setTeamAway(teamAway);
+				matches.setTour(tour);
 				matches.setTimestamp(dateTime.getTimestampMatch(date, time));
 
 				String reg = "(\\d+)|(\\(.*)";
@@ -190,9 +196,7 @@ public class MatchesService implements IMatchesService {
 
 				if (tour.getTour().toLowerCase().contains("финал"))
 					getWinner(score, element, configProperties);
-
 				matchesList.add(matches);
-//				if (configProperties.getConfigService().getTesting())
 				repository.save(matches);
 			}
 
@@ -224,25 +228,28 @@ public class MatchesService implements IMatchesService {
 		Element table = document.select("table").last();
 		Element tr = table.select("tr").get(2);
 		List<Integer> goals = MyMatcher.find(tr.text(), ",\\s\\d+", true);
-		Integer max = MyMatcher.Max(goals);
-		if (max <= 90) {
-			matches.setMainHome(score.get(0));
-			matches.setMainAway(score.get(1));
-		} else {
-			Integer minute = goals.get(0);
-			int count = 0;
-			while (minute <= 90) {
-				count++;
-				minute = goals.get(count);
-			}
-			matches.setMainHome(String.valueOf(Math.round(count / 2.0)));
-			matches.setMainAway(matches.getMainHome());
-			matches.setOvertime(configProperties.getOVERTIME());
+		try {
+			Integer max = MyMatcher.Max(goals);
+			if (max <= 90) {
+				matches.setMainHome(score.get(0));
+				matches.setMainAway(score.get(1));
+			} else {
+				Integer minute = goals.get(0);
+				int count = 0;
+				while (minute <= 90) {
+					count++;
+					minute = goals.get(count);
+				}
+				matches.setMainHome(String.valueOf(Math.round(count / 2.0)));
+				matches.setMainAway(matches.getMainHome());
+				matches.setOvertime(configProperties.getOVERTIME());
 
-			if (Integer.parseInt(matches.getScoreHome()) > Integer.parseInt(matches.getScoreAway()))
-				matches.setNext(matches.getTeamHome());
-			else if (Integer.parseInt(matches.getScoreHome()) < Integer.parseInt(matches.getScoreAway()))
-				matches.setNext(matches.getTeamAway());
+				if (Integer.parseInt(matches.getScoreHome()) > Integer.parseInt(matches.getScoreAway()))
+					matches.setNext(matches.getTeamHome());
+				else if (Integer.parseInt(matches.getScoreHome()) < Integer.parseInt(matches.getScoreAway()))
+					matches.setNext(matches.getTeamAway());
+			}
+		} catch (Exception ignored) {
 		}
 	}
 

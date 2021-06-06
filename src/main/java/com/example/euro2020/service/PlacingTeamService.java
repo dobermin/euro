@@ -81,7 +81,7 @@ public class PlacingTeamService implements IPlacingTeamService {
 	public List<PlacingTeam> findByUser (Users user) {
 		try {
 			List<PlacingTeam> list = new ArrayList<>(placingRepository.findByUsr(user));
-			list.sort(Comparator.comparing(PlacingTeam::getPosition));
+//			list.sort(Comparator.comparing(PlacingTeam::getPosition));
 			return list;
 		} catch (Exception e) {
 			return new ArrayList<>();
@@ -91,7 +91,8 @@ public class PlacingTeamService implements IPlacingTeamService {
 	@Override
 	public List<PlacingTeam> findByUserAndPosition (Users user, int position) {
 		try {
-			return new ArrayList<>(placingRepository.findAllByUsrAndPositionLessThanEqualOrderByTeamsAsc(user, position));
+			return new ArrayList<>(placingRepository.findAllByUsrAndPositionLessThanEqual(user, position)).stream()
+				.sorted(Comparator.comparing(o -> o.getTeams().getTeams())).collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}

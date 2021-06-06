@@ -35,14 +35,14 @@ public class Matches extends MyEntity{
 	@Column(name = "overtime")
 	private String overtime;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "team_home", referencedColumnName = "id")
 	private Teams teamHome;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "team_away", referencedColumnName = "id")
 	private Teams teamAway;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "tour")
 	private Tour tour;
 
@@ -50,4 +50,8 @@ public class Matches extends MyEntity{
 	@JoinColumn(name = "next", referencedColumnName = "id")
 	private Teams next;
 
+	@Override
+	public String toString () {
+		return "Matches{}";
+	}
 }

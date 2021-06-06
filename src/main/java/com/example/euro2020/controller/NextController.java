@@ -47,6 +47,8 @@ public class NextController extends MainControllers {
 		} catch (Exception e) {
 			return m;
 		}
+		placings = placingService.findByUserAndPosition(getUser(), 3);
+
 		setBlocked(getConfig().configService.timeOutStartCup());
 		model.addObject("teamsQuarter", quarter);
 		model.addObject("teamsSemi", semi);

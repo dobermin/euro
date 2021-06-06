@@ -1,10 +1,9 @@
 package com.example.euro2020.security.config;
 
-import com.example.euro2020.security.service.UserDetailsServiceImpl;
+import com.example.euro2020.security.JwtConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,43 +12,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private final UserDetailsServiceImpl userDetailsService;
+	private final JwtConfigurer jwtConfigurer;
 
-	public WebSecurityConfig (UserDetailsServiceImpl userDetailsService) {
-		this.userDetailsService = userDetailsService;
-	}
-
-	@Override
-	public void configure (AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
-
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean () throws Exception {
-		return super.authenticationManagerBean();
-	}
-
-	@Bean
-	public PasswordEncoder passwordEncoder () {
-		return new BCryptPasswordEncoder();
+	public SecurityConfig (JwtConfigurer jwtConfigurer) {
+		this.jwtConfigurer = jwtConfigurer;
 	}
 
 	@Override
 	protected void configure (HttpSecurity http) throws Exception {
-
 		http
-			.cors().and()
 			.csrf().disable()
 			.authorizeRequests()
+//			.antMatchers("/api/authorization").permitAll()
 			.antMatchers(
 				"/styles/**", "/js/**", "/images/**", "/bootstrap/**", "/fonts/**",
-				"/", "/groups", "/registration**", "/authorization**"
+				"/", "/groups", "/registration**", "/authorization**", "/templates", "/api**"
 			).permitAll()
 			.anyRequest()
 			.authenticated()
@@ -65,9 +47,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.invalidateHttpSession(true)
 			.clearAuthentication(true)
 			.deleteCookies("JSESSIONID")
-			.logoutSuccessUrl("/");
-
+			.logoutSuccessUrl("/")
+			.and()
+//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.apply(jwtConfigurer);
 	}
 
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean () throws Exception {
+		return super.authenticationManagerBean();
+	}
 
+	@Bean
+	protected PasswordEncoder passwordEncoder () {
+		return new BCryptPasswordEncoder(12);
+	}
 }

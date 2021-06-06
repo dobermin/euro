@@ -59,7 +59,11 @@ public class PrognosisService implements IPrognosisService {
 
 	public List<Prognosis> findByUserAndTour (Users user, Tour tour) {
 		try {
-			return new ArrayList<>(repository.findAllByUsrAndMatchTour(user, tour));
+			List<Prognosis> list = new ArrayList<>(repository.findByUsr(user));
+			return list.stream()
+				.filter(t -> t.getMatch().getTour().equals(tour))
+				.sorted(Comparator.comparing(Prognosis::getId))
+				.collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}

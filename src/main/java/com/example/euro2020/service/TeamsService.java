@@ -39,7 +39,11 @@ public class TeamsService implements ITeamsService {
 
 	@Override
 	public Teams findByTeam (String team) {
-		return new ArrayList<>(repository.findAllByTeams(team)).get(0);
+		try {
+			return new ArrayList<>(repository.findAllByTeams(team)).get(0);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
