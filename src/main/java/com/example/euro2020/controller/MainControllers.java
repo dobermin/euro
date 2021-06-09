@@ -150,7 +150,9 @@ public class MainControllers {
 		controller = getUri();
 		switch (getUri()) {
 			case "authorization":
+			case "authorization/":
 			case "registration":
+			case "registration/":
 				return getUri();
 			case "registration-check":
 				return "registration";
