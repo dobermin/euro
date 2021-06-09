@@ -53,7 +53,7 @@ public class Controllers extends MainControllers {
 		return new ModelAndView("forward:/groups");
 	}
 
-	@GetMapping(value = "/authorization")
+	@GetMapping(value = {"/authorization", "/authorization/"})
 	public ModelAndView getAuthorization (User user,
 	                                      @RequestParam(value = "error", defaultValue = "false") boolean loginError, ModelAndView model, HttpServletRequest request, Principal principal) {
 		if (principal != null) return new ModelAndView("redirect:/");
@@ -64,7 +64,7 @@ public class Controllers extends MainControllers {
 		return super.getMain(model, request);
 	}
 
-	@PostMapping(value = "/authorization")
+	@PostMapping(value = {"/authorization", "/authorization/"})
 	public ModelAndView auth (User user, HttpSession session) {
 
 		if (user.getLogin() != null) {
@@ -80,7 +80,7 @@ public class Controllers extends MainControllers {
 		return new ModelAndView("redirect:/");
 	}
 
-	@GetMapping(value = "/registration")
+	@GetMapping(value = {"/registration", "/registration/"})
 	public ModelAndView getRegistration (User user, ModelAndView model, HttpServletRequest request,
 	                                     Principal principal) {
 		if (!getConfig().configService.canRegistration()) {
@@ -91,7 +91,7 @@ public class Controllers extends MainControllers {
 		return super.getMain(model, request);
 	}
 
-	@PostMapping(value = "/registration")
+	@PostMapping(value = {"/registration", "/registration/"})
 	@Transactional
 	public ModelAndView getRegistrationCheck (@Valid User user, BindingResult bindingResult, ModelAndView model,
 	                                          HttpServletRequest request, HttpSession session) throws Exception {
