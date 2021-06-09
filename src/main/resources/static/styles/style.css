@@ -15,15 +15,15 @@
   color: darkred !important;
 }
 body {
-    /*background: url("../images/bg.jpg") repeat;*/
-    background-color: #ccc;
+    background: rgba(13, 159, 180, 1);
+    /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
     font-weight: bold;
     font-size: 1.25rem;
     color: #e4161c;
 }
   body.bg-90 {
-      /*background: url("../images/bg.jpg") repeat;*/
-      background-color: #ccc;
+      background: rgba(13, 159, 180, 1);
+      /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
   }
   body form label {
       color: rgba(255, 255, 255, 0.9) !important;
@@ -100,7 +100,7 @@ body {
       margin: 0 auto;
       padding: 10px;
       border-radius: 10px;
-      color: #000;
+      color: #14A4B8;
       border: 3px solid rgba(255, 255, 255, 0.9) !important;
       font-weight: bold;
       font-size: 120%;
@@ -111,14 +111,14 @@ body {
       min-width: 30%;
       margin-left: -15%;
       text-align: center;
-      box-shadow: 3px 3px 3px white, -3px -3px 2px #999;
+      box-shadow: 3px 3px 3px white, -3px -3px 2px #A1B3B8;
   }
 
 .logout {
     margin: 0 auto;
     display: table;
     border-radius: 50%;
-    color: #000;
+    color: #14A4B8;
     border: 3px solid rgba(255, 255, 255, 0.9) !important;
     font-weight: bold;
 }
@@ -174,7 +174,7 @@ body button.value-default, body button[name="default"] {
     left: 17px;
     height: 26px;
     width: 26px;
-    background-color: #000;
+    background-color: #14A4B8;
 }
 
 /* On mouse-over, add a grey background color */
@@ -184,7 +184,7 @@ body button.value-default, body button[name="default"] {
 
 /* When the checkbox is checked, add a blue background */
 .checkbox input:checked ~ .checkmark {
-    background-color: #000;
+    background-color: #14A4B8;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -221,7 +221,7 @@ body button.value-default, body button[name="default"] {
         border-color: rgba(255, 255, 255, 0.9) !important;
     }
     50% {
-        border-color: #000;
+        border-color: #14A4B8;
     }
     100% {
         border-color: rgba(255, 255, 255, 0.9) !important;
@@ -229,7 +229,7 @@ body button.value-default, body button[name="default"] {
 }
   body .messages {
       background-color: rgba(255, 255, 255, 0.9) !important;
-      color: #000;
+      color: #14A4B8;
       position: fixed;
       text-align: center;
       top: 40%;
@@ -252,7 +252,7 @@ body button.value-default, body button[name="default"] {
       border: none;
   }
     body .dropdown-menu .dropdown-item {
-        color: #000 !important;
+        color: #14A4B8 !important;
         font-weight: bold;
         padding-bottom: .5rem;
         border-bottom: 1px solid #fff;
@@ -336,7 +336,7 @@ header .navbar-light .navbar-toggler {
 
 @media screen and (max-width: 991px) {
     header .navbar-nav .nav-item {
-        background: #000;
+        background: #14A4B8;
         width: 50%;
         margin: 0 auto;
         padding: 10px 0;
@@ -359,8 +359,8 @@ main .center .standing table {
     background: rgba(255, 255, 255, 0.9) !important;
 }
   main .center .standing table tr td {
-      border-right: 2px solid #000;
-      border-bottom: 2px solid #000;
+      border-right: 2px solid #14A4B8;
+      border-bottom: 2px solid #14A4B8;
       padding: 5px;
       text-align: center;
       vertical-align: middle;
@@ -382,14 +382,14 @@ main .center .standing table {
       main .center .standing table tr td input[type='button'] {
         width: 200px; }
     main .center .standing table tr td #tour {
-        background: #000 !important;
+        background: #14A4B8 !important;
         border: none;
         color: #ffffff;
         display: table;
         margin: 0 auto;
     }
       main .center .standing table tr td #tour:active, main .center .standing table tr td #tour:hover {
-          background: #000 !important;
+          background: #14A4B8 !important;
           cursor: pointer;
       }
       main .center .standing table tr td #tour option {
@@ -398,16 +398,16 @@ main .center .standing table {
           background: red !important;
           cursor: pointer; }
     main .center .standing table tr td:first-child {
-        border-left: 2px solid #000;
+        border-left: 2px solid #14A4B8;
     }
   main .center .standing table tr:nth-child(2n) td,
   main .center .standing table tr:nth-child(2n) input,
   main .center .standing table tr:nth-child(2n) select {
-      background: #999;
+      background: #A1B3B8;
       color: rgba(255, 255, 255, 0.9) !important;
   }
   main .center .standing table tr:nth-child(2n) select {
-      border: 2px solid #000;
+      border: 2px solid #14A4B8;
       font-weight: bold;
   }
   main .center .standing table tr:nth-child(3n) td,
@@ -419,27 +419,27 @@ main .center .standing table {
   main .center .standing table tr:nth-child(1) select, main .center .standing table tr:nth-child(6n+1) td,
   main .center .standing table tr:nth-child(6n+1) input,
   main .center .standing table tr:nth-child(6n+1) select {
-      color: #000;
+      color: #14A4B8;
   }
   main .center .standing table tr:nth-child(3n) select, main .center .standing table tr:nth-child(3n + 2) select, main .center .standing table tr:nth-child(1) select, main .center .standing table tr:nth-child(6n+1) select {
-      border: 2px solid #000;
+      border: 2px solid #14A4B8;
       font-weight: bold;
   }
   main .center .standing table tr.edit td input {
     width: 100%; }
   main .center .standing table thead tr:first-child td {
       border-bottom: none;
-      border-top: 2px solid #000;
+      border-top: 2px solid #14A4B8;
       font-weight: bold;
   }
   main .center .standing table thead tr:nth-child(2) td, main .center .standing table thead tr:nth-child(3) td, main .center .standing table thead tr:nth-child(4) td, main .center .standing table thead tr:nth-child(5) td {
-      border-top: 2px solid #000;
+      border-top: 2px solid #14A4B8;
       border-bottom: none;
   }
   main .center .standing table thead tr:nth-child(2) td[colspan]:first-child {
     border-left: none; }
   main .center .standing table tbody tr:first-child td {
-      border-top: 2px solid #000;
+      border-top: 2px solid #14A4B8;
   }
   main .center .standing table tbody tr.active td{
     border-top: 2px solid yellow;
@@ -533,17 +533,18 @@ main .center .wrapper {
   main .center .wrapper .comment {
       margin: 10px 20px;
       padding: 5px;
-      border: 1px solid #000;
+      border: 1px solid #14A4B8;
       overflow: hidden;
       background: rgba(255, 255, 255, 0.9) !important;
   }
     main .center .wrapper .comment p {
-        color: #000;
+        color: #14A4B8;
     }
       main .center .wrapper .comment p.message {
-        color: #999; }
+          color: #A1B3B8;
+      }
     main .center .wrapper .comment a {
-        color: #000 !important;
+        color: #14A4B8 !important;
     }
     main .center .wrapper .comment .name-author {
       font-weight: bold; }
