@@ -35,12 +35,12 @@ public class ConfigProperties {
 			});
 			put("Авторизация", new ArrayList<>() {
 				{
-					add(new Navigation("", "authorization"));
+					add(new Navigation("", "authorization/"));
 				}
 			});
 			put("Регистрация", new ArrayList<>() {
 				{
-					add(new Navigation("", "registration"));
+					add(new Navigation("", "registration/"));
 				}
 			});
 		}

@@ -31,14 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(
 				"/styles/**", "/js/**", "/images/**", "/bootstrap/**", "/fonts/**",
-				"/", "/groups", "/registration**", "/authorization**", "/templates", "/api" +
+				"/", "/groups", "/registration", "/authorization", "/registration/", "/authorization/"
+				, "/templates", "/api" +
 					"/authorization**"
 			).permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/authorization").permitAll()
+			.loginPage("/authorization/").permitAll()
 			.usernameParameter("login")
 			.failureUrl("/authorization?error=true")
 			.defaultSuccessUrl("/")
