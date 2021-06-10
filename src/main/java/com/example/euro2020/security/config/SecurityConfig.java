@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(
 				"/styles/**", "/js/**", "/images/**", "/bootstrap/**", "/fonts/**",
-				"/", "/groups", "/registration", "/authorization", "/registration/", "/authorization/"
+				"/", "/groups", "/registration**", "/authorization**"
 				, "/templates", "/api" +
 					"/authorization**"
 			).permitAll()
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/authorization/").permitAll()
+			.loginPage("/authorization").permitAll()
 			.usernameParameter("login")
 			.failureUrl("/authorization?error=true")
 			.defaultSuccessUrl("/")

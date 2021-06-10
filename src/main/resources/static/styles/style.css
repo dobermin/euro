@@ -1,19 +1,24 @@
 @import url(../bootstrap/css/bootstrap.min.css);
 @import url(../styles/reset_bootstrap.css);
 @import url(../styles/reset.css);
-@media (min-width: 1200px) {
-  html {
-    font-size: 16px; }
 
-  .container {
-    max-width: 75rem;
-    padding: 0 0.625rem; } }
+@media (min-width: 1200px) {
+    html {
+        font-size: 16px;
+    }
+
+    .container {
+        max-width: 75rem;
+        padding: 0 0.625rem;
+    }
+}
 
 .error {
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: darkred !important;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: darkred !important;
 }
+
 body {
     background: rgba(13, 159, 180, 1);
     /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
@@ -21,59 +26,86 @@ body {
     font-size: 1.25rem;
     color: #e4161c;
 }
-  body.bg-90 {
-      background: rgba(13, 159, 180, 1);
-      /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
-  }
-  body form label {
-      color: rgba(255, 255, 255, 0.9) !important;
-      font-weight: bold;
-      margin-bottom: 0;
-  }
-  body a {
-      color: rgba(255, 255, 255, 0.9) !important;
-      padding-left: 10px;
-      padding-bottom: 10px;
-      text-decoration: underline;
-  }
-    body a:hover, body a.active {
-      text-decoration: none; }
-  body img {
+
+body.bg-90 {
+    background: rgba(13, 159, 180, 1);
+    /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
+}
+
+body form label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+body a {
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    text-decoration: underline;
+}
+
+body a:hover, body a.active {
+    text-decoration: none;
+}
+
+body img {
     display: none;
-    width: 100%; }
-  body .logo img {
+    width: 100%;
+}
+
+body .logo img {
     display: block;
-    width: 10vw; }
-  body .warning {
+    width: 10vw;
+}
+
+body .warning {
     display: inline-block;
     width: 20px;
     height: 20px;
-    margin: 0 10px; }
-  body .red td:first-child {
-    background-color: red !important; }
-  body .lime,
-  body .yellow,
-  body .white {
+    margin: 0 10px;
+}
+
+body .red td:first-child {
+    background-color: red !important;
+}
+
+body .lime,
+body .yellow,
+body .white {
     color: green;
     display: block;
-    width: 100%; }
-  body .lime {
-    background-color: lime; }
-  body .yellow {
-    background-color: yellow; }
-  body .white {
-    background-color: lightcoral; }
-  body .loader {
+    width: 100%;
+}
+
+body .lime {
+    background-color: lime;
+}
+
+body .yellow {
+    background-color: yellow;
+}
+
+body .white {
+    background-color: lightcoral;
+}
+
+body .loader {
     position: fixed;
     width: 100px;
     z-index: 4;
-    display: none; }
-  body .time {
-      color: rgba(255, 255, 255, 0.9) !important;
-  }
-  body #back-top {
-    display: none; }
-  body .overlay {
+    display: none;
+}
+
+body .time {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body #back-top {
+    display: none;
+}
+
+body .overlay {
     position: fixed;
     background-color: rgba(68, 68, 68, 0.8);
     width: 100%;
@@ -81,38 +113,41 @@ body {
     z-index: 3;
     top: 0;
     left: 0;
-    display: none; }
-  body select:hover,
-  body button:hover,
-  body input[type="radio"]:hover,
-  body input[type="checkbox"]:hover,
-  body input[type="submit"]:hover,
-  body input[type="button"]:hover {
-    cursor: pointer; }
-  body select:focus,
-  body button:focus,
-  body input[type="radio"]:focus,
-  body input[type="checkbox"]:focus,
-  body input[type="submit"]:focus,
-  body input[type="button"]:focus {
-    outline: none; }
-  body button:not(.navbar-toggler, .logout) {
-      margin: 0 auto;
-      padding: 10px;
-      border-radius: 10px;
-      color: #14A4B8;
-      border: 3px solid rgba(255, 255, 255, 0.9) !important;
-      font-weight: bold;
-      font-size: 120%;
-      position: fixed;
-      bottom: 0%;
-      left: 50%;
-      -webkit-animation: rainbow 2s infinite linear;
-      min-width: 30%;
-      margin-left: -15%;
-      text-align: center;
-      box-shadow: 3px 3px 3px white, -3px -3px 2px #A1B3B8;
-  }
+    display: none;
+}
+
+body select:hover,
+body button:hover,
+body input[type="radio"]:hover,
+body input[type="checkbox"]:hover,
+body input[type="submit"]:hover,
+body input[type="button"]:hover {
+    cursor: pointer;
+}
+
+body select:focus,
+body button:focus,
+body input[type="radio"]:focus,
+body input[type="checkbox"]:focus,
+body input[type="submit"]:focus,
+body input[type="button"]:focus {
+    outline: none;
+}
+
+body button:not(.navbar-toggler, .logout) {
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 10px;
+    color: #14A4B8;
+    border: 3px solid rgba(255, 255, 255, 0.9) !important;
+    font-weight: bold;
+    font-size: 120%;
+    bottom: 0;
+    -webkit-animation: rainbow 2s infinite linear;
+    text-align: center;
+    box-shadow: 3px 3px 3px white, -3px -3px 2px #A1B3B8;
+    z-index: 2;
+}
 
 .logout {
     margin: 0 auto;
@@ -124,47 +159,50 @@ body {
 }
 
 body button.value-default, body button[name="default"] {
-  position: initial;
-  left: initial;
-  bottom: 0;
-  padding: 3px;
-  margin-left: initial;
-  margin-top: 5px;
+    position: initial;
+    left: initial;
+    bottom: 0;
+    padding: 3px;
+    margin-left: initial;
+    margin-top: 5px;
 }
 
 .inline {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
+
 .inline span {
-  display: inline-flex;
+    display: inline-flex;
 }
+
 /* The container */
 .checkbox {
-  display: block;
-  position: relative;
-  /* padding-left: 135px; */
-  /* margin-bottom: 12px; */
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    display: block;
+    position: relative;
+    /* padding-left: 135px; */
+    /* margin-bottom: 12px; */
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /* Hide the browser's default checkbox */
 .checkbox input {
-  position: absolute;
-  /* opacity: 0; */
-  left: 18px;
-  top: -12px;
-  cursor: pointer;
-  height: 24px!important;
-  width: 24px!important;
+    position: absolute;
+    /* opacity: 0; */
+    left: 18px;
+    top: -12px;
+    cursor: pointer;
+    height: 24px !important;
+    width: 24px !important;
 }
+
 .checkbox input:disabled {
-  z-index: 2;
+    z-index: 2;
 }
 
 /* Create a custom checkbox */
@@ -179,7 +217,7 @@ body button.value-default, body button[name="default"] {
 
 /* On mouse-over, add a grey background color */
 .checkbox:hover input ~ .checkmark {
-  /*background-color: #ccc;*/
+    /*background-color: #ccc;*/
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -189,14 +227,14 @@ body button.value-default, body button[name="default"] {
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
 
 /* Show the checkmark when checked */
 .checkbox input:checked ~ .checkmark:after {
-  display: block;
+    display: block;
 }
 
 /* Style the checkmark/indicator */
@@ -227,98 +265,145 @@ body button.value-default, body button[name="default"] {
         border-color: rgba(255, 255, 255, 0.9) !important;
     }
 }
-  body .messages {
-      background-color: rgba(255, 255, 255, 0.9) !important;
-      color: #14A4B8;
-      position: fixed;
-      text-align: center;
-      top: 40%;
-      padding: 20px;
-      border-radius: 20px;
-      z-index: 4;
-      width: 35%;
-      margin: 0 auto;
-      left: 0;
-      right: 0;
-  }
-  body input {
-      border: 2px solid;
-      color: blueviolet;
-      font-weight: bold;
-      padding: 0 5px 2px;
-  }
-  body .dropdown-menu {
-      background: rgba(255, 255, 255, 0.9) !important;
-      border: none;
-  }
-    body .dropdown-menu .dropdown-item {
-        color: #14A4B8 !important;
-        font-weight: bold;
-        padding-bottom: .5rem;
-        border-bottom: 1px solid #fff;
-    }
-      body .dropdown-menu .dropdown-item:hover {
-        background-color: initial;
-        color: white; }
-      body .dropdown-menu .dropdown-item.active {
-        background-color: initial; }
-      body .dropdown-menu .dropdown-item:last-child {
-        padding-bottom: 0;
-        border-bottom: none; }
-    body .dropdown-menu.active {
-      background-color: initial; }
-  body .navbar-toggler {
-    border-width: 3px; }
-  body .nav-justified .nav-item {
-    flex-basis: initial }
-  li.nav-item.dropdown::marker {
+
+body .messages {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #14A4B8;
+    position: fixed;
+    text-align: center;
+    top: 40%;
+    padding: 20px;
+    border-radius: 20px;
+    z-index: 4;
+    width: 35%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+}
+
+body input {
+    border: 2px solid;
+    color: blueviolet;
+    font-weight: bold;
+    padding: 0 5px 2px;
+}
+
+body .dropdown-menu {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: none;
+}
+
+body .dropdown-menu .dropdown-item {
+    color: #14A4B8 !important;
+    font-weight: bold;
+    padding-bottom: .5rem;
+    border-bottom: 1px solid #fff;
+}
+
+body .dropdown-menu .dropdown-item:hover {
+    background-color: initial;
+    color: white;
+}
+
+body .dropdown-menu .dropdown-item.active {
+    background-color: initial;
+}
+
+body .dropdown-menu .dropdown-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+body .dropdown-menu.active {
+    background-color: initial;
+}
+
+body .navbar-toggler {
+    border-width: 3px;
+}
+
+body .nav-justified .nav-item {
+    flex-basis: initial
+}
+
+li.nav-item.dropdown::marker {
     display: none;
-  }
+}
 
 @media screen and (max-width: 767px) {
-  body {
-    font-size: 0.8rem !important; }
-    body nav .navbar-toggler {
-      font-size: .9rem; }
-    body button:not(.navbar-toggler) {
-      padding: 5px; }
-      body button:not(.navbar-toggler)[name="default"] {
-        padding: 2px; }
-    body input {
-      padding: 0; } }
-@media screen and (max-width: 480px) {
-  body {
-    font-size: 0.5rem !important; }
-    body nav .navbar-toggler {
-      font-size: .6rem; }
-    body .navbar {
-      padding: 0; }
-      body .navbar .dropdown-item {
-        font-size: 0.6rem !important;
-        white-space: initial; }
-    body button:not(.navbar-toggler) {
-      padding: 5px; } }
-@font-face {
-  font-family: 'dit';
-  src: url("../fonts/Dited/Dited.woff2") format("woff2"), url("../fonts/Dited/Dited.woff") format("woff"); }
-@font-face {
-  font-family: 'ple';
-  src: url("../fonts/Plexifont/Plexifont.woff2") format("woff2"), url("../fonts/Plexifont/Plexifont.woff") format("woff"); }
-header {
-  /*position: fixed;*/
-  width: 100%;
-  z-index: 2; }
-  header nav {
-    order: 1;
-    padding-top: 10px; }
-    header nav .dropdown-menu {
-      min-width: 5rem;
-      padding: .2rem;
-        margin: 2px auto;
-        left: -100%;
-        top: 2rem;
-        z-index: 5;
+    body {
+        font-size: 0.8rem !important;
     }
+
+    body nav .navbar-toggler {
+        font-size: .9rem;
+    }
+
+    body button:not(.navbar-toggler) {
+        padding: 5px;
+    }
+
+    body button:not(.navbar-toggler)[name="default"] {
+        padding: 2px;
+    }
+
+    body input {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 0.5rem !important;
+    }
+
+    body nav .navbar-toggler {
+        font-size: .6rem;
+    }
+
+    body .navbar {
+        padding: 0;
+    }
+
+    body .navbar .dropdown-item {
+        font-size: 0.6rem !important;
+        white-space: initial;
+    }
+
+    body button:not(.navbar-toggler) {
+        padding: 5px;
+    }
+}
+
+@font-face {
+    font-family: 'dit';
+    src: url("../fonts/Dited/Dited.woff2") format("woff2"), url("../fonts/Dited/Dited.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'ple';
+    src: url("../fonts/Plexifont/Plexifont.woff2") format("woff2"), url("../fonts/Plexifont/Plexifont.woff") format("woff");
+}
+
+header {
+    /*position: fixed;*/
+    width: 100%;
+    z-index: 2;
+}
+
+header nav {
+    order: 1;
+    padding-top: 10px;
+}
+
+header nav .dropdown-menu {
+    min-width: 5rem;
+    padding: .2rem;
+    margin: 2px auto;
+    left: -100%;
+    top: 2rem;
+    z-index: 5;
+}
 
 header nav .dropdown-menu a.dropdown-item {
     text-align: center;
@@ -349,279 +434,407 @@ header .navbar-light .navbar-toggler {
         padding: 10px;
     }
 }
+
 main .left {
-  text-align: center; }
-  main .left nav a {
-    display: block; }
+    text-align: center;
+}
+
+main .left nav a {
+    display: block;
+}
+
 main .center .standing table {
     margin: 0 auto;
     font-weight: bold;
     background: rgba(255, 255, 255, 0.9) !important;
 }
-  main .center .standing table tr td {
-      border-right: 2px solid #14A4B8;
-      border-bottom: 2px solid #14A4B8;
-      padding: 5px;
-      text-align: center;
-      vertical-align: middle;
-      font-weight: bold;
-  }
-    main .center .standing table tr td img {
-      display: block;
-      margin: 0 auto;
-      width: 30%; }
-    main .center .standing table tr td input {
-      height: 30px;
-      text-align: center;
-      width: 30px;
-      display: block;
-      margin: 0 auto; }
-      main .center .standing table tr td label input[type='text'] {
-        width: 100%;
-      }
-      main .center .standing table tr td input[type='button'] {
-        width: 200px; }
-    main .center .standing table tr td #tour {
-        background: #14A4B8 !important;
-        border: none;
-        color: #ffffff;
-        display: table;
-        margin: 0 auto;
-    }
-      main .center .standing table tr td #tour:active, main .center .standing table tr td #tour:hover {
-          background: #14A4B8 !important;
-          cursor: pointer;
-      }
-      main .center .standing table tr td #tour option {
-        background: blue; }
-        main .center .standing table tr td #tour option:hover {
-          background: red !important;
-          cursor: pointer; }
-    main .center .standing table tr td:first-child {
-        border-left: 2px solid #14A4B8;
-    }
-  main .center .standing table tr:nth-child(2n) td,
-  main .center .standing table tr:nth-child(2n) input,
-  main .center .standing table tr:nth-child(2n) select {
-      background: #A1B3B8;
-      color: rgba(255, 255, 255, 0.9) !important;
-  }
-  main .center .standing table tr:nth-child(2n) select {
-      border: 2px solid #14A4B8;
-      font-weight: bold;
-  }
-  main .center .standing table tr:nth-child(3n) td,
-  main .center .standing table tr:nth-child(3n) input,
-  main .center .standing table tr:nth-child(3n) select, main .center .standing table tr:nth-child(3n + 2) td,
-  main .center .standing table tr:nth-child(3n + 2) input,
-  main .center .standing table tr:nth-child(3n + 2) select, main .center .standing table tr:nth-child(1) td,
-  main .center .standing table tr:nth-child(1) input,
-  main .center .standing table tr:nth-child(1) select, main .center .standing table tr:nth-child(6n+1) td,
-  main .center .standing table tr:nth-child(6n+1) input,
-  main .center .standing table tr:nth-child(6n+1) select {
-      color: #14A4B8;
-  }
-  main .center .standing table tr:nth-child(3n) select, main .center .standing table tr:nth-child(3n + 2) select, main .center .standing table tr:nth-child(1) select, main .center .standing table tr:nth-child(6n+1) select {
-      border: 2px solid #14A4B8;
-      font-weight: bold;
-  }
-  main .center .standing table tr.edit td input {
-    width: 100%; }
-  main .center .standing table thead tr:first-child td {
-      border-bottom: none;
-      border-top: 2px solid #14A4B8;
-      font-weight: bold;
-  }
-  main .center .standing table thead tr:nth-child(2) td, main .center .standing table thead tr:nth-child(3) td, main .center .standing table thead tr:nth-child(4) td, main .center .standing table thead tr:nth-child(5) td {
-      border-top: 2px solid #14A4B8;
-      border-bottom: none;
-  }
-  main .center .standing table thead tr:nth-child(2) td[colspan]:first-child {
-    border-left: none; }
-  main .center .standing table tbody tr:first-child td {
-      border-top: 2px solid #14A4B8;
-  }
-  main .center .standing table tbody tr.active td{
+
+main .center .standing table tbody tr:last-child:only-child:has(button) {
+    background: rgba(13, 159, 180, 1) !important;
+    border: none !important;
+}
+
+main .center .standing table tbody tr:last-child td:only-child:has(button) {
+    background: rgba(13, 159, 180, 1) !important;
+    border: none !important;
+}
+
+main .center .standing table tr td {
+    border-right: 2px solid #14A4B8;
+    border-bottom: 2px solid #14A4B8;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+td > button {
+    display: flex;
+}
+
+main .center .standing table tr td img {
+    display: block;
+    margin: 0 auto;
+    width: 30%;
+}
+
+main .center .standing table tr td input {
+    height: 30px;
+    text-align: center;
+    width: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+main .center .standing table tr td label input[type='text'] {
+    width: 100%;
+}
+
+main .center .standing table tr td input[type='button'] {
+    width: 200px;
+}
+
+main .center .standing table tr td #tour {
+    background: #14A4B8 !important;
+    border: none;
+    color: #ffffff;
+    display: table;
+    margin: 0 auto;
+}
+
+main .center .standing table tr td #tour:active, main .center .standing table tr td #tour:hover {
+    background: #14A4B8 !important;
+    cursor: pointer;
+}
+
+main .center .standing table tr td #tour option {
+    background: blue;
+}
+
+main .center .standing table tr td #tour option:hover {
+    background: red !important;
+    cursor: pointer;
+}
+
+main .center .standing table tr td:first-child {
+    border-left: 2px solid #14A4B8;
+}
+
+main .center .standing table tr:nth-child(2n) td,
+main .center .standing table tr:nth-child(2n) input,
+main .center .standing table tr:nth-child(2n) select {
+    background: #A1B3B8;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+main .center .standing table tr:nth-child(2n) select {
+    border: 2px solid #14A4B8;
+    font-weight: bold;
+}
+
+main .center .standing table tr:nth-child(3n) td,
+main .center .standing table tr:nth-child(3n) input,
+main .center .standing table tr:nth-child(3n) select, main .center .standing table tr:nth-child(3n + 2) td,
+main .center .standing table tr:nth-child(3n + 2) input,
+main .center .standing table tr:nth-child(3n + 2) select, main .center .standing table tr:nth-child(1) td,
+main .center .standing table tr:nth-child(1) input,
+main .center .standing table tr:nth-child(1) select, main .center .standing table tr:nth-child(6n+1) td,
+main .center .standing table tr:nth-child(6n+1) input,
+main .center .standing table tr:nth-child(6n+1) select {
+    color: #14A4B8;
+}
+
+main .center .standing table tr:nth-child(3n) select, main .center .standing table tr:nth-child(3n + 2) select, main .center .standing table tr:nth-child(1) select, main .center .standing table tr:nth-child(6n+1) select {
+    border: 2px solid #14A4B8;
+    font-weight: bold;
+}
+
+main .center .standing table tr.edit td input {
+    width: 100%;
+}
+
+main .center .standing table thead tr:first-child td {
+    border-bottom: none;
+    border-top: 2px solid #14A4B8;
+    font-weight: bold;
+}
+
+main .center .standing table thead tr:nth-child(2) td, main .center .standing table thead tr:nth-child(3) td, main .center .standing table thead tr:nth-child(4) td, main .center .standing table thead tr:nth-child(5) td {
+    border-top: 2px solid #14A4B8;
+    border-bottom: none;
+}
+
+main .center .standing table thead tr:nth-child(2) td[colspan]:first-child {
+    border-left: none;
+}
+
+main .center .standing table tbody tr:first-child td {
+    border-top: 2px solid #14A4B8;
+}
+
+main .center .standing table tbody tr.active td {
     border-top: 2px solid yellow;
-    border-bottom: 2px solid yellow; }
-  main .center .standing table tbody tr.active td:first-child {
+    border-bottom: 2px solid yellow;
+}
+
+main .center .standing table tbody tr.active td:first-child {
     border-left: 2px solid yellow;
-  }
-  main .center .standing table tbody tr.active td:last-child {
+}
+
+main .center .standing table tbody tr.active td:last-child {
     border-right: 2px solid yellow;
-  }
-  main .center .standing table tbody tr td input:disabled {
+}
+
+main .center .standing table tbody tr td input:disabled {
     background: none;
     border: none;
-    font-weight: bold; }
-  main .center .standing table tbody tr td span > span {
+    font-weight: bold;
+}
+
+main .center .standing table tbody tr td span > span {
     padding-top: 2px;
-  }
+}
+
 main .center [id*=color-picker-] {
-  margin: 5px auto; }
+    margin: 5px auto;
+}
+
 main .center [id*=color-values-] {
-  display: block;
-  list-style: none;
-  color: #222;
-  float: left;
-  padding: 0 5px;
-  text-align: left;
-  width: 50px; }
+    display: block;
+    list-style: none;
+    color: #222;
+    float: left;
+    padding: 0 5px;
+    text-align: left;
+    width: 50px;
+}
+
 main .center [id*=pcr_bg-] {
-  height: 100px; }
+    height: 100px;
+}
+
 main .center .picker-wrapper,
 main .center .pcr-wrapper {
-  position: relative;
-  float: left; }
+    position: relative;
+    float: left;
+}
+
 main .center .picker-indicator,
 main .center .pcr-indicator {
-  position: absolute;
-  left: 0;
-  top: 0; }
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 main .center [class*=picker-],
 main .center [class*=pcr-] {
-  cursor: crosshair;
-  float: left; }
+    cursor: crosshair;
+    float: left;
+}
+
 main .center .cp-default [class*=picker-] {
-  width: 40%; }
+    width: 40%;
+}
+
 main .center .cp-default [class*=pcr-] {
-  width: 30px; }
+    width: 30px;
+}
+
 main .center .cp-default .pcr-wrapper {
-  margin-left: 10px; }
+    margin-left: 10px;
+}
+
 main .center .cp-default .picker-indicator {
-  width: 5px;
-  height: 5px;
-  border: 2px solid darkblue;
-  -moz-border-radius: 4px;
-  -o-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  opacity: .5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-  filter: alpha(opacity=50);
-  background-color: white; }
+    width: 5px;
+    height: 5px;
+    border: 2px solid darkblue;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    opacity: .5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    filter: alpha(opacity=50);
+    background-color: white;
+}
+
 main .center .cp-default .pcr-indicator {
-  width: 100%;
-  height: 10px;
-  left: -4px;
-  opacity: .6;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
-  filter: alpha(opacity=60);
-  border: 4px solid lightblue;
-  -moz-border-radius: 4px;
-  -o-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  background-color: white; }
+    width: 100%;
+    height: 10px;
+    left: -4px;
+    opacity: .6;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    filter: alpha(opacity=60);
+    border: 4px solid lightblue;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: white;
+}
+
 main .center span[id*=hex-] {
-  display: none;
-  opacity: 0; }
+    display: none;
+    opacity: 0;
+}
+
 main .center [class*=hex-] {
-  width: auto !important; }
+    width: auto !important;
+}
+
 @media screen and (max-width: 767px) {
-  main .center .standing table tr td {
-    padding: 0; }
+    main .center .standing table tr td {
+        padding: 0;
+    }
+
     main .center .standing table tr td input {
-      height: 20px;
-      width: 20px; }
+        height: 20px;
+        width: 20px;
+    }
+
     main .center .standing table tr td select:not(#tour) {
-      font-size: 5px !important; } }
+        font-size: 5px !important;
+    }
+}
+
 main .center .wrapper {
-  width: 100%; }
-  main .center .wrapper .comment {
-      margin: 10px 20px;
-      padding: 5px;
-      border: 1px solid #14A4B8;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.9) !important;
-  }
-    main .center .wrapper .comment p {
-        color: #14A4B8;
-    }
-      main .center .wrapper .comment p.message {
-          color: #A1B3B8;
-      }
-    main .center .wrapper .comment a {
-        color: #14A4B8 !important;
-    }
-    main .center .wrapper .comment .name-author {
-      font-weight: bold; }
-    main .center .wrapper .comment .date {
-      font-size: 80%;
-      padding-top: 3px; }
+    width: 100%;
+}
+
+main .center .wrapper .comment {
+    margin: 10px 20px;
+    padding: 5px;
+    border: 1px solid #14A4B8;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.9) !important;
+}
+
+main .center .wrapper .comment p {
+    color: #14A4B8;
+}
+
+main .center .wrapper .comment p.message {
+    color: #A1B3B8;
+}
+
+main .center .wrapper .comment a {
+    color: #14A4B8 !important;
+}
+
+main .center .wrapper .comment .name-author {
+    font-weight: bold;
+}
+
+main .center .wrapper .comment .date {
+    font-size: 80%;
+    padding-top: 3px;
+}
+
 main .center .breadcrumb {
-  background-color: initial; }
-  main .center .breadcrumb .breadcrumb-item,
-  main .center .breadcrumb .breadcrumb-item::before {
-      color: rgba(255, 255, 255, 0.9) !important;
-  }
-  main .center .breadcrumb .breadcrumb-item.active {
-    color: #e4161c !important; }
+    background-color: initial;
+}
+
+main .center .breadcrumb .breadcrumb-item,
+main .center .breadcrumb .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+main .center .breadcrumb .breadcrumb-item.active {
+    color: #e4161c !important;
+}
+
 main .center form {
-  margin: 0 auto; }
+    margin: 0 auto;
+}
+
 main .center #form {
-  background: #378304;
-  padding: 5px;
-  color: #fff;
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 15%;
-  z-index: 5; }
-  main .center #form textarea {
+    background: #378304;
+    padding: 5px;
+    color: #fff;
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 15%;
+    z-index: 5;
+}
+
+main .center #form textarea {
     min-width: 400px;
     min-height: 200px;
     resize: none;
     padding: 5px;
-    width: 100%; }
-  main .center #form .button {
+    width: 100%;
+}
+
+main .center #form .button {
     color: #ffffff;
     background: none;
     border: none;
     border-radius: 50%;
-    float: right; }
+    float: right;
+}
+
 main .center .write {
-  position: fixed;
-  left: 2%;
-  height: 50px;
-  top: 50%;
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  -o-transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  transform: rotate(-90deg); }
+    position: fixed;
+    left: 2%;
+    height: 50px;
+    top: 50%;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
 main .reconstruction {
-  display: block;
-  margin: 0 auto;
-  width: 60%; }
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
+
 @media screen and (max-width: 575px) {
-  main #form {
-    left: 15%;
-    right: 15%; }
+    main #form {
+        left: 15%;
+        right: 15%;
+    }
+
     main #form textarea {
-      min-width: 100% !important; }
-  main .write {
-    height: 30px !important; } }
+        min-width: 100% !important;
+    }
+
+    main .write {
+        height: 30px !important;
+    }
+}
+
 main table:not(.standing table) input {
-  padding: 5px 10px;
-  margin: 0 10px 10px 0; }
+    padding: 5px 10px;
+    margin: 0 10px 10px 0;
+}
 
 footer {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0 50px; }
-  footer p {
-    padding-right: 1.25rem; }
-  footer#footer {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 50px;
+}
+
+footer p {
+    padding-right: 1.25rem;
+}
+
+footer#footer {
     bottom: 0;
     left: 0;
     right: 0;
-    position: fixed; }
+    position: fixed;
+}
 
 @media screen and (max-width: 767px) {
-  footer {
-    margin: 10px 0 20px; } }
+    footer {
+        margin: 10px 0 20px;
+    }
+}
 
 /*# sourceMappingURL=style.css.map */

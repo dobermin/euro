@@ -10,6 +10,7 @@ import com.example.euro2020.objects.User;
 import com.example.euro2020.security.model.enums.Roles;
 import com.example.euro2020.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,6 +66,7 @@ public class MainControllers {
 	private String tfoot;
 	private ModelAndView model;
 	private HttpServletRequest request;
+	@Value("${url}")
 	private String uri;
 	private Users user;
 	private boolean isBlocked = false;
@@ -78,8 +80,7 @@ public class MainControllers {
 		this.model = model;
 		this.request = request;
 
-		model.addObject("url", "https://cup-app.herokuapp.com/");
-//		model.addObject("url", "http://localhost:5000/");
+		model.addObject("url", uri);
 
 		Browser browser = new Browser(request);
 		String os = browser.getOs();
