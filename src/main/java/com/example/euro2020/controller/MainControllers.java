@@ -67,6 +67,7 @@ public class MainControllers {
 	private ModelAndView model;
 	private HttpServletRequest request;
 	@Value("${url}")
+	private String URL;
 	private String uri;
 	private Users user;
 	private boolean isBlocked = false;
@@ -80,7 +81,7 @@ public class MainControllers {
 		this.model = model;
 		this.request = request;
 
-		model.addObject("url", uri);
+		model.addObject("url", URL);
 
 		Browser browser = new Browser(request);
 		String os = browser.getOs();
