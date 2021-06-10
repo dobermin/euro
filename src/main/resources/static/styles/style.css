@@ -20,7 +20,7 @@
 }
 
 body {
-    background: rgba(13, 159, 180, 1);
+    background: #28a73291;
     /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
     font-weight: bold;
     font-size: 1.25rem;
@@ -28,7 +28,7 @@ body {
 }
 
 body.bg-90 {
-    background: rgba(13, 159, 180, 1);
+    background: #28a73291;
     /*background: linear-gradient(0deg, rgba(131,208,245,1) 0%, rgba(13,159,180,1) 100%);*/
 }
 
