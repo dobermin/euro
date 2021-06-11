@@ -185,7 +185,7 @@ public class ConfigService {
 	}
 
 	public boolean timeAfterFirstMatch () {
-		return (getTimeNow() > getCupStart() + 3 * getCupTimePreview());
+		return (getTimeNow() > getCupStart() + 2 * getCupTimePreview());
 	}
 
 	public Long timeOutStartMatch () {

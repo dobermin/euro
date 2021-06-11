@@ -89,19 +89,23 @@ public class StandingsService implements IStandingsService {
 		elements.remove(0);
 		List<Standings> standings = findAll();
 		for (Element element : elements) {
-			Elements td = element.select("td");
-			String team = td.get(1).text().toLowerCase().trim();
-			Standings standing = standings.stream().filter(s -> s.getTeam().getTeams().equals(configProperties.getCountry(team))).findFirst().orElse(new Standings());
-			standing.setPosition(Integer.valueOf(td.get(0).text()));
-			standing.setGames(Integer.valueOf(td.get(2).text()));
-			standing.setWin(Integer.valueOf(td.get(3).text()));
-			standing.setDraw(Integer.valueOf(td.get(4).text()));
-			standing.setLoss(Integer.valueOf(td.get(5).text()));
-			standing.setGoalsDiff(standing.getGoalsScored() - standing.getGoalsMissed());
-			standing.setGoalsScored(Integer.valueOf(td.get(6).text().split("-")[0]));
-			standing.setGoalsMissed(Integer.valueOf(td.get(6).text().split("-")[1]));
-			standing.setPoints(Integer.valueOf(td.get(7).text()));
-			save(standing);
+			try {
+				Elements td = element.select("td");
+				String team = td.get(1).text().toLowerCase().trim();
+				Standings standing =
+					standings.stream().filter(s -> s.getTeam().getTeams().equals(configProperties.getCountry(team))).findFirst().orElse(new Standings());
+				standing.setPosition(Integer.valueOf(td.get(0).text()));
+				standing.setGames(Integer.valueOf(td.get(2).text()));
+				standing.setWin(Integer.valueOf(td.get(3).text()));
+				standing.setDraw(Integer.valueOf(td.get(4).text()));
+				standing.setLoss(Integer.valueOf(td.get(5).text()));
+				standing.setGoalsDiff(standing.getGoalsScored() - standing.getGoalsMissed());
+				standing.setGoalsScored(Integer.valueOf(td.get(6).text().split("-")[0]));
+				standing.setGoalsMissed(Integer.valueOf(td.get(6).text().split("-")[1]));
+				standing.setPoints(Integer.valueOf(td.get(7).text()));
+				save(standing);
+			} catch (Exception ignored) {
+			}
 		}
 
 	}
