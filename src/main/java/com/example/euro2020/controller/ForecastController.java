@@ -35,7 +35,7 @@ public class ForecastController extends MainControllers {
 			return super.getMain(model, request);
 		}
 		List<Users> users = usersService.findWithoutUser(getUser());
-		Long id = matchesService.getIdActualMatch(getConfig().configService.getTimeNow());
+		Long id = matchesService.getIdActualMatch(getConfig().configService.timeOutStartMatch());
 		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, null, id,
 			getConfig().configService);
 		List<String> color = getConfig().getColorClass(prognoses);
@@ -67,7 +67,7 @@ public class ForecastController extends MainControllers {
 		} catch (Exception ignored) {
 		}
 
-		Long id = matchesService.getIdActualMatch(getConfig().configService.getTimeNow());
+		Long id = matchesService.getIdActualMatch(getConfig().configService.timeOutStartMatch());
 		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, userSelect, id,
 			getConfig().configService);
 		List<String> color = getConfig().getColorClass(prognoses);
