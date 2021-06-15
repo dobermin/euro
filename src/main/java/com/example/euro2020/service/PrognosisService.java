@@ -2,20 +2,20 @@ package com.example.euro2020.service;
 
 import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.*;
+import com.example.euro2020.objects.DateTime;
+import com.example.euro2020.objects.DayPoints;
 import com.example.euro2020.repository.PrognosisRepository;
 import com.example.euro2020.security.model.enums.Status;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class PrognosisService implements IPrognosisService {
 
 	private final PrognosisRepository repository;
+	private Integer points = 0;
 
 	public PrognosisService (PrognosisRepository repository) {
 		this.repository = repository;
@@ -67,6 +67,49 @@ public class PrognosisService implements IPrognosisService {
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}
+	}
+
+	@Override
+	public List<DayPoints> getPointsDay (List<Rating> rating, ConfigService configService) {
+		Calendar calendar = new GregorianCalendar(Locale.getDefault());
+		calendar.setTime(new Date(configService.getTimeNow()));
+		int date = calendar.get(Calendar.DATE);
+		int month = calendar.get(Calendar.MONTH) + 1;
+		int year = calendar.get(Calendar.YEAR);
+		String start = String.format("16:00:00_%s.0%s.%s", date, month, year);
+		String finish = String.format("15:59:00_%s.0%s.%s", date + 1, month, year);
+		long st = new DateTime(start).getTimestamp().getTime();
+		long fi = new DateTime(finish).getTimestamp().getTime();
+		List<DayPoints> list = new ArrayList<>();
+		rating.forEach(
+			r -> {
+				List<Prognosis> prognoses =
+					r.getUsr().getPrognosis().stream()
+						.filter(s -> s.getMatch().getTimestamp().getTime() > st)
+						.filter(s -> s.getMatch().getTimestamp().getTime() < fi)
+						.collect(Collectors.toList());
+				DayPoints dayPoints = new DayPoints();
+				points = 0;
+				try {
+					prognoses
+						.forEach(
+							d -> {
+								if (d.getPoints() != null)
+									points += d.getPoints();
+							}
+						);
+				} catch (Exception ignored) {
+				}
+				dayPoints.setPoints(points);
+				dayPoints.setMax(
+					configService.getTimeNow() < configService.getCupGroupsEnd() ?
+						prognoses.size() * configService.getScore() :
+						prognoses.size() * (configService.getScorePO() + configService.getNextRoundPO())
+				);
+				list.add(dayPoints);
+			}
+		);
+		return list;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.example.euro2020.service;
 
 import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.*;
+import com.example.euro2020.objects.DayPoints;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface IPrognosisService extends IService<Prognosis> {
 	List<Prognosis> setPoints (List<Prognosis> list, ConfigService configService);
 
 	List<Prognosis> findByUserAndTour (Users user, Tour tourSelect);
+
+	List<DayPoints> getPointsDay (List<Rating> rating, ConfigService configService);
 }

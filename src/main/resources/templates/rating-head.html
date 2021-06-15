@@ -6,14 +6,16 @@
     <td rowspan="2">Очки<br />в ПО</td>
     <td rowspan="2">Чемпион<br /><span th:text="${champion_points}"></span> баллов</td>
     <td rowspan="2">Бомбардир<br /><span th:text="${bombardier_points}"></span> баллов</td>
-    <td rowspan="2">Очки</td>
+    <td colspan="2">Очки</td>
 </tr>
-<tr>
-    <td colspan="1">Счет<br /><span th:text="${score}"></span> балла</td>
-    <td colspan="1">Разница<br /><span th:text="${difference}"></span> балла</td>
-    <td colspan="1">Победитель<br /><span th:text="${winner}"></span> балл</td>
-    <td colspan="1">Место<br />в группе<br /><span th:text="${place}"></span> балл</td>
-    <td colspan="1">Выход<br />в 1/4<br /><span th:text="${prognosis_1_4}"></span> балла</td>
-    <td colspan="1">Выход<br />в 1/2<br /><span th:text="${prognosis_1_2}"></span> балла</td>
-</tr>
+    <tr>
+        <td colspan="1">Счет<br/><span th:text="${score}"></span> балла</td>
+        <td colspan="1">Разница<br/><span th:text="${difference}"></span> балла</td>
+        <td colspan="1">Победитель<br/><span th:text="${winner}"></span> балл</td>
+        <td colspan="1">Место<br/>в группе<br/><span th:text="${place}"></span> балл</td>
+        <td colspan="1">Выход<br/>в 1/4<br/><span th:text="${prognosis_1_4}"></span> балла</td>
+        <td colspan="1">Выход<br/>в 1/2<br/><span th:text="${prognosis_1_2}"></span> балла</td>
+        <td colspan="1">За день<br/>max <span th:text="${day_points[0].max}"></span></td>
+        <td colspan="1">Всего</td>
+    </tr>
 </th:block>
