@@ -71,8 +71,8 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<DayPoints> getPointsDay (List<Rating> rating, ConfigService configService) {
-		Calendar calendar = new GregorianCalendar(Locale.getDefault());
-		calendar.setTime(new Date(configService.getTimeNow()));
+		Calendar calendar = new GregorianCalendar(TimeZone.getDefault());
+//		calendar.setTime(new Date(configService.getTimeNow()));
 		int date = calendar.get(Calendar.DATE);
 		int month = calendar.get(Calendar.MONTH) + 1;
 		int year = calendar.get(Calendar.YEAR);
