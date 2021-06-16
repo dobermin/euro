@@ -2,7 +2,6 @@ package com.example.euro2020.service;
 
 import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.*;
-import com.example.euro2020.objects.DateTime;
 import com.example.euro2020.objects.DayPoints;
 import com.example.euro2020.repository.PrognosisRepository;
 import com.example.euro2020.security.model.enums.Status;
@@ -16,6 +15,8 @@ public class PrognosisService implements IPrognosisService {
 
 	private final PrognosisRepository repository;
 	private Integer points = 0;
+	private long start;
+	private long finish;
 
 	public PrognosisService (PrognosisRepository repository) {
 		this.repository = repository;
@@ -71,22 +72,30 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<DayPoints> getPointsDay (List<Rating> rating, ConfigService configService) {
-		Calendar calendar = new GregorianCalendar(TimeZone.getDefault());
-//		calendar.setTime(new Date(configService.getTimeNow()));
-		int date = calendar.get(Calendar.DATE);
-		int month = calendar.get(Calendar.MONTH) + 1;
-		int year = calendar.get(Calendar.YEAR);
-		String start = String.format("16:00:00_%s.0%s.%s", date, month, year);
-		String finish = String.format("15:59:00_%s.0%s.%s", date + 1, month, year);
-		long st = new DateTime(start).getTimestamp().getTime();
-		long fi = new DateTime(finish).getTimestamp().getTime();
+		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Moscow"));
+		Long now = configService.getTimeNow();
+		calendar.setTime(new Date(now));
+		calendar.set(Calendar.HOUR, 16);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.AM_PM, 0);
+		long today = calendar.getTimeInMillis();
+		long yesterday = today - 24 * 3600 * 1000;
+		long tomorrow = today + 24 * 3600 * 1000;
+		start = today;
+		finish = tomorrow;
+		if (now < today && now > yesterday) {
+			start = yesterday;
+			finish = today;
+		}
 		List<DayPoints> list = new ArrayList<>();
 		rating.forEach(
 			r -> {
 				List<Prognosis> prognoses =
 					r.getUsr().getPrognosis().stream()
-						.filter(s -> s.getMatch().getTimestamp().getTime() > st)
-						.filter(s -> s.getMatch().getTimestamp().getTime() < fi)
+						.filter(s -> s.getMatch().getTimestamp().getTime() >= start)
+						.filter(s -> s.getMatch().getTimestamp().getTime() < finish)
 						.collect(Collectors.toList());
 				DayPoints dayPoints = new DayPoints();
 				points = 0;
@@ -102,7 +111,7 @@ public class PrognosisService implements IPrognosisService {
 				}
 				dayPoints.setPoints(points);
 				dayPoints.setMax(
-					configService.getTimeNow() < configService.getCupGroupsEnd() ?
+					configService.getTimeNow() < configService.getCupEightStart() ?
 						prognoses.size() * configService.getScore() :
 						prognoses.size() * (configService.getScorePO() + configService.getNextRoundPO())
 				);

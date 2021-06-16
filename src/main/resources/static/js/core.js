@@ -40,7 +40,7 @@ function post($url, $data, $function) {
         method: "POST",
         data: JSON.stringify($data),
         success: function (result) {
-            ButtonHide();
+            // ButtonHide();
             $function(result)
             LoadingStyle(false)
         }
