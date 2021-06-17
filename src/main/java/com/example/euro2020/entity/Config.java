@@ -2,7 +2,9 @@ package com.example.euro2020.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @Data
@@ -99,7 +101,7 @@ public class Config {
 	private String cupEnd;
 
 	@Column(name = "cup_time_preview")
-	private Integer cupTimePreview;
+	private Double cupTimePreview;
 
 	@Column(name = "time_start_site_show")
 	private String timeStartSiteShow;

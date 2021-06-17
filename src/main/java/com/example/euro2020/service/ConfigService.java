@@ -114,7 +114,7 @@ public class ConfigService {
 	}
 
 	private Long getCupTimePreview () {
-		return findAll().getCupTimePreview() * 3600L * 1000;
+		return (long) (findAll().getCupTimePreview() * 3600L * 1000);
 	}
 
 	public Boolean getTesting () {

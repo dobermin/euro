@@ -478,6 +478,16 @@ main .center .standing table tr td img {
     width: 30%;
 }
 
+main .center .standing table tr td.match img {
+    display: block;
+    margin: auto 0.1em;
+    width: 1.5em;
+}
+
+main .center .standing table tr td.match span {
+    margin-right: 0.1em;
+}
+
 main .center .standing table tr td input {
     height: 30px;
     text-align: center;

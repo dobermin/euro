@@ -5,8 +5,21 @@
         <td th:text="${#dates.format(match.timestamp, 'dd.MM')}">%date%</td>
         <td th:text="${#dates.dayOfWeekName(match.timestamp)}">%day%</td>
         <td th:text="${#dates.format(match.timestamp, 'HH.mm')}">%time%</td>
-        <td class="match"><span th:text="${match.teamHome.teams}"></span> - <span
-                th:text="${match.teamAway.teams}"></span></td>
+        <td class="match">
+            <p class="d-flex justify-content-between">
+                <img alt=""
+                     th:alt="${match.teamHome.teams}"
+                     th:src="'http://fnkimages.net/trans/flags/' + ${match.teamHome.img}">
+                <span>
+                    <span th:text="${match.teamHome.teams}"></span>
+                    <span> - </span>
+                    <span th:text="${match.teamAway.teams}"></span>
+                </span>
+                <img alt=""
+                     th:alt="${match.teamAway.teams}"
+                     th:src="'http://fnkimages.net/trans/flags/' + ${match.teamAway.img}">
+            </p>
+        </td>
         <td class="inline">
         <span>
             <input maxlength="1" th:disabled="${disabled}" th:value="${!prognoses.empty} ? ${prognoses[i?.index]?.home}"

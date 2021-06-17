@@ -1,7 +1,8 @@
 
                                     <tr xmlns:th="http://www.w3.org/1999/xhtml" >
                                         <td>
-                                            <img src="%src%" alt="">
+                                            <img alt="" th:alt="${tr.teams}"
+                                                 th:src="'http://fnkimages.net/trans/flags/' + ${tr.img}">
                                             <span th:text="${tr.teams}"></span>
                                         </td>
                                         <td>

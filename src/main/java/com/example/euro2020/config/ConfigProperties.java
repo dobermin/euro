@@ -108,6 +108,7 @@ public class ConfigProperties {
 
 	public String getCountry (String country) {
 		country = country.replaceAll("\\.", ". ");
+		country = country.replaceAll("\\s{2}", " ");
 		switch (country) {
 			case "Северная Македония":
 				return "С. Македония".toUpperCase();
