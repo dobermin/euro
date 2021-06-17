@@ -9,15 +9,15 @@
             <p class="d-flex justify-content-between">
                 <img alt=""
                      th:alt="${match.teamHome.teams}"
-                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
-                <span>
+                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
+                <label>
                     <span th:text="${match.teamHome.teams}"></span>
-                    <span> - </span>
+                    <label> - </label>
                     <span th:text="${match.teamAway.teams}"></span>
-                </span>
+                </label>
                 <img alt=""
                      th:alt="${match.teamAway.teams}"
-                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
+                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
             </p>
         </td>
         <td class="inline">
