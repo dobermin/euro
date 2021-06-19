@@ -288,5 +288,20 @@ public class RatingService implements IRatingService {
 
 			save(rating);
 		}
+
+		List<Rating> ratings = findAll();
+		for (int i = 0; i < ratings.size(); i++) {
+			Rating rating = ratings.get(i);
+			Integer now = rating.getPositionNow();
+			Integer before = rating.getPositionBefore();
+			int a = i + 1;
+			if (now != null)
+				rating.setPositionBefore(now);
+			rating.setPositionNow(a);
+			if (before == null)
+				rating.setPositionBefore(a);
+			ratings.set(i, rating);
+		}
+		saveAll(ratings);
 	}
 }

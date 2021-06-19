@@ -12,8 +12,12 @@ import javax.persistence.*;
 public class Rating extends MyEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(name = "position_before")
+	private Integer positionBefore;
+	@Column(name = "position_now")
+	private Integer positionNow;
 	@Column(name = "score")
 	private Integer score;
 	@Column(name = "all_score")

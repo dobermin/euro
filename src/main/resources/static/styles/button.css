@@ -11,7 +11,7 @@
     height: 30px;
     border: none;
     border-radius: 50px;
-    background: #00616F url("../images/up.png") center no-repeat;
+    background: #00616F url("../images/top.png") center no-repeat;
     text-align: center;
     padding: 5px;
     position: fixed;
@@ -19,7 +19,7 @@
     right: 5%;
     cursor: pointer;
     color: #333;
-    font-family: verdana;
+    font-family: verdana, serif;
     font-size: 11px;
     -webkit-transition: 1s;
     -moz-transition: 1s;

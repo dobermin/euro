@@ -1,6 +1,18 @@
 <tr th:classappend="${userActive == user.usr} ? active : ''" th:each="user, iter : ${users}"
     xmlns:th="http://www.w3.org/1999/xhtml">
-    <td th:text="${iter.count}">%number%</td>
+    <td>
+        <p class="rating">
+            <span th:text="${iter.count}"></span>
+            <th:block th:with="pos = ${user.positionBefore - user.positionNow}">
+                <th:block th:if="${pos != 0}">
+                    <span class="ratingLeft">(</span>
+                    <img alt="" class="arrow up" src="" th:if="${pos > 0}" th:src="${baseUrl} + @{images/up.png}">
+                    <img alt="" class="arrow" src="" th:if="${pos < 0}" th:src="${baseUrl} + @{images/down.png}">
+                    <span class="ratingRight" th:text="${T(Math).abs(pos) + ')'}">2)</span>
+                </th:block>
+            </th:block>
+        </p>
+    </td>
     <td th:text="${user.usr.firstName + ' ' + user.usr.lastName}">%user%</td>
     <td th:text="${user.score}">%score%</td>
     <td th:text="${user.difference}">%difference%</td>

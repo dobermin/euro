@@ -482,6 +482,29 @@ main .center .standing table tr td img {
     border-radius: 20% 20% 50% 50%;
 }
 
+main .center .standing table tr td p.rating {
+    display: flex;
+    justify-content: center;
+}
+
+main .center .standing table tr td span.ratingLeft {
+    margin-right: -.2em;
+    margin-left: .2em;
+}
+
+main .center .standing table tr td span.ratingRight {
+    margin-left: -.2em;
+}
+
+main .center .standing table tr td img.arrow {
+    display: initial;
+    width: 20%;
+}
+
+main .center .standing table tr td img.arrow.up {
+    transform: rotate(180deg);
+}
+
 main .center .standing table tr td .forecast {
     display: flex;
     justify-content: space-between;
