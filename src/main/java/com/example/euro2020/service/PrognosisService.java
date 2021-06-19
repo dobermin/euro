@@ -177,9 +177,8 @@ public class PrognosisService implements IPrognosisService {
 	@Override
 	public List<Prognosis> getPrognoses (Tour tour, Users user, Long idMatch, ConfigService configService) {
 		if (user == null) {
-			return new ArrayList<>(repository.findByMatchId(idMatch)).stream()
-				.filter(u -> u.getUsr().getStatus() == Status.ACTIVE)
-				.filter(u -> u.getUsr().isDisplay())
+			return new ArrayList<>(findAll()).stream()
+				.filter(d -> d.getMatch().getId().equals(idMatch))
 				.collect(Collectors.toList());
 		}
 

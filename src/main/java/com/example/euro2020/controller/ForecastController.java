@@ -38,6 +38,10 @@ public class ForecastController extends MainControllers {
 		Long id = matchesService.getIdActualMatch(getConfig().configService.timeOutStartMatch());
 		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, null, id,
 			getConfig().configService);
+		if (prognoses.isEmpty()) {
+			setMessage(Messages.NO_PROGNOSES);
+			return super.getMain(model, request);
+		}
 		List<List<Prognosis>> prognosesBefore = prognosisService.getPrognosesBefore(tourSelect, null, id,
 			getConfig().getConfigService().getTimeNow(),
 			getConfig().configService);

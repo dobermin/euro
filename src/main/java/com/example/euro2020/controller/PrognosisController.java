@@ -17,6 +17,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Controller
 public class PrognosisController extends MainControllers {
@@ -83,6 +84,31 @@ public class PrognosisController extends MainControllers {
 			matches = matchesService.findAll();
 		List<Tour> tours = tourService.findActual(matches);
 		matches = matchesService.findByTour(tourSelect);
+
+		if (matches.size() != prognoses.size()) {
+			AtomicBoolean bool = new AtomicBoolean(false);
+			matches.forEach(
+				m -> {
+					bool.set(false);
+					int i = 0;
+					prognoses.forEach(
+						p -> {
+							if (m.getId().equals(p.getMatch().getId())) {
+								bool.set(true);
+								return;
+							}
+						}
+					);
+					if (!bool.get()) {
+						Prognosis p = new Prognosis();
+						p.setUsr(getUser());
+						p.setMatch(m);
+						prognoses.add(i, p);
+					}
+				}
+			);
+		}
+
 		List<String> color = getConfig().getColorClass(prognoses);
 		setBlocked(getConfig().configService.timeOutEndCup());
 

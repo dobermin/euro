@@ -25,10 +25,10 @@
         <td class="inline">
         <span>
             <input maxlength="1" th:disabled="${disabled}"
-                   th:value="${prognoses.size() > i.index} ? ${prognoses[i?.index]?.home}"
+                   th:value="${prognoses.size > i.index ? prognoses[i?.index]?.home : ''}"
                    title="" type="text"><span th:text="':'"></span><input maxlength="1"
                                                                           th:disabled="${disabled}"
-                                                                          th:value="${prognoses.size() > i.index} ? ${prognoses[i?.index]?.away}"
+                                                                          th:value="${prognoses.size > i.index ? prognoses[i?.index]?.away : ''}"
                                                                           title="" type="text">
         </span>
         </td>
