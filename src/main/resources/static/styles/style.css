@@ -488,6 +488,10 @@ main .center .standing table tr td .forecast {
     align-items: center;
 }
 
+main .center .standing table tr td .forecast span {
+    margin: 0 auto;
+}
+
 main .center .standing table tr td .forecast img {
     width: 10%;
 }

@@ -3,18 +3,18 @@
         th:if="${prognoses != null}">
         <td>
             <div class="forecast">
-                <!--                <img alt="" src=""-->
-                <!--                     th:alt="${prognosis.match.teamHome.teams}"-->
-                <!--                     th:if="${prognosis.usr == userSelect}"-->
-                <!--                     th:src="'https://football.kulichki.net/trans/flags/' + ${prognosis.match.teamHome.img}">-->
+                <img alt="" src=""
+                     th:alt="${prognosis.match.teamHome.teams}"
+                     th:if="${prognosis.usr == userSelect}"
+                     th:src="'https://football.kulichki.net/trans/flags/' + ${prognosis.match.teamHome.img}">
                 <span th:if="${prognosis.usr != userSelect}"
                       th:text="${prognosis.usr.firstName + ' ' + prognosis.usr.lastName}"></span>
                 <p th:if="${prognosis.usr == userSelect}"
                    th:text="${#strings.replace(prognosis.match.teamHome.teams, ' ' ,'') + '-' + #strings.replace(prognosis.match.teamAway.teams, ' ' ,'')}"></p>
-                <!--                <img alt="" src=""-->
-                <!--                     th:alt="${prognosis.match.teamAway.teams}"-->
-                <!--                     th:if="${prognosis.usr == userSelect}"-->
-                <!--                     th:src="'https://football.kulichki.net/trans/flags/' + ${prognosis.match.teamAway.img}">-->
+                <img alt="" src=""
+                     th:alt="${prognosis.match.teamAway.teams}"
+                     th:if="${prognosis.usr == userSelect}"
+                     th:src="'https://football.kulichki.net/trans/flags/' + ${prognosis.match.teamAway.img}">
             </div>
         </td>
         <td th:text="${prognosis.home}">Прогноз</td>
@@ -35,10 +35,10 @@
         <td th:with="champion = ${userSelect == null ? prognosis.usr.champion : i.index == 0 ? prognosis.usr.champion : ''}">
             <th:block th:if="${champion != ''}">
                 <p class="forecast champion">
-                    <!--                    <img alt="" src=""-->
-                    <!--                         th:alt="${champion?.teams}"-->
-                    <!--                         th:if="${champion?.img != null}"-->
-                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${champion?.img}">-->
+                    <img alt="" src=""
+                         th:alt="${champion?.teams}"
+                         th:if="${champion?.img != null}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${champion?.img}">
                     <span th:text="${champion?.teams}"></span>
                 </p>
             </th:block>
@@ -53,15 +53,15 @@
         <tr>
             <td colspan="8" th:with="match = ${prognoses[0].match}">
                 <p class="forecast">
-                    <!--                    <img alt=""-->
-                    <!--                         src=""-->
-                    <!--                         th:alt="${match.teamHome.teams}"-->
-                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">-->
+                    <img alt=""
+                         src=""
+                         th:alt="${match.teamHome.teams}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
                     <span th:text="${match.teamHome?.teams + ' - ' + match.teamAway?.teams}"></span>
-                    <!--                    <img alt=""-->
-                    <!--                         src=""-->
-                    <!--                         th:alt="${match.teamAway.teams}"-->
-                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">-->
+                    <img alt=""
+                         src=""
+                         th:alt="${match.teamAway.teams}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
                 </p>
             </td>
             <td></td>

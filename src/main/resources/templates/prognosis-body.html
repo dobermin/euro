@@ -7,25 +7,28 @@
         <td th:text="${#dates.format(match.timestamp, 'HH.mm')}">%time%</td>
         <td class="match">
             <p class="d-flex justify-content-between">
-                <!--                <img alt=""-->
-                <!--                     th:alt="${match.teamHome.teams}"-->
-                <!--                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">-->
+                <img alt=""
+                     src=""
+                     th:alt="${match.teamHome.teams}"
+                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
                 <label>
                     <span th:text="${match.teamHome?.teams}"></span>
                     <label> - </label>
                     <span th:text="${match.teamAway?.teams}"></span>
                 </label>
-                <!--                <img alt=""-->
-                <!--                     th:alt="${match.teamAway.teams}"-->
-                <!--                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">-->
+                <img alt=""
+                     src=""
+                     th:alt="${match.teamAway.teams}"
+                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
             </p>
         </td>
         <td class="inline">
         <span>
-            <input maxlength="1" th:disabled="${disabled}" th:value="${!prognoses.empty} ? ${prognoses[i?.index]?.home}"
+            <input maxlength="1" th:disabled="${disabled}"
+                   th:value="${prognoses.size() > i.index} ? ${prognoses[i?.index]?.home}"
                    title="" type="text"><span th:text="':'"></span><input maxlength="1"
                                                                           th:disabled="${disabled}"
-                                                                          th:value="${!prognoses.empty} ? ${prognoses[i?.index]?.away}"
+                                                                          th:value="${prognoses.size() > i.index} ? ${prognoses[i?.index]?.away}"
                                                                           title="" type="text">
         </span>
         </td>
@@ -52,7 +55,7 @@
             </th:block>
         </td>
         <td th:if="${isTour}" th:text="${disabled ? match?.next?.teams : ''}">%select_next%</td>
-        <td><span th:classappend="${color[i.index]}" th:if="${!prognoses.empty}"
+        <td><span th:classappend="${color[i.index]}" th:if="${prognoses.size() > i.index}"
                   th:text="${disabled ? prognoses[i.index]?.points : ''}">%points%</span></td>
     </tr>
 </th:block>

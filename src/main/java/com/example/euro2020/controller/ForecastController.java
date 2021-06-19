@@ -79,12 +79,12 @@ public class ForecastController extends MainControllers {
 			getConfig().configService);
 		List<List<Prognosis>> prognosesBefore = null;
 		List<List<String>> colorBefore = null;
-//		if (userSelect != null) {
-//			prognosesBefore = prognosisService.getPrognosesBefore(tourSelect, userSelect, id, getConfig()
-//			.getConfigService().getTimeNow(),
-//				getConfig().configService);
-//			colorBefore = getConfig().getColorBeforeClass(prognosesBefore);
-//		}
+		if (userSelect == null) {
+			prognosesBefore = prognosisService.getPrognosesBefore(tourSelect, userSelect, id, getConfig()
+					.getConfigService().getTimeNow(),
+				getConfig().configService);
+			colorBefore = getConfig().getColorBeforeClass(prognosesBefore);
+		}
 
 		List<String> color = getConfig().getColorClass(prognoses);
 

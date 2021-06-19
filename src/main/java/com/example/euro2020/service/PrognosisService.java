@@ -128,12 +128,16 @@ public class PrognosisService implements IPrognosisService {
 		}
 		TimeStartFinish timeStartFinish;
 		List<List<Prognosis>> prognoses = new ArrayList<>();
-
-		Matches matches = list.stream()
-			.filter(s -> s.getMatch().getId().equals(idMatch))
-			.findFirst().get().getMatch();
-		timeStartFinish =
-			new DateTime().getTimeStartFinish(matches.getTimestamp().getTime());
+		try {
+			Matches matches = list.stream()
+				.filter(s -> s.getMatch().getId().equals(idMatch))
+				.findFirst().get().getMatch();
+			timeStartFinish =
+				new DateTime().getTimeStartFinish(matches.getTimestamp().getTime());
+		} catch (Exception e) {
+			timeStartFinish =
+				new DateTime().getTimeStartFinish(now);
+		}
 		TimeStartFinish finalTimeStartFinish = timeStartFinish;
 		list = list.stream()
 			.filter(s -> s.getMatch().getTimestamp().getTime() >= finalTimeStartFinish.getStart())

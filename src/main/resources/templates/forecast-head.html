@@ -8,14 +8,15 @@
             <th:block th:if="${userSelect == null AND prognoses.size() > 0}"
                       th:with="match = ${prognoses[prognoses.size - 1].match}">
                 <p class="forecast">
-                    <!--                    <img alt=""-->
-                    <!--                         src=""-->
-                    <!--                         th:alt="${match.teamHome.teams}"-->
-                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">-->
+                    <img alt=""
+                         src=""
+                         th:alt="${match.teamHome.teams}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
                     <span th:text="${match.teamHome?.teams + ' - ' + match.teamAway?.teams}"></span>
-                    <!--                    <img alt=""-->
-                    <!--                         th:alt="${match.teamAway.teams}"-->
-                    <!--                         src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">-->
+                    <img alt=""
+                         src=""
+                         th:alt="${match.teamAway.teams}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
                 </p>
             </th:block>
         </td>
