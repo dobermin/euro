@@ -1,37 +1,43 @@
 <th:block th:if="${users}" xmlns:th="http://www.w3.org/1999/xhtml">
-<tr th:classappend="${userSelect == null} ? d-none">
-    <td>Чемпион</td>
-    <td colspan="8">Бомбардир</td>
-</tr>
-<tr th:classappend="${userSelect == null} ? d-none">
-    <td th:text="${userSelect?.champion?.teams}">%champion%</td>
-    <td colspan="8">
-        <span th:text="${userSelect?.bombardier?.player}" ></span>
-        <span th:text="${userSelect?.bombardier?.teams?.teams != null ? '(' + userSelect?.bombardier?.teams?.teams + ')' : ''}" ></span>
-    </td>
-</tr>
-<tr>
-    <td colspan="9">
-        <select title="Тур" id="tour" onchange="forecast()">
-            <option  th:each="tour : ${tours}" th:value="${tour.tour}" th:selected="${tour.tour == tourSelect.tour ? true : false}" th:text="${tour.tour}"></option>
-        </select>
-        <span th:text="${userSelect == null ? prognoses[prognoses.size - 1].match.teamHome.teams + ' - ' + prognoses[prognoses.size - 1].match.teamAway.teams : ''}"></span>
-    </td>
-</tr>
-<tr>
-    <td colspan="9">
-        <select title="Участник" id="member" onchange="forecast()">
-            <option value="" th:text="'Все'" th:selected="${userSelect == null ? true : false}"></option>
-            <option  th:each="user : ${users}" th:selected="${userSelect == user ? true : false}" th:value="${user.firstName} + ' ' + ${user.lastName}" th:text="${user.firstName} + ' ' + ${user.lastName}"></option>
-        </select>
-    </td>
-</tr>
-<tr>
-    <td th:text="${userSelect == null ? 'Участник' : 'Матч'}"></td>
-    <td colspan="3">Прогноз</td>
-    <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}">Пройдет</td>
-    <td>Счет</td>
-    <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}">Прошла</td>
-    <td>Очки</td>
-</tr>
+    <tr>
+        <td colspan="8">
+            <select id="tour" onchange="forecast()" title="Тур">
+                <option th:each="tour : ${tours}" th:selected="${tour.tour == tourSelect.tour ? true : false}"
+                        th:text="${tour.tour}" th:value="${tour.tour}"></option>
+            </select>
+            <th:block th:if="${userSelect == null AND prognoses.size() > 0}"
+                      th:with="match = ${prognoses[prognoses.size - 1].match}">
+                <p class="forecast">
+                    <!--                    <img alt=""-->
+                    <!--                         src=""-->
+                    <!--                         th:alt="${match.teamHome.teams}"-->
+                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">-->
+                    <span th:text="${match.teamHome?.teams + ' - ' + match.teamAway?.teams}"></span>
+                    <!--                    <img alt=""-->
+                    <!--                         th:alt="${match.teamAway.teams}"-->
+                    <!--                         src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">-->
+                </p>
+            </th:block>
+        </td>
+        <td rowspan="3">Чемпион</td>
+        <td rowspan="3">Бомбардир</td>
+    </tr>
+    <tr>
+        <td colspan="8">
+            <select id="member" onchange="forecast()" title="Участник">
+                <option th:selected="${userSelect == null ? true : false}" th:text="'Все'" value=""></option>
+                <option th:each="user : ${users}" th:selected="${userSelect == user ? true : false}"
+                        th:text="${user.firstName} + ' ' + ${user.lastName}"
+                        th:value="${user.firstName} + ' ' + ${user.lastName}"></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td th:text="${userSelect == null ? 'Участник' : 'Матч'}"></td>
+        <td colspan="3">Прогноз</td>
+        <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}">Пройдет</td>
+        <td>Счет</td>
+        <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}">Прошла</td>
+        <td colspan="3">Очки</td>
+    </tr>
 </th:block>

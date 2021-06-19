@@ -8,8 +8,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 @Component
 public class DateTime {
@@ -92,5 +91,26 @@ public class DateTime {
 		Integer hour = Integer.valueOf(MyMatcher.find(time, "(\\d*)").get(0));
 
 		return new DateTime(hour + ":00:00_" + day + ".0" + month + "." + configService.getYearMatches()).getTimestamp();
+	}
+
+	public TimeStartFinish getTimeStartFinish (Long now) {
+		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Moscow"));
+		calendar.setTime(new Date(now));
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.AM_PM, 0);
+		long today = calendar.getTimeInMillis();
+		long yesterday = today - 24 * 3600 * 1000;
+		long tomorrow = today + 24 * 3600 * 1000;
+		TimeStartFinish timeStartFinish = new TimeStartFinish();
+		timeStartFinish.setStart(today);
+		timeStartFinish.setFinish(tomorrow);
+		if (now < today && now > yesterday) {
+			timeStartFinish.setStart(yesterday);
+			timeStartFinish.setFinish(today);
+		}
+		return timeStartFinish;
 	}
 }

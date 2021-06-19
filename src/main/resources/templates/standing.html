@@ -1,12 +1,14 @@
 <div class="standing" xmlns:th="http://www.w3.org/1999/xhtml">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb d-flex justify-content-center">
-                    <li class="breadcrumb-item" th:text="${section}">%section%</li>
-                </ol>
-            </nav>
-            <table>
-                <thead th:include="${thead} ? ${thead} : center"></thead>
-                <tbody th:include="${tbody} ? ${tbody} : center"></tbody>
-                <tfoot th:text="${tfoot}"></tfoot>
-            </table>
-        </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item" th:text="${section}">%section%</li>
+        </ol>
+    </nav>
+    <p class="time" id="id_clock"></p>
+    <script>digitalClock();</script>
+    <table>
+        <thead th:include="${thead} ? ${thead} : center"></thead>
+        <tbody th:include="${tbody} ? ${tbody} : center"></tbody>
+        <tfoot th:text="${tfoot}"></tfoot>
+    </table>
+</div>

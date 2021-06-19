@@ -2,9 +2,20 @@
     <tr th:classappend="${prognosis.usr == userActive} ? active" th:each="prognosis, i : ${prognoses}"
         th:if="${prognoses != null}">
         <td>
-            <span th:text="${prognosis.usr != userSelect ? prognosis.usr.firstName : prognosis.match.teamHome.teams}"></span>
-            <span th:text="${prognosis.usr != userSelect ? ' ' : '-'}"></span>
-            <span th:text="${prognosis.usr != userSelect ? prognosis.usr.lastName : prognosis.match.teamAway.teams}"></span>
+            <div class="forecast">
+                <!--                <img alt="" src=""-->
+                <!--                     th:alt="${prognosis.match.teamHome.teams}"-->
+                <!--                     th:if="${prognosis.usr == userSelect}"-->
+                <!--                     th:src="'https://football.kulichki.net/trans/flags/' + ${prognosis.match.teamHome.img}">-->
+                <span th:if="${prognosis.usr != userSelect}"
+                      th:text="${prognosis.usr.firstName + ' ' + prognosis.usr.lastName}"></span>
+                <p th:if="${prognosis.usr == userSelect}"
+                   th:text="${#strings.replace(prognosis.match.teamHome.teams, ' ' ,'') + '-' + #strings.replace(prognosis.match.teamAway.teams, ' ' ,'')}"></p>
+                <!--                <img alt="" src=""-->
+                <!--                     th:alt="${prognosis.match.teamAway.teams}"-->
+                <!--                     th:if="${prognosis.usr == userSelect}"-->
+                <!--                     th:src="'https://football.kulichki.net/trans/flags/' + ${prognosis.match.teamAway.img}">-->
+            </div>
         </td>
         <td th:text="${prognosis.home}">Прогноз</td>
         <td>:</td>
@@ -19,7 +30,70 @@
             <span th:if="${prognosis?.match?.overtime != null}" th:text="${prognosis?.match?.overtime}"></span>
         </td>
         <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}" th:text="${prognosis.match?.next?.teams}">%next%</td>
-        <td><span th:classappend="${color != null ? color[i.index] : ''}" th:text="${prognosis.points}">Очки</span></td>
+        <td colspan="3"><span th:classappend="${color != null ? color[i.index] : ''}"
+                              th:text="${prognosis.points}">Очки</span></td>
+        <td th:with="champion = ${userSelect == null ? prognosis.usr.champion : i.index == 0 ? prognosis.usr.champion : ''}">
+            <th:block th:if="${champion != ''}">
+                <p class="forecast champion">
+                    <!--                    <img alt="" src=""-->
+                    <!--                         th:alt="${champion?.teams}"-->
+                    <!--                         th:if="${champion?.img != null}"-->
+                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${champion?.img}">-->
+                    <span th:text="${champion?.teams}"></span>
+                </p>
+            </th:block>
+        </td>
+        <td>
+            <p th:text="${userSelect == null ? prognosis.usr.bombardier?.player : i.index == 0 ? prognosis.usr.bombardier?.player : ''}"></p>
+            <p th:text="${userSelect == null ? prognosis.usr?.bombardier?.team != null ? '(' + prognosis.usr?.bombardier?.team + ')' : '' :  i.index == 0 AND prognosis.usr?.bombardier?.team != null ?  '(' + prognosis.usr?.bombardier?.team + ')' : ''}"></p>
+        </td>
     </tr>
+
+    <th:block th:each="prognoses, a : ${prognosesBefore}">
+        <tr>
+            <td colspan="8" th:with="match = ${prognoses[0].match}">
+                <p class="forecast">
+                    <!--                    <img alt=""-->
+                    <!--                         src=""-->
+                    <!--                         th:alt="${match.teamHome.teams}"-->
+                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">-->
+                    <span th:text="${match.teamHome?.teams + ' - ' + match.teamAway?.teams}"></span>
+                    <!--                    <img alt=""-->
+                    <!--                         src=""-->
+                    <!--                         th:alt="${match.teamAway.teams}"-->
+                    <!--                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">-->
+                </p>
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr th:classappend="${prognosis.usr == userActive} ? active" th:each="prognosis, i : ${prognoses}"
+            th:if="${prognoses != null}">
+            <td>
+                <span th:text="${prognosis.usr != userSelect ? prognosis.usr.firstName : prognosis.match.teamHome.teams}"></span>
+                <span th:text="${prognosis.usr != userSelect ? ' ' : '-'}"></span>
+                <span th:text="${prognosis.usr != userSelect ? prognosis.usr.lastName : prognosis.match.teamAway.teams}"></span>
+            </td>
+            <td th:text="${prognosis.home}">Прогноз</td>
+            <td>:</td>
+            <td th:text="${prognosis.away}">Прогноз</td>
+            <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}" th:text="${prognosis.next?.teams}">
+                %prognosis_next%
+            </td>
+            <td>
+            <span th:if="${!prognosis.match.scoreHome.empty}"
+                  th:text="${prognosis.match.scoreHome + ':' + prognosis.match.scoreAway}"></span>
+                <span th:if="${prognosis.match.mainHome != null AND !#strings.contains(tourSelect.tour, 'тур')}"
+                      th:text="${'(' + prognosis.match.mainHome + ':' + prognosis.match.mainAway + ') '}"></span>
+                <span th:if="${prognosis?.match?.overtime != null}" th:text="${prognosis?.match?.overtime}"></span>
+            </td>
+            <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}" th:text="${prognosis.match?.next?.teams}">%next%
+            </td>
+            <td colspan="3"><span th:classappend="${colorBefore != null ? colorBefore[a.index][i.index] : ''}"
+                                  th:text="${prognosis?.points}">Очки</span></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </th:block>
 </th:block>
 

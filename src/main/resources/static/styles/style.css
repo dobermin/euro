@@ -98,7 +98,9 @@ body .loader {
 }
 
 body .time {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: #6E012C !important;
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 body #back-top {
@@ -447,6 +449,7 @@ main .center .standing table {
     margin: 0 auto;
     font-weight: bold;
     background: rgba(255, 255, 255, 0.9) !important;
+    min-width: 50%;
 }
 
 main .center .standing table tbody tr:last-child:only-child:has(button) {
@@ -474,8 +477,28 @@ td > button {
 
 main .center .standing table tr td img {
     display: block;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     width: 30%;
+    border-radius: 20% 20% 50% 50%;
+}
+
+main .center .standing table tr td .forecast {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main .center .standing table tr td .forecast img {
+    width: 10%;
+}
+
+main .center .standing table tr td .forecast.champion {
+    justify-content: center;
+}
+
+main .center .standing table tr td .forecast.champion img {
+    width: 20%;
+    margin-right: .2em;
 }
 
 main .center .standing table tr td.match img {
@@ -583,16 +606,16 @@ main .center .standing table tbody tr:first-child td {
 }
 
 main .center .standing table tbody tr.active td {
-    border-top: 2px solid yellow;
-    border-bottom: 2px solid yellow;
+    border-top: 3px solid #6E012C;
+    border-bottom: 3px solid #6E012C;
 }
 
 main .center .standing table tbody tr.active td:first-child {
-    border-left: 2px solid yellow;
+    border-left: 3px solid #6E012C;
 }
 
 main .center .standing table tbody tr.active td:last-child {
-    border-right: 2px solid yellow;
+    border-right: 3px solid #6E012C;
 }
 
 main .center .standing table tbody tr td input:disabled {
@@ -695,6 +718,10 @@ main .center [class*=hex-] {
 }
 
 @media screen and (max-width: 767px) {
+    main .center .standing table {
+        min-width: 90% !important;
+    }
+
     main .center .standing table tr td {
         padding: 0;
     }

@@ -7,17 +7,17 @@
         <td th:text="${#dates.format(match.timestamp, 'HH.mm')}">%time%</td>
         <td class="match">
             <p class="d-flex justify-content-between">
-                <img alt=""
-                     th:alt="${match.teamHome.teams}"
-                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
+                <!--                <img alt=""-->
+                <!--                     th:alt="${match.teamHome.teams}"-->
+                <!--                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">-->
                 <label>
-                    <span th:text="${match.teamHome.teams}"></span>
+                    <span th:text="${match.teamHome?.teams}"></span>
                     <label> - </label>
-                    <span th:text="${match.teamAway.teams}"></span>
+                    <span th:text="${match.teamAway?.teams}"></span>
                 </label>
-                <img alt=""
-                     th:alt="${match.teamAway.teams}"
-                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
+                <!--                <img alt=""-->
+                <!--                     th:alt="${match.teamAway.teams}"-->
+                <!--                     src="" th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">-->
             </p>
         </td>
         <td class="inline">
@@ -36,10 +36,10 @@
                     <option></option>
                     <option th:disabled="${disabled}"
                             th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamHome.teams ? true : false}"
-                            th:text="${match.teamHome.teams}"></option>
+                            th:text="${match.teamHome?.teams}"></option>
                     <option th:disabled="${disabled}"
                             th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamAway.teams ? true : false}"
-                            th:text="${match.teamAway.teams}"></option>
+                            th:text="${match.teamAway?.teams}"></option>
                 </select>
             </label>
         </td>

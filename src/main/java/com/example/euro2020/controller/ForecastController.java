@@ -38,14 +38,21 @@ public class ForecastController extends MainControllers {
 		Long id = matchesService.getIdActualMatch(getConfig().configService.timeOutStartMatch());
 		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, null, id,
 			getConfig().configService);
+		List<List<Prognosis>> prognosesBefore = prognosisService.getPrognosesBefore(tourSelect, null, id,
+			getConfig().getConfigService().getTimeNow(),
+			getConfig().configService);
+
 		List<String> color = getConfig().getColorClass(prognoses);
+		List<List<String>> colorBefore = getConfig().getColorBeforeClass(prognosesBefore);
 
 		model.addObject("tours", tours);
 		model.addObject("tourSelect", tourSelect);
 		model.addObject("users", users);
 		model.addObject("userActive", getUser());
 		model.addObject("prognoses", prognoses);
+		model.addObject("prognosesBefore", prognosesBefore);
 		model.addObject("color", color);
+		model.addObject("colorBefore", colorBefore);
 
 		return super.getMain(model, request);
 	}
@@ -70,6 +77,15 @@ public class ForecastController extends MainControllers {
 		Long id = matchesService.getIdActualMatch(getConfig().configService.timeOutStartMatch());
 		List<Prognosis> prognoses = prognosisService.getPrognoses(tourSelect, userSelect, id,
 			getConfig().configService);
+		List<List<Prognosis>> prognosesBefore = null;
+		List<List<String>> colorBefore = null;
+//		if (userSelect != null) {
+//			prognosesBefore = prognosisService.getPrognosesBefore(tourSelect, userSelect, id, getConfig()
+//			.getConfigService().getTimeNow(),
+//				getConfig().configService);
+//			colorBefore = getConfig().getColorBeforeClass(prognosesBefore);
+//		}
+
 		List<String> color = getConfig().getColorClass(prognoses);
 
 		List<Users> users = usersService.findWithoutUser(getUser());
@@ -77,12 +93,14 @@ public class ForecastController extends MainControllers {
 			getConfig().configService.timeOutStartMatch());
 
 		model.addObject("prognoses", prognoses);
+		model.addObject("prognosesBefore", prognosesBefore);
 		model.addObject("userActive", getUser());
 		model.addObject("users", users);
 		model.addObject("userSelect", userSelect);
 		model.addObject("tourSelect", tourSelect);
 		model.addObject("tours", tours);
 		model.addObject("color", color);
+		model.addObject("colorBefore", colorBefore);
 
 		model.setViewName("forecast");
 		return model;

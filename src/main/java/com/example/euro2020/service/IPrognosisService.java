@@ -12,6 +12,12 @@ public interface IPrognosisService extends IService<Prognosis> {
 
 	Prognosis findByPrognosis (Users user, Tour tour, Teams team);
 
+	List<List<Prognosis>> getPrognosesBefore (Tour tour, Users user, Long idMatch, Long now,
+	                                          ConfigService configService);
+
+	List<List<Prognosis>> getPrognosesBefore (Tour tour, Users user, Long idMatch, String now,
+	                                          ConfigService configService);
+
 	List<Prognosis> findByTour (Users user, Tour tour);
 
 	List<Prognosis> getPrognoses (Tour tour, Users user, Long idMatch, ConfigService configService);

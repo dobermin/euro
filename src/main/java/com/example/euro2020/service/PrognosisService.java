@@ -2,12 +2,17 @@ package com.example.euro2020.service;
 
 import com.example.euro2020.config.ConfigProperties;
 import com.example.euro2020.entity.*;
+import com.example.euro2020.objects.DateTime;
 import com.example.euro2020.objects.DayPoints;
+import com.example.euro2020.objects.TimeStartFinish;
 import com.example.euro2020.repository.PrognosisRepository;
 import com.example.euro2020.security.model.enums.Status;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,8 +20,6 @@ public class PrognosisService implements IPrognosisService {
 
 	private final PrognosisRepository repository;
 	private Integer points = 0;
-	private long start;
-	private long finish;
 
 	public PrognosisService (PrognosisRepository repository) {
 		this.repository = repository;
@@ -24,7 +27,12 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<Prognosis> findAll () {
-		return new ArrayList<>((List<Prognosis>) repository.findAll());
+		return new ArrayList<>((List<Prognosis>) repository.findAll())
+			.stream()
+			.filter(u -> u.getUsr().getStatus() == Status.ACTIVE)
+			.filter(u -> u.getUsr().isDisplay())
+			.sorted(Comparator.comparing(Prognosis::getId))
+			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -72,30 +80,16 @@ public class PrognosisService implements IPrognosisService {
 
 	@Override
 	public List<DayPoints> getPointsDay (List<Rating> rating, ConfigService configService) {
-		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("Europe/Moscow"));
+		DateTime dateTime = new DateTime();
 		Long now = configService.getTimeNow();
-		calendar.setTime(new Date(now));
-		calendar.set(Calendar.HOUR, 16);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		calendar.set(Calendar.AM_PM, 0);
-		long today = calendar.getTimeInMillis();
-		long yesterday = today - 24 * 3600 * 1000;
-		long tomorrow = today + 24 * 3600 * 1000;
-		start = today;
-		finish = tomorrow;
-		if (now < today && now > yesterday) {
-			start = yesterday;
-			finish = today;
-		}
+		TimeStartFinish timeStartFinish = dateTime.getTimeStartFinish(now);
 		List<DayPoints> list = new ArrayList<>();
 		rating.forEach(
 			r -> {
 				List<Prognosis> prognoses =
 					r.getUsr().getPrognosis().stream()
-						.filter(s -> s.getMatch().getTimestamp().getTime() >= start)
-						.filter(s -> s.getMatch().getTimestamp().getTime() < finish)
+						.filter(s -> s.getMatch().getTimestamp().getTime() >= timeStartFinish.getStart())
+						.filter(s -> s.getMatch().getTimestamp().getTime() < timeStartFinish.getFinish())
 						.collect(Collectors.toList());
 				DayPoints dayPoints = new DayPoints();
 				points = 0;
@@ -119,6 +113,54 @@ public class PrognosisService implements IPrognosisService {
 			}
 		);
 		return list;
+	}
+
+	@Override
+	public List<List<Prognosis>> getPrognosesBefore (Tour tour, Users user, Long idMatch, Long now,
+	                                                 ConfigService configService) {
+		List<Prognosis> list;
+		if (user == null) {
+			list = new ArrayList<>(findAll());
+		} else {
+			list = findByUser(user).stream()
+				.filter(t -> t.getMatch().getTour().equals(tour))
+				.collect(Collectors.toList());
+		}
+		TimeStartFinish timeStartFinish;
+		List<List<Prognosis>> prognoses = new ArrayList<>();
+
+		Matches matches = list.stream()
+			.filter(s -> s.getMatch().getId().equals(idMatch))
+			.findFirst().get().getMatch();
+		timeStartFinish =
+			new DateTime().getTimeStartFinish(matches.getTimestamp().getTime());
+		TimeStartFinish finalTimeStartFinish = timeStartFinish;
+		list = list.stream()
+			.filter(s -> s.getMatch().getTimestamp().getTime() >= finalTimeStartFinish.getStart())
+			.filter(s -> s.getMatch().getId() < idMatch)
+			.sorted((o1, o2) -> o2.getMatch().getId().compareTo(o1.getMatch().getId()))
+			.collect(Collectors.toList());
+		List<Prognosis> finalList = list;
+		List<Long> u = list.stream()
+			.map(s -> s.getMatch().getId())
+			.collect(Collectors.toList());
+		u.stream().distinct().forEach(
+			s -> {
+				prognoses.add(
+					finalList.stream()
+						.filter(d -> d.getMatch().getId().equals(s))
+						.collect(Collectors.toList())
+				);
+			}
+		);
+		return prognoses;
+	}
+
+	@Override
+	public List<List<Prognosis>> getPrognosesBefore (Tour tour, Users user, Long idMatch, String now,
+	                                                 ConfigService configService) {
+		return getPrognosesBefore(tour, user, idMatch, new DateTime(now).getTimestamp().getTime(),
+			configService);
 	}
 
 	@Override

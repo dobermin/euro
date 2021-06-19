@@ -32,15 +32,13 @@ public class TourService implements ITourService {
 
 	@Override
 	public List<Tour> findActual (List<Matches> matches) {
-		try {
-			return matches.stream()
-				.map(Matches::getTour)
-				.distinct()
-				.sorted(Comparator.comparing(Tour::getId))
-				.collect(Collectors.toList());
-		} catch (Exception e) {
-			return findAll();
-		}
+		return matches.stream()
+			.filter(s -> s.getTeamHome() != null)
+			.filter(s -> s.getTeamAway() != null)
+			.map(Matches::getTour)
+			.distinct()
+			.sorted(Comparator.comparing(Tour::getId))
+			.collect(Collectors.toList());
 	}
 
 	@Override

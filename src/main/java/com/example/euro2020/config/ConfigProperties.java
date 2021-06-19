@@ -21,11 +21,8 @@ import java.util.*;
 public class ConfigProperties {
 
 	public final ConfigService configService;
-
-	public ConfigProperties (ConfigService configService) {
-		this.configService = configService;
-	}
-
+	private final String OVERTIME = "овертайм";
+	private final String PENALTY = "пенальти";
 	private HashMap<String, List<Navigation>> navigation = new HashMap<>() {
 		{
 			put("Группы", new ArrayList<>() {
@@ -46,8 +43,9 @@ public class ConfigProperties {
 		}
 	};
 
-	private final String OVERTIME = "овертайм";
-	private final String PENALTY = "пенальти";
+	public ConfigProperties (ConfigService configService) {
+		this.configService = configService;
+	}
 
 	public HashMap<String, List<Navigation>> getNavigation () {
 		return (HashMap<String, List<Navigation>>) navigation.clone();
@@ -166,7 +164,7 @@ public class ConfigProperties {
 		return "";
 	}
 
-	public List<String> getColorClass(List<Prognosis> prognoses) {
+	public List<String> getColorClass (List<Prognosis> prognoses) {
 		List<String> color = new ArrayList<>();
 		for (Prognosis p : prognoses)
 			try {
@@ -175,5 +173,19 @@ public class ConfigProperties {
 				color.add("");
 			}
 		return color;
+	}
+
+	public List<List<String>> getColorBeforeClass (List<List<Prognosis>> prognoses) {
+		try {
+			List<List<String>> list = new ArrayList<>();
+			prognoses.forEach(
+				s -> {
+					list.add(getColorClass(s));
+				}
+			);
+			return list;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
