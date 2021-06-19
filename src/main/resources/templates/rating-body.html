@@ -3,12 +3,13 @@
     <td>
         <p class="rating">
             <span th:text="${iter.count}"></span>
-            <th:block th:with="pos = ${user.positionBefore - user.positionNow}">
+            <th:block th:if="${user.positionBefore != null AND user.positionNow != null}"
+                      th:with="pos = ${user.positionBefore - user.positionNow}">
                 <th:block th:if="${pos != 0}">
                     <span class="ratingLeft">(</span>
                     <img alt="" class="arrow up" src="" th:if="${pos > 0}" th:src="${baseUrl} + @{images/up.png}">
                     <img alt="" class="arrow" src="" th:if="${pos < 0}" th:src="${baseUrl} + @{images/down.png}">
-                    <span class="ratingRight" th:text="${T(Math).abs(pos) + ')'}">2)</span>
+                    <span class="ratingRight" th:text="${T(Math).abs(pos) + ')'}"></span>
                 </th:block>
             </th:block>
         </p>
