@@ -1,13 +1,13 @@
-<th:block xmlns:th="http://www.w3.org/1999/xhtml" th:if="${users}">
-<tr>
-    <td rowspan="2">№</td>
-    <td rowspan="2">Участник</td>
-    <td colspan="6">Сколько раз угадал</td>
-    <td rowspan="2">Очки<br />в ПО</td>
-    <td rowspan="2">Чемпион<br /><span th:text="${champion_points}"></span> баллов</td>
-    <td rowspan="2">Бомбардир<br /><span th:text="${bombardier_points}"></span> баллов</td>
-    <td colspan="2">Очки</td>
-</tr>
+<th:block th:if="${users}" xmlns:th="http://www.w3.org/1999/xhtml">
+    <tr>
+        <td rowspan="2">№</td>
+        <td rowspan="2">Участник</td>
+        <td colspan="6">Сколько раз угадал</td>
+        <td rowspan="2">Очки<br/>в ПО</td>
+        <td rowspan="2">Чемпион<br/><span th:text="${champion_points}"></span> баллов</td>
+        <td rowspan="2">Бомбардир<br/><span th:text="${bombardier_points}"></span> баллов</td>
+        <td colspan="2">Очки</td>
+    </tr>
     <tr>
         <td colspan="1">Счет<br/><span th:text="${score}"></span> балла</td>
         <td colspan="1">Разница<br/><span th:text="${difference}"></span> балла</td>

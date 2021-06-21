@@ -246,7 +246,7 @@ body button.value-default, body button[name="default"] {
     width: 7px;
     height: 16px;
     border: solid rgba(255, 255, 255, 0.9);
-    border-width: 0px 4px 4px 0px;
+    border-width: 0 4px 4px 0;
     -webkit-transform: rotate(
             45deg
     );
@@ -480,6 +480,16 @@ main .center .standing table tr td img {
     /*margin: 0 auto;*/
     width: 30%;
     border-radius: 20% 20% 50% 50%;
+}
+
+canvas#fireworks-canvas {
+    display: block;
+    margin: 0 auto;
+    background: transparent;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: -10em;
 }
 
 main .center .standing table tr td p.rating {

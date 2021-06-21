@@ -1,29 +1,78 @@
-<tr th:classappend="${userActive == user.usr} ? active : ''" th:each="user, iter : ${users}"
-    xmlns:th="http://www.w3.org/1999/xhtml">
-    <td>
-        <p class="rating">
-            <span th:text="${iter.count}"></span>
-            <th:block th:if="${user.positionBefore != null AND user.positionNow != null}"
-                      th:with="pos = ${user.positionBefore - user.positionNow}">
-                <th:block th:if="${pos != 0}">
-                    <span class="ratingLeft">(</span>
-                    <img alt="" class="arrow up" src="" th:if="${pos > 0}" th:src="${baseUrl} + @{images/up.png}">
-                    <img alt="" class="arrow" src="" th:if="${pos < 0}" th:src="${baseUrl} + @{images/down.png}">
-                    <span class="ratingRight" th:text="${T(Math).abs(pos) + ')'}"></span>
+<th:block th:each="user, iter : ${users}" xmlns:th="http://www.w3.org/1999/xhtml">
+    <tr th:classappend="${userActive == user.usr} ? active : ''">
+        <td>
+            <p class="rating">
+                <span th:text="${iter.count}"></span>
+                <th:block th:if="${user.positionBefore != null AND user.positionNow != null}"
+                          th:with="pos = ${user.positionBefore - user.positionNow}">
+                    <th:block th:if="${pos != 0}">
+                        <span class="ratingLeft">(</span>
+                        <img alt="" class="arrow up" src="" th:if="${pos > 0}" th:src="${baseUrl} + @{images/up.png}">
+                        <img alt="" class="arrow" src="" th:if="${pos < 0}" th:src="${baseUrl} + @{images/down.png}">
+                        <span class="ratingRight" th:text="${T(Math).abs(pos) + ')'}"></span>
+                    </th:block>
                 </th:block>
-            </th:block>
-        </p>
-    </td>
-    <td th:text="${user.usr.firstName + ' ' + user.usr.lastName}">%user%</td>
-    <td th:text="${user.score}">%score%</td>
-    <td th:text="${user.difference}">%difference%</td>
-    <td th:text="${user.winner}">%winner%</td>
-    <td th:text="${user.teamPlacingTeam}">%place%</td>
-    <td th:text="${user.prognosis_1_4}">%prognosis_1_4%</td>
-    <td th:text="${user.prognosis_1_2}">%prognosis_1_2%</td>
-    <td th:text="${user.prognosisPlayoff}">%po%</td>
-    <td th:text="${user.champion}">%champion%</td>
-    <td th:text="${user.bombardier}">%bombardier%</td>
-    <td th:text="${day_points[iter.index].points}">%bombardier%</td>
-    <td th:text="${user.points}">%points%</td>
-</tr>
+            </p>
+        </td>
+        <td th:text="${user.usr.firstName + ' ' + user.usr.lastName}">%user%</td>
+        <td th:text="${user.score}">%score%</td>
+        <td th:text="${user.difference}">%difference%</td>
+        <td th:text="${user.winner}">%winner%</td>
+        <td th:text="${user.teamPlacingTeam}">%place%</td>
+        <td th:text="${user.prognosis_1_4}">%prognosis_1_4%</td>
+        <td th:text="${user.prognosis_1_2}">%prognosis_1_2%</td>
+        <td th:text="${user.prognosisPlayoff}">%po%</td>
+        <td th:text="${user.champion}">%champion%</td>
+        <td th:text="${user.bombardier}">%bombardier%</td>
+        <td th:text="${day_points[iter.index].points}">%bombardier%</td>
+        <td th:text="${user.points}">%points%</td>
+    </tr>
+
+    <script>
+        (function () {
+            const canvas = document.getElementById('fireworks-canvas');
+
+            window.addEventListener('resize', resizeCanvas, false);
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth / 2;
+                canvas.height = window.innerHeight / 2;
+                if (canvas.width > 640)
+                    canvas.width = 640;
+                if (canvas.height > 480)
+                    canvas.height = 480;
+
+                drawStuff();
+            }
+
+            resizeCanvas();
+
+            function drawStuff() {
+                let firework = JS_FIREWORKS.Fireworks({
+                    id: 'fireworks-canvas',
+                    hue: 120,
+                    particleCount: 50,
+                    delay: 0,
+                    minDelay: 20,
+                    maxDelay: 40,
+                    boundaries: {
+                        top: 50,
+                        bottom: 240,
+                        left: 50,
+                        right: 590
+                    },
+                    fireworkSpeed: 2,
+                    fireworkAcceleration: 1.05,
+                    particleFriction: .95,
+                    particleGravity: 1.5
+                });
+                firework.start();
+            }
+        })();
+    </script>
+
+    <div th:if="${(userActive.firstName == 'admin') OR (userActive == user.usr AND iter.count == 1)}">
+        <canvas id="fireworks-canvas"></canvas>
+        <script th:src="${baseUrl} + @{js/fireworks.js}"></script>
+    </div>
+</th:block>
