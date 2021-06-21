@@ -71,6 +71,10 @@ public class PrognosisService implements IPrognosisService {
 			List<Prognosis> list = new ArrayList<>(repository.findByUsr(user));
 			return list.stream()
 				.filter(t -> t.getMatch().getTour().equals(tour))
+				.filter(t -> !t.getMatch().getTeamHome().getTeams().isEmpty())
+				.filter(t -> !t.getMatch().getTeamAway().getTeams().isEmpty())
+				.filter(t -> t.getMatch().getTeamHome() != null)
+				.filter(t -> t.getMatch().getTeamAway() != null)
 				.sorted(Comparator.comparing(Prognosis::getId))
 				.collect(Collectors.toList());
 		} catch (Exception e) {

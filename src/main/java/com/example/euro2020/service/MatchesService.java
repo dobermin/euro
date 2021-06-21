@@ -86,7 +86,10 @@ public class MatchesService implements IMatchesService {
 	@Override
 	public List<Matches> findByTour (Tour tour) {
 		try {
-			return new ArrayList<>(repository.findMatchesByTour(tour)).stream().sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
+			return new ArrayList<>(repository.findMatchesByTour(tour)).stream()
+				.filter(t -> t.getTeamHome() != null)
+				.filter(t -> t.getTeamAway() != null)
+				.sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}

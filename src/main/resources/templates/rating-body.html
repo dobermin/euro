@@ -27,52 +27,50 @@
         <td th:text="${day_points[iter.index].points}">%bombardier%</td>
         <td th:text="${user.points}">%points%</td>
     </tr>
-
-    <script>
-        (function () {
-            const canvas = document.getElementById('fireworks-canvas');
-
-            window.addEventListener('resize', resizeCanvas, false);
-
-            function resizeCanvas() {
-                canvas.width = window.innerWidth / 2;
-                canvas.height = window.innerHeight / 2;
-                if (canvas.width > 640)
-                    canvas.width = 640;
-                if (canvas.height > 480)
-                    canvas.height = 480;
-
-                drawStuff();
-            }
-
-            resizeCanvas();
-
-            function drawStuff() {
-                let firework = JS_FIREWORKS.Fireworks({
-                    id: 'fireworks-canvas',
-                    hue: 120,
-                    particleCount: 50,
-                    delay: 0,
-                    minDelay: 20,
-                    maxDelay: 40,
-                    boundaries: {
-                        top: 50,
-                        bottom: 240,
-                        left: 50,
-                        right: 590
-                    },
-                    fireworkSpeed: 2,
-                    fireworkAcceleration: 1.05,
-                    particleFriction: .95,
-                    particleGravity: 1.5
-                });
-                firework.start();
-            }
-        })();
-    </script>
-
     <div th:if="${(userActive.firstName == 'admin') OR (userActive == user.usr AND iter.count == 1)}">
         <canvas id="fireworks-canvas"></canvas>
         <script th:src="${baseUrl} + @{js/fireworks.js}"></script>
     </div>
 </th:block>
+<script>
+    (function () {
+        const canvas = document.getElementById('fireworks-canvas');
+
+        window.addEventListener('resize', resizeCanvas, false);
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth / 2;
+            canvas.height = window.innerHeight / 2;
+            if (canvas.width > 640)
+                canvas.width = 640;
+            if (canvas.height > 480)
+                canvas.height = 480;
+
+            drawStuff();
+        }
+
+        resizeCanvas();
+
+        function drawStuff() {
+            let firework = JS_FIREWORKS.Fireworks({
+                id: 'fireworks-canvas',
+                hue: 120,
+                particleCount: 50,
+                delay: 0,
+                minDelay: 20,
+                maxDelay: 40,
+                boundaries: {
+                    top: 50,
+                    bottom: 240,
+                    left: 50,
+                    right: 590
+                },
+                fireworkSpeed: 2,
+                fireworkAcceleration: 1.05,
+                particleFriction: .95,
+                particleGravity: 1.5
+            });
+            firework.start();
+        }
+    })();
+</script>

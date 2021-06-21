@@ -450,6 +450,7 @@ main .center .standing table {
     font-weight: bold;
     background: rgba(255, 255, 255, 0.9) !important;
     min-width: 50%;
+    z-index: 0;
 }
 
 main .center .standing table tbody tr:last-child:only-child:has(button) {
@@ -482,6 +483,17 @@ main .center .standing table tr td img {
     border-radius: 20% 20% 50% 50%;
 }
 
+main .center .standing table tr .group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main .center .standing table tr .group img {
+    margin-right: .2em;
+    width: 10%;
+}
+
 canvas#fireworks-canvas {
     display: block;
     margin: 0 auto;
@@ -490,6 +502,7 @@ canvas#fireworks-canvas {
     right: 0;
     left: 0;
     top: -5em;
+    z-index: 2;
 }
 
 main .center .standing table tr td p.rating {

@@ -14,8 +14,9 @@
 <tr xmlns:th="http://www.w3.org/1999/xhtml" th:each="d : ${t.value}">
     <td th:text="${d.position}">%places%</td>
     <td>
-        <div>
-<!--            <img alt="" th:alt="${d.team.teams}" th:src="'https://football.kulichki.net/trans/flags/' + ${d.team.img}">-->
+        <div class="group">
+            <img alt="" src="" th:alt="${d.team.teams}"
+                 th:src="'https://football.kulichki.net/trans/flags/' + ${d.team.img}">
             <span th:text="${d.team.teams}"></span>
         </div>
     </td>

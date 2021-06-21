@@ -9,8 +9,8 @@
             <p class="d-flex justify-content-between">
                 <img alt=""
                      src=""
-                     th:alt="${match.teamHome.teams}"
-                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
+                     th:alt="${match.teamHome?.teams}"
+                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome?.img}">
                 <label>
                     <span th:text="${match.teamHome?.teams}"></span>
                     <label> - </label>
@@ -18,8 +18,8 @@
                 </label>
                 <img alt=""
                      src=""
-                     th:alt="${match.teamAway.teams}"
-                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
+                     th:alt="${match.teamAway?.teams}"
+                     th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway?.img}">
             </p>
         </td>
         <td class="inline">
@@ -38,10 +38,10 @@
                         th:disabled="${disabled}">
                     <option></option>
                     <option th:disabled="${disabled}"
-                            th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamHome.teams ? true : false}"
+                            th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamHome?.teams ? true : false}"
                             th:text="${match.teamHome?.teams}"></option>
                     <option th:disabled="${disabled}"
-                            th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamAway.teams ? true : false}"
+                            th:selected="${isTour and prognoses.size > i.index and prognoses[i.index]?.next?.teams == match.teamAway?.teams ? true : false}"
                             th:text="${match.teamAway?.teams}"></option>
                 </select>
             </label>
