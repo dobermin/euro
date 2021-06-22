@@ -23,7 +23,7 @@
         <td th:if="${!#strings.contains(tourSelect.tour, 'тур')}" th:text="${prognosis.next?.teams}">%prognosis_next%
         </td>
         <td>
-            <span th:if="${!prognosis.match.scoreHome.empty}"
+            <span th:if="${prognosis.match.scoreHome != null}"
                   th:text="${prognosis.match.scoreHome + ':' + prognosis.match.scoreAway}"></span>
             <span th:if="${prognosis.match.mainHome != null AND !#strings.contains(tourSelect.tour, 'тур')}"
                   th:text="${'(' + prognosis.match.mainHome + ':' + prognosis.match.mainAway + ') '}"></span>
@@ -81,7 +81,7 @@
                 %prognosis_next%
             </td>
             <td>
-            <span th:if="${!prognosis.match.scoreHome.empty}"
+            <span th:if="${prognosis.match.scoreHome != null}"
                   th:text="${prognosis.match.scoreHome + ':' + prognosis.match.scoreAway}"></span>
                 <span th:if="${prognosis.match.mainHome != null AND !#strings.contains(tourSelect.tour, 'тур')}"
                       th:text="${'(' + prognosis.match.mainHome + ':' + prognosis.match.mainAway + ') '}"></span>
