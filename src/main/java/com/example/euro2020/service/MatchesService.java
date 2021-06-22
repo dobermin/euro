@@ -179,8 +179,8 @@ public class MatchesService implements IMatchesService {
 				matches.setTour(tour);
 				matches.setTimestamp(dateTime.getTimestampMatch(date, time));
 
-//				String reg = "(\\d+)|(\\(.*)";
-				String reg = "([А-я\\s-]*|(\\(.*))";
+				String reg = "(\\d+)|(\\(.*)";
+//				String reg = "([А-я\\s-]*|(\\(.*))";
 				List<String> score = MyMatcher.find(match.text(), reg);
 				matches.setScoreHome("");
 				matches.setScoreAway("");
