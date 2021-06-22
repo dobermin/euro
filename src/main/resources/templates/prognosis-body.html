@@ -48,7 +48,7 @@
         </td>
         <td>
             <th:block th:if="${disabled}">
-                <span th:if="${!match.scoreHome.empty}" th:text="${match.scoreHome + ':' + match.scoreAway}"></span>
+                <span th:if="${match.scoreHome != null}" th:text="${match.scoreHome + ':' + match.scoreAway}"></span>
                 <span th:if="${isTour AND match.mainHome != null}"
                       th:text="${'(' + match.mainHome + ':' + match.mainAway + ') '}"></span>
                 <span th:if="${match?.overtime != null}" th:text="${match?.overtime}"></span>

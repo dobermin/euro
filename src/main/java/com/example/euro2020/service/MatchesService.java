@@ -179,7 +179,8 @@ public class MatchesService implements IMatchesService {
 				matches.setTour(tour);
 				matches.setTimestamp(dateTime.getTimestampMatch(date, time));
 
-				String reg = "(\\d+)|(\\(.*)";
+//				String reg = "(\\d+)|(\\(.*)";
+				String reg = "([А-я\\s-]*|(\\(.*))";
 				List<String> score = MyMatcher.find(match.text(), reg);
 				matches.setScoreHome("");
 				matches.setScoreAway("");
@@ -189,10 +190,17 @@ public class MatchesService implements IMatchesService {
 					matches.setScoreHome(String.valueOf(configProperties.generateNumber()));
 					matches.setScoreAway(String.valueOf(configProperties.generateNumber()));
 				} else if (!score.isEmpty()) {
-					matches.setScoreHome(score.get(0));
-					matches.setScoreAway(score.get(1));
-					matches.setMainHome(score.get(0));
-					matches.setMainAway(score.get(1));
+					try {
+						matches.setScoreHome(score.get(0));
+						matches.setScoreAway(score.get(1));
+						matches.setMainHome(score.get(0));
+						matches.setMainAway(score.get(1));
+					} catch (Exception e) {
+						matches.setScoreHome(null);
+						matches.setScoreAway(null);
+						matches.setMainHome(null);
+						matches.setMainAway(null);
+					}
 				}
 				matches.setOvertime("");
 
