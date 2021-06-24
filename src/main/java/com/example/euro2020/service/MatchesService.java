@@ -89,7 +89,8 @@ public class MatchesService implements IMatchesService {
 			return new ArrayList<>(repository.findMatchesByTour(tour)).stream()
 				.filter(t -> t.getTeamHome() != null)
 				.filter(t -> t.getTeamAway() != null)
-				.sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
+				.sorted(Comparator.comparing(s -> s.getTimestamp().getTime()))
+				.collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
 		}

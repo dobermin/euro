@@ -31,7 +31,6 @@ public class PrognosisService implements IPrognosisService {
 			.stream()
 			.filter(u -> u.getUsr().getStatus() == Status.ACTIVE)
 			.filter(u -> u.getUsr().isDisplay())
-			.sorted(Comparator.comparing(Prognosis::getId))
 			.collect(Collectors.toList());
 	}
 
@@ -75,7 +74,7 @@ public class PrognosisService implements IPrognosisService {
 				.filter(t -> !t.getMatch().getTeamAway().getTeams().isEmpty())
 				.filter(t -> t.getMatch().getTeamHome() != null)
 				.filter(t -> t.getMatch().getTeamAway() != null)
-				.sorted(Comparator.comparing(Prognosis::getId))
+				.sorted(Comparator.comparing(o -> o.getMatch().getTimestamp()))
 				.collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
