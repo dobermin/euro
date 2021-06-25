@@ -68,13 +68,17 @@ public class PrognosisService implements IPrognosisService {
 	public List<Prognosis> findByUserAndTour (Users user, Tour tour) {
 		try {
 			List<Prognosis> list = new ArrayList<>(repository.findByUsr(user));
+			Comparator<Prognosis> timestamp =
+				Comparator.comparing(s -> s.getMatch().getTimestamp().getTime());
+			Comparator<Prognosis> id = Comparator.comparing(Prognosis::getId);
+			Comparator<Prognosis> sort = timestamp.thenComparing(id);
 			return list.stream()
 				.filter(t -> t.getMatch().getTour().equals(tour))
 				.filter(t -> !t.getMatch().getTeamHome().getTeams().isEmpty())
 				.filter(t -> !t.getMatch().getTeamAway().getTeams().isEmpty())
 				.filter(t -> t.getMatch().getTeamHome() != null)
 				.filter(t -> t.getMatch().getTeamAway() != null)
-				.sorted(Comparator.comparing(o -> o.getMatch().getTimestamp()))
+				.sorted(sort)
 				.collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();

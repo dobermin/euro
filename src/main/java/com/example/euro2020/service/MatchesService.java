@@ -27,10 +27,19 @@ public class MatchesService implements IMatchesService {
 	@Autowired
 	private DateTime dateTime;
 	private Matches matches;
+	private Comparator<Matches> sort;
+
+	{
+		Comparator<Matches> timestamp = Comparator.comparing(s -> s.getTimestamp().getTime());
+		Comparator<Matches> id = Comparator.comparing(Matches::getId);
+		sort = timestamp.thenComparing(id);
+	}
 
 	@Override
 	public List<Matches> findAll () {
-		return new ArrayList<>((List<Matches>) repository.findAll()).stream().sorted(Comparator.comparing(Matches::getId)).collect(Collectors.toList());
+		return new ArrayList<>((List<Matches>) repository.findAll()).stream()
+			.sorted(sort)
+			.collect(Collectors.toList());
 	}
 
 	@Override
@@ -89,7 +98,7 @@ public class MatchesService implements IMatchesService {
 			return new ArrayList<>(repository.findMatchesByTour(tour)).stream()
 				.filter(t -> t.getTeamHome() != null)
 				.filter(t -> t.getTeamAway() != null)
-				.sorted(Comparator.comparing(s -> s.getTimestamp().getTime()))
+				.sorted(sort)
 				.collect(Collectors.toList());
 		} catch (Exception e) {
 			return new ArrayList<>();
