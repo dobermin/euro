@@ -22,15 +22,17 @@
                      th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway?.img}">
             </p>
         </td>
-        <td class="inline">
-        <span>
-            <input maxlength="1" th:disabled="${disabled}"
-                   th:value="${prognoses.size > i.index ? prognoses[i?.index]?.home : ''}"
-                   title="" type="text"><span th:text="':'"></span><input maxlength="1"
-                                                                          th:disabled="${disabled}"
-                                                                          th:value="${prognoses.size > i.index ? prognoses[i?.index]?.away : ''}"
-                                                                          title="" type="text">
-        </span>
+        <td>
+            <div class="inline">
+                <span>
+                    <input maxlength="1" th:disabled="${disabled}"
+                           th:value="${prognoses.size > i.index ? prognoses[i?.index]?.home : ''}"
+                           title="" type="text"><span th:text="':'"></span><input maxlength="1"
+                                                                                  th:disabled="${disabled}"
+                                                                                  th:value="${prognoses.size > i.index ? prognoses[i?.index]?.away : ''}"
+                                                                                  title="" type="text">
+                </span>
+            </div>
         </td>
         <td th:if="${isTour}">
             <label>

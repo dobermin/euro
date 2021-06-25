@@ -1,9 +1,12 @@
 
-                                    <tr xmlns:th="http://www.w3.org/1999/xhtml" >
-                                        <td class="group">
-                                            <img alt="" th:alt="${tr.teams}"
-                                                 th:src="'https://football.kulichki.net/trans/flags/' + ${tr.img}">
-                                            <span th:text="${tr.teams}"></span>
+                                    <tr xmlns:th="http://www.w3.org/1999/xhtml">
+                                        <td>
+                                            <div class="group">
+                                                <img alt="" src=""
+                                                     th:alt="${tr.teams}"
+                                                     th:src="'https://football.kulichki.net/trans/flags/' + ${tr.img}">
+                                                <span th:text="${tr.teams}"></span>
+                                            </div>
                                         </td>
                                         <td>
                                             <select class="placing" th:disabled="${isBlocked} ? true" title="">

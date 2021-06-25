@@ -1,9 +1,11 @@
 <tr th:each="team, iter : ${teams}" xmlns:th="http://www.w3.org/1999/xhtml">
     <td th:text="${iter.count}">%number%</td>
-    <td class="group">
-        <img alt="" src="" th:alt="${team.teams}"
-             th:src="'https://football.kulichki.net/euro/gif/' + ${team.img} + '.gif'">
-        <label th:for="${team.teams}" th:text="${team.teams}">%team%</label>
+    <td>
+        <div class="group">
+            <img alt="" src="" th:alt="${team.teams}"
+                 th:src="'https://football.kulichki.net/euro/gif/' + ${team.img} + '.gif'">
+            <label th:for="${team.teams}" th:text="${team.teams}">%team%</label>
+        </div>
     </td>
     <td><label>
         <input name="selection" th:checked="(${champion} == *{team.teams})" th:disabled="${isBlocked} ? true"
