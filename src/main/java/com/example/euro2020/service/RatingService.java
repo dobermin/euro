@@ -194,7 +194,7 @@ public class RatingService implements IRatingService {
 			points += teamPlacingTeam * configService.getPlace();
 
 			if (
-				configService.getTimeNow() > configService.getCupEightEnd() &&
+				configService.getTimeNow() > configService.getCupEightStart() &&
 					configService.getTimeNow() < configService.getCupFourStart()
 			) {
 				List<Next> next = nextService.findByTourAndUser(tours.get(4), user);
