@@ -1,5 +1,6 @@
-<th:block th:if="${users}" xmlns:th="http://www.w3.org/1999/xhtml">
-    <tr th:with="col = ${!#strings.contains(tourSelect.tour, 'тур') ? 10 : 8}">
+<th:block th:if="${users}" th:with="col = ${!#strings.contains(tourSelect.tour, 'тур') ? 10 : 8}"
+          xmlns:th="http://www.w3.org/1999/xhtml">
+    <tr>
         <td th:colspan="${col}">
             <select id="tour" onchange="forecast()" title="Тур">
                 <option th:each="tour : ${tours}" th:selected="${tour.tour == tourSelect.tour ? true : false}"
@@ -10,13 +11,13 @@
                 <p class="forecast">
                     <img alt=""
                          src=""
-                         th:alt="${match.teamHome.teams}"
-                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome.img}">
+                         th:alt="${match.teamHome?.teams}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamHome?.img}">
                     <span th:text="${match.teamHome?.teams + ' - ' + match.teamAway?.teams}"></span>
                     <img alt=""
                          src=""
-                         th:alt="${match.teamAway.teams}"
-                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway.img}">
+                         th:alt="${match.teamAway?.teams}"
+                         th:src="'https://football.kulichki.net/trans/flags/' + ${match.teamAway?.img}">
                 </p>
             </th:block>
         </td>
@@ -24,7 +25,7 @@
         <td rowspan="3">Бомбардир</td>
     </tr>
     <tr>
-        <td colspan="8">
+        <td th:colspan="${col}">
             <select id="member" onchange="forecast()" title="Участник">
                 <option th:selected="${userSelect == null ? true : false}" th:text="'Все'" value=""></option>
                 <option th:each="user : ${users}" th:selected="${userSelect == user ? true : false}"
