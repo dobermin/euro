@@ -1,6 +1,6 @@
 <th:block th:if="${users}" xmlns:th="http://www.w3.org/1999/xhtml">
     <tr>
-        <td colspan="8">
+        <td colspan="10">
             <select id="tour" onchange="forecast()" title="Тур">
                 <option th:each="tour : ${tours}" th:selected="${tour.tour == tourSelect.tour ? true : false}"
                         th:text="${tour.tour}" th:value="${tour.tour}"></option>
