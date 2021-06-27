@@ -97,7 +97,7 @@ public class ForecastController extends MainControllers {
 			getConfig().configService.timeOutStartMatch());
 
 		model.addObject("prognoses", prognoses);
-		model.addObject("prognosesBefore", prognosesBefore);
+//		model.addObject("prognosesBefore", prognosesBefore);
 		model.addObject("userActive", getUser());
 		model.addObject("users", users);
 		model.addObject("userSelect", userSelect);
