@@ -31,6 +31,8 @@ public class PrognosisService implements IPrognosisService {
 			.stream()
 			.filter(u -> u.getUsr().getStatus() == Status.ACTIVE)
 			.filter(u -> u.getUsr().isDisplay())
+			.filter(s -> s.getMatch().getTeamHome() != null)
+			.filter(s -> s.getMatch().getTeamAway() != null)
 			.collect(Collectors.toList());
 	}
 
@@ -135,35 +137,34 @@ public class PrognosisService implements IPrognosisService {
 		}
 		TimeStartFinish timeStartFinish;
 		List<List<Prognosis>> prognoses = new ArrayList<>();
+		Matches matches;
 		try {
-			Matches matches = list.stream()
+			matches = list.stream()
 				.filter(s -> s.getMatch().getId().equals(idMatch))
 				.findFirst().get().getMatch();
 			timeStartFinish =
 				new DateTime().getTimeStartFinish(matches.getTimestamp().getTime());
+			TimeStartFinish finalTimeStartFinish = timeStartFinish;
+			list = list.stream()
+				.filter(s -> s.getMatch().getTimestamp().getTime() >= finalTimeStartFinish.getStart())
+				.filter(s -> s.getMatch().getTimestamp().getTime() < matches.getTimestamp().getTime())
+				.sorted((o1, o2) -> o2.getMatch().getId().compareTo(o1.getMatch().getId()))
+				.collect(Collectors.toList());
+			List<Prognosis> finalList = list;
+			List<Long> u = list.stream()
+				.map(s -> s.getMatch().getId())
+				.collect(Collectors.toList());
+			u.stream().distinct().forEach(
+				s -> {
+					prognoses.add(
+						finalList.stream()
+							.filter(d -> d.getMatch().getId().equals(s))
+							.collect(Collectors.toList())
+					);
+				}
+			);
 		} catch (Exception e) {
-			timeStartFinish =
-				new DateTime().getTimeStartFinish(now);
 		}
-		TimeStartFinish finalTimeStartFinish = timeStartFinish;
-		list = list.stream()
-			.filter(s -> s.getMatch().getTimestamp().getTime() >= finalTimeStartFinish.getStart())
-			.filter(s -> s.getMatch().getId() < idMatch)
-			.sorted((o1, o2) -> o2.getMatch().getId().compareTo(o1.getMatch().getId()))
-			.collect(Collectors.toList());
-		List<Prognosis> finalList = list;
-		List<Long> u = list.stream()
-			.map(s -> s.getMatch().getId())
-			.collect(Collectors.toList());
-		u.stream().distinct().forEach(
-			s -> {
-				prognoses.add(
-					finalList.stream()
-						.filter(d -> d.getMatch().getId().equals(s))
-						.collect(Collectors.toList())
-				);
-			}
-		);
 		return prognoses;
 	}
 
