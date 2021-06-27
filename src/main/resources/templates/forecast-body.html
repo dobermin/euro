@@ -49,9 +49,10 @@
         </td>
     </tr>
 
-    <th:block th:each="prognoses, a : ${prognosesBefore}" th:if="${prognosesBefore}">
+    <th:block th:each="prognoses, a : ${prognosesBefore}" th:if="${prognosesBefore}"
+              th:with="col = ${!#strings.contains(tourSelect.tour, 'тур') ? 10 : 8}">
         <tr>
-            <td colspan="8" th:with="match = ${prognoses[0].match}">
+            <td th:colspan="${col}" th:with="match = ${prognoses[0].match}">
                 <p class="forecast">
                     <img alt=""
                          src=""
