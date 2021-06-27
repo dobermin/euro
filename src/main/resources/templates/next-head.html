@@ -3,7 +3,8 @@
     <span>Кто пройдёт в 1/4  финала. Осталось выбрать <span class=change_1_4 th:text="${8 - teamsQuarter.size()}"></span></span>
 </td>
 <tr>
-    <span th:include="next-head-td" th:remove="tag" th:each="a : ${#numbers.sequence(0, 3)}"></span>
+    <span th:each="a : ${#numbers.sequence(0, 3)}" th:include="next-head-td" th:remove="tag"
+          th:with="col = ${a == 3 ? 2 : ''}"></span>
 </tr>
 <tr th:each="a : ${#numbers.sequence(0, 4)}" th:with="tour=4">
     <th:block th:include="next-head-tr"  th:each="b : ${#numbers.sequence(0, 3)}">next</th:block>

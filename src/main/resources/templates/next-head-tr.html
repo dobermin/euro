@@ -5,7 +5,7 @@
         <label
                 th:text="${team}">%team%</label>
     </td>
-    <td th:if="${count < 18}">
+    <td th:colspan="${(count + 1) % 4 == 0 AND count != 0} ? 2 : 1" th:if="${count < 18}">
         <label class="checkbox">
             <input th:attr="name='tour_1/' + ${tour}"
                    th:checked="${tour == 4} ? ${#lists.contains(teamsQuarter, team)} : ${#lists.contains(teamsSemi, team)}"
@@ -16,4 +16,7 @@
             <span class="checkmark"></span>
         </label>
     </td>
+    <th:block th:if="${count == 18}">
+        <td colspan="5"></td>
+    </th:block>
 </th:block>

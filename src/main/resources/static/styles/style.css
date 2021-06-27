@@ -211,7 +211,7 @@ body button.value-default, body button[name="default"] {
 .checkmark {
     position: absolute;
     top: -13px;
-    left: 17px;
+    margin-left: -13px;
     height: 26px;
     width: 26px;
     background-color: #14A4B8;
@@ -567,6 +567,8 @@ main .center .standing table tr td input {
     width: 30px;
     display: block;
     margin: 0 auto;
+    left: 0;
+    right: 0;
 }
 
 main .center .standing table tr td label input[type='text'] {

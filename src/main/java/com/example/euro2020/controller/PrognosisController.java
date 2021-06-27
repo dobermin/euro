@@ -1,9 +1,6 @@
 package com.example.euro2020.controller;
 
-import com.example.euro2020.entity.Matches;
-import com.example.euro2020.entity.Prognosis;
-import com.example.euro2020.entity.Teams;
-import com.example.euro2020.entity.Tour;
+import com.example.euro2020.entity.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -111,6 +108,32 @@ public class PrognosisController extends MainControllers {
 
 		List<String> color = getConfig().getColorClass(prognoses);
 		setBlocked(getConfig().configService.timeOutEndCup());
+
+		List<Tour> toursAll = tourService.findAll();
+		List<PlacingTeam> placings;
+		Tour tourQuarter;
+		Tour tourSemi;
+		List<String> quarter;
+		List<String> semi;
+		placings = placingService.findByUser(getUser());
+		if (placings.size() == teamsService.findAll().size()) {
+			try {
+				tourQuarter = toursAll.get(4);
+				tourSemi = toursAll.get(5);
+
+				List<Next> teamsQuarter = nextService.findByTourAndUser(tourQuarter, getUser());
+				quarter = teamsService.getTeamsFromNext(teamsQuarter);
+
+				List<Next> teamsSemi = nextService.findByTourAndUser(tourSemi, getUser());
+				semi = teamsService.getTeamsFromNext(teamsSemi);
+				placings = placingService.findByUserAndPosition(getUser(), 3);
+
+				model.addObject("teamsQuarter", quarter);
+				model.addObject("teamsSemi", semi);
+				model.addObject("placings", placings);
+			} catch (Exception e) {
+			}
+		}
 
 		model.addObject("tours", tours);
 		model.addObject("tourSelect", tourSelect);

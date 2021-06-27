@@ -55,8 +55,10 @@
             </th:block>
         </td>
         <td th:if="${isTour}" th:text="${disabled ? match?.next?.teams : ''}">%select_next%</td>
-        <td><span th:classappend="${color[i.index]}" th:if="${prognoses.size() > i.index}"
-                  th:text="${disabled ? prognoses[i.index]?.points : ''}">%points%</span></td>
+        <td colspan="2"><span th:classappend="${color[i.index]}" th:if="${prognoses.size() > i.index}"
+                              th:text="${disabled ? prognoses[i.index]?.points : ''}">%points%</span></td>
     </tr>
 </th:block>
 <span th:include="button" th:remove="tag" xmlns:th="http://www.w3.org/1999/xhtml"></span>
+<span th:if="${teamsQuarter}" th:include="next" th:remove="tag" th:with="isBlocked = ${true}"
+      xmlns:th="http://www.w3.org/1999/xhtml"></span>
