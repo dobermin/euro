@@ -54,7 +54,7 @@ public class ForecastController extends MainControllers {
 		model.addObject("users", users);
 		model.addObject("userActive", getUser());
 		model.addObject("prognoses", prognoses);
-		model.addObject("prognosesBefore", prognosesBefore);
+//		model.addObject("prognosesBefore", prognosesBefore);
 		model.addObject("color", color);
 		model.addObject("colorBefore", colorBefore);
 

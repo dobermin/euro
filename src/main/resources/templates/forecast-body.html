@@ -49,7 +49,7 @@
         </td>
     </tr>
 
-    <th:block th:each="prognoses, a : ${prognosesBefore}">
+    <th:block th:each="prognoses, a : ${prognosesBefore}" th:if="${prognosesBefore}">
         <tr>
             <td colspan="8" th:with="match = ${prognoses[0].match}">
                 <p class="forecast">
