@@ -72,22 +72,39 @@ body .red td:first-child {
 
 body .lime,
 body .yellow,
-body .white {
+body .darkorange,
+body .lightgreen,
+body .lightblue,
+body .lightcoral {
     color: green;
     display: block;
-    width: 100%;
+    min-width: 50px;
+    width: 20%;
+    margin: 0 auto;
 }
 
 body .lime {
-    background-color: lime;
+    background-color: greenyellow;
+}
+
+body .lightgreen {
+    background-color: lightgreen;
 }
 
 body .yellow {
     background-color: yellow;
 }
 
-body .white {
-    background-color: lightcoral;
+body .lightblue {
+    background-color: lightblue;
+}
+
+body .darkorange {
+    background-color: darkorange;
+}
+
+body .lightcoral {
+    background-color: lightpink;
 }
 
 body .loader {

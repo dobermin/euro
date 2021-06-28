@@ -141,25 +141,37 @@ public class ConfigProperties {
 		return list;
 	}
 
-	public String getPointsClass (int points) {
-		if (
-			configService.getScore() == points ||
-				configService.getScorePO() + configService.getNextRoundPO() == points ||
+	public String getPointsClass (int points, long time) {
+		if (time >= configService.getCupEightStart()) {
+			if (
+				configService.getScorePO() + configService.getNextRoundPO() == points
+			) return "lime";
+			if (
 				configService.getScorePO() == points
-		)
-			return "lime";
-		if (
-			configService.getDifference() == points ||
-				configService.getDifferencePO() + configService.getNextRoundPO() == points ||
+			) return "lightgreen";
+			if (
+				configService.getDifferencePO() + configService.getNextRoundPO() == points
+			) return "yellow";
+			if (
 				configService.getDifferencePO() == points
-		)
-			return "yellow";
-		if (
-			configService.getWinner() == points ||
-				configService.getWinnerPO() + configService.getNextRoundPO() == points ||
+			) return "lightblue";
+			if (
+				configService.getWinnerPO() + configService.getNextRoundPO() == points
+			) return "darkorange";
+			if (
 				configService.getWinnerPO() == points
-		)
-			return "white";
+			) return "lightcoral";
+		} else {
+			if (
+				configService.getScore() == points
+			) return "lime";
+			if (
+				configService.getDifference() == points
+			) return "yellow";
+			if (
+				configService.getWinner() == points
+			) return "lightcoral";
+		}
 
 		return "";
 	}
@@ -168,7 +180,7 @@ public class ConfigProperties {
 		List<String> color = new ArrayList<>();
 		for (Prognosis p : prognoses)
 			try {
-				color.add(getPointsClass(p.getPoints()));
+				color.add(getPointsClass(p.getPoints(), p.getMatch().getTimestamp().getTime()));
 			} catch (Exception e) {
 				color.add("");
 			}
