@@ -307,8 +307,8 @@ public class PrognosisService implements IPrognosisService {
 								p_next == matches.getTeamAway() && m_home < m_away
 							)
 					)
-						if (!tour.equals("Финал"))
-							points += configService.getNextRoundPO();
+//						if (!tour.equals("Финал"))
+						points += configService.getNextRoundPO();
 				}
 
 				prognosis.setPoints(points);
