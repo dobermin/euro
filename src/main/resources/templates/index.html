@@ -15,8 +15,11 @@
             integrity="sha512-G3jAqT2eM4MMkLMyQR5YBhvN5/Da3IG6kqgYqU9zlIH4+2a+GuMdLb5Kpxy6ItMdCfgaKlo2XFhI0dHtMJjoRw=="
             referrerpolicy="no-referrer"
             src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"></script>
-    <script defer th:src="${baseUrl} + @{js/jquery-3.3.1.min.js}"></script>
-    <script defer th:src="${baseUrl} + @{js/js.js}"></script>
+    <script th:src="${baseUrl} + @{js/jquery-3.3.1.min.js}"></script>
+    <script th:src="${baseUrl} + @{js/js.js}"></script>
+    <script th:src="${baseUrl} + @{bootstrap/js/popper.min.js}"></script>
+    <script th:src="${baseUrl} + @{bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="${baseUrl} + @{js/button.js}"></script>
 
     <title th:text="${title}"></title>
     <script>
@@ -53,8 +56,5 @@
     <img alt="" class="loader" src="" th:src="${baseUrl} + @{images/loader.gif}"/>
 </footer>
 <div class="overlay"></div>
-<script th:src="${baseUrl} + @{bootstrap/js/popper.min.js}"></script>
-<script th:src="${baseUrl} + @{bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="${baseUrl} + @{js/button.js}"></script>
 </body>
 </html>
